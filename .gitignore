@@ -1,0 +1,31 @@
+# Credenciales y configuración local (NUNCA subir)
+.env
+.env.*
+!.env.example
+
+# Datos (el CSV de SECOP II pesa varios GB; se descarga, no se versiona)
+data/*
+!data/README.md
+
+# Python / Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Residuos de Spark
+spark-warehouse/
+metastore_db/
+derby.log
+*.crc
+.checkpoints/
+
+# Datos locales de MinIO si se montara como carpeta
+minio-data/
+
+# Sistema operativo / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

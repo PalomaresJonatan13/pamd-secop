@@ -1,0 +1,53 @@
+# Entorno local: MinIO (almacenamiento) + JupyterLab con Spark (cómputo).
+# Uso:  cp .env.example .env   (completar valores)   y luego   docker compose up -d
+#
+# Las versiones de las imágenes deben fijarse a las que el equipo usa hoy
+# (ver "Pendientes" en el README).
+
+services:
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:?Define MINIO_ACCESS_KEY en .env}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:?Define MINIO_SECRET_KEY en .env}
+    ports:
+      - "9000:9000"   # API S3
+      - "9001:9001"   # consola web
+    volumes:
+      - minio-data:/data
+
+  # Crea el bucket `rawdata` la primera vez y termina.
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio:9000 $$MINIO_ACCESS_KEY $$MINIO_SECRET_KEY; do sleep 2; done;
+      mc mb --ignore-existing local/rawdata;
+      echo 'Bucket rawdata listo';
+      "
+
+  jupyter:
+    image: quay.io/jupyter/pyspark-notebook:spark-3.5.1
+    depends_on:
+      - minio
+    env_file:
+      - .env
+    environment:
+      PYTHONPATH: /home/jovyan/work/src
+    ports:
+      - "8888:8888"   # JupyterLab
+      - "4040:4040"   # Spark UI
+    working_dir: /home/jovyan/work
+    volumes:
+      - ./:/home/jovyan/work
+
+  # Pendiente (T4.2): servicio del dashboard, cuando se elija la tecnología.
+
+volumes:
+  minio-data:
