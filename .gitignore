@@ -6,6 +6,12 @@
 # Datos (el CSV de SECOP II pesa varios GB; se descarga, no se versiona)
 data/*
 !data/README.md
+# Si se usa DVC: los punteros .dvc sí se versionan, los datos no
+!data/*.dvc
+
+# Ejecuciones sin navegador (nbconvert): salidas temporales y registros
+notebooks/*_ejecutado.ipynb
+notebooks/nbconvert*.log
 
 # Python / Jupyter
 __pycache__/
