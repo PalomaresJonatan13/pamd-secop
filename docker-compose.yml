@@ -1,53 +1,94 @@
 # Entorno local: MinIO (almacenamiento) + JupyterLab con Spark (cómputo).
 # Uso:  cp .env.example .env   (completar valores)   y luego   docker compose up -d
 #
-# Las versiones de las imágenes deben fijarse a las que el equipo usa hoy
-# (ver "Pendientes" en el README).
+# Parte del docker-compose.yml que el equipo ya usaba; los cambios son:
+# credenciales desde .env, creación automática del bucket `rawdata` y montaje
+# de todo el repositorio (antes solo ./data).
 
 services:
+
   minio:
-    image: minio/minio:latest
+    image: ${MINIO_IMAGE:-pgsty/silo:RELEASE.2026-09-16T00-00-00Z}
+    container_name: minio
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:?Define MINIO_ACCESS_KEY en .env}
       MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:?Define MINIO_SECRET_KEY en .env}
     ports:
       - "9000:9000"   # API S3
-      - "9001:9001"   # consola web
+      - "9002:9001"   # consola web
     volumes:
       - minio-data:/data
+    networks:
+      - spark-net
 
   # Crea el bucket `rawdata` la primera vez y termina.
+  # Usa amazon/aws-cli porque la imagen minio/mc ya no se puede descargar de Docker Hub.
   minio-init:
-    image: minio/mc:latest
+    image: amazon/aws-cli
     depends_on:
       - minio
-    environment:
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-    entrypoint: >
-      /bin/sh -c "
-      until mc alias set local http://minio:9000 $$MINIO_ACCESS_KEY $$MINIO_SECRET_KEY; do sleep 2; done;
-      mc mb --ignore-existing local/rawdata;
-      echo 'Bucket rawdata listo';
-      "
+    environment: &aws_env
+      AWS_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_SECRET_KEY}
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+      AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        aws configure set default.s3.addressing_style path
+        until aws --endpoint-url http://minio:9000 s3 ls >/dev/null 2>&1; do sleep 2; done
+        aws --endpoint-url http://minio:9000 s3api head-bucket --bucket rawdata 2>/dev/null || aws --endpoint-url http://minio:9000 s3 mb s3://rawdata
+        echo "Bucket rawdata listo"
+    networks:
+      - spark-net
 
-  jupyter:
-    image: quay.io/jupyter/pyspark-notebook:spark-3.5.1
+  # Copia a MinIO los CSV de ./data. Se ejecuta a mano:  docker compose run --rm minio-load
+  minio-load:
+    image: amazon/aws-cli
+    profiles: ["carga"]
+    depends_on:
+      - minio
+    environment: *aws_env
+    volumes:
+      - ./data:/data:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        aws configure set default.s3.addressing_style path
+        until aws --endpoint-url http://minio:9000 s3 ls >/dev/null 2>&1; do sleep 2; done
+        aws --endpoint-url http://minio:9000 s3api head-bucket --bucket rawdata 2>/dev/null || aws --endpoint-url http://minio:9000 s3 mb s3://rawdata
+        aws --endpoint-url http://minio:9000 s3 cp /data s3://rawdata/secop/ --recursive --exclude "*" --include "*.csv"
+        aws --endpoint-url http://minio:9000 s3 ls s3://rawdata/secop/ --human-readable
+    networks:
+      - spark-net
+
+  spark:
+    image: quay.io/jupyter/pyspark-notebook:x86_64-spark-3.5.1
+    container_name: spark
     depends_on:
       - minio
     env_file:
       - .env
     environment:
-      PYTHONPATH: /home/jovyan/work/src
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:?Define JUPYTER_TOKEN en .env}
+      # `src` del repositorio y la ruta de PySpark (necesaria para `docker exec` y nbconvert)
+      PYTHONPATH: /home/jovyan/work/src:/usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9.7-src.zip
     ports:
       - "8888:8888"   # JupyterLab
       - "4040:4040"   # Spark UI
     working_dir: /home/jovyan/work
     volumes:
       - ./:/home/jovyan/work
+    networks:
+      - spark-net
 
   # Pendiente (T4.2): servicio del dashboard, cuando se elija la tecnología.
+
+networks:
+  spark-net:
+    driver: bridge
 
 volumes:
   minio-data:
