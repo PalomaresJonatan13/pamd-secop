@@ -39,8 +39,28 @@ def get_spark(app_name: str = "PAMD-SECOP") -> SparkSession:
             "org.apache.hadoop:hadoop-aws:3.3.4,"
             "com.amazonaws:aws-java-sdk-bundle:1.12.262",
         )
+        # Sin poda de columnas, el lector CSV revisa todas las columnas de cada registro. Con la
+        # poda activa, un conteo no detecta los registros mal formados en las columnas que no usa
+        # y da cifras distintas a las de la escritura.
+        .config("spark.sql.csv.parser.columnPruning.enabled", "false")
+        # En modo local el ejecutor es el propio proceso del driver, y por defecto Spark le da solo
+        # 1 GB de heap. Con registros anchos (decenas de columnas, algunas con texto largo) los 8
+        # escritores de Parquet en paralelo agotan ese heap (OutOfMemoryError: Java heap space).
+        # Solo tiene efecto si esta llamada es la que inicia la JVM (kernel nuevo o proceso nuevo).
+        .config("spark.driver.memory", os.environ.get("SPARK_DRIVER_MEMORY", "5g"))
+        # Grupos de filas de 64 MB (por defecto 128 MB) para reducir la memoria por escritor.
+        .config("spark.hadoop.parquet.block.size", str(64 * 1024 * 1024))
+        # El Parquet intermedio guarda las fechas tal como vienen del CSV, y algunas son anteriores
+        # a 1900 (errores de captura). Spark 3 se niega a escribirlas por la diferencia entre los
+        # calendarios juliano y gregoriano (SPARK-31404). CORRECTED las guarda tal cual; es seguro
+        # porque Spark también las lee en calendario gregoriano y el bronze las convierte en nulo.
+        .config("spark.sql.parquet.int96RebaseModeInWrite", "CORRECTED")
+        .config("spark.sql.parquet.datetimeRebaseModeInWrite", "CORRECTED")
+        .config("spark.sql.parquet.int96RebaseModeInRead", "CORRECTED")
+        .config("spark.sql.parquet.datetimeRebaseModeInRead", "CORRECTED")
         .getOrCreate()
     )
+    spark.conf.set("spark.sql.csv.parser.columnPruning.enabled", "false")
 
     hadoop_conf = spark.sparkContext._jsc.hadoopConfiguration()
     hadoop_conf.set("fs.s3a.endpoint", endpoint)
