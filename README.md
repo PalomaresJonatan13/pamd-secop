@@ -30,6 +30,7 @@ Probado el 11 de noviembre de 2026 en Windows con Docker Desktop y PowerShell, p
 ### Requisitos
 - **Git** y **Docker Desktop** (abierto, con el motor corriendo). Comprueba con `git --version` y `docker compose version`.
 - **Memoria:** unos 8 GB asignados a Docker (la ejecución de referencia usó 7,6 GB). Se cambia en Docker Desktop, Settings → Resources. Spark usa 5 GB de heap (`SPARK_DRIVER_MEMORY` en `src/pamd/spark_session.py`); con el 1 GB por defecto la escritura del Parquet falla por falta de memoria.
+  - **Equipos con 8 GB de RAM en total.** Docker Desktop no tiene control de memoria con WSL 2: se fija en `%UserProfile%\.wslconfig` (`[wsl2]`, `memory=5GB`, `swap=4GB`) y se aplica con `wsl --shutdown` y reiniciando Docker Desktop. Con 6 GB Windows se queda sin memoria y el motor de Docker deja de responder. En el `.env` añade `SPARK_DRIVER_MEMORY=2g` y `SPARK_MASTER=local[2,4]`. Así se reconstruyó el bronze completo el 13-nov-2026 (ver *Pendientes conocidos*). Mientras Spark trabaja, cierra las demás aplicaciones y desactiva la suspensión del equipo.
 - **Disco:** varias decenas de GB libres. El `.zip` pesa unos 1,7 GB, el CSV descomprimido varios más, y el almacenamiento guarda una copia del CSV y del bronze.
 - **Procesador x86-64.** La imagen de Spark no corre en equipos ARM (por ejemplo, Mac con chip Apple).
 - **Internet** la primera vez, para descargar las imágenes de Docker y los conectores de Spark.
@@ -100,6 +101,8 @@ docker exec -d spark sh -c "cd /home/jovyan/work/notebooks && jupyter nbconvert 
 | El kernel muere o hay error de memoria | Docker tiene poca memoria asignada (ver Requisitos). |
 | `OutOfMemoryError: Java heap space` al escribir Parquet | El heap de Spark en modo local es de 1 GB por defecto. `spark_session.py` lo sube a 5 GB, pero solo al iniciar la sesión: reinicia el kernel. Se comprueba en el Spark UI → *Executors*: el driver debe mostrar unos 2,8 GiB de memoria de almacenamiento. |
 | `SparkUpgradeException` al escribir fechas (INT96, 1900) | El CSV trae fechas anteriores a 1900. `spark_session.py` ya configura el modo `CORRECTED` de escritura y lectura de Parquet. |
+| `TASK_WRITE_FAILED` con `AWSBadRequestException ... IncompleteBody` al escribir Parquet | El almacenamiento, sobrecargado, cortó la copia con la que Spark confirma cada archivo. Es pasajero, pero en modo local Spark no reintenta salvo con `local[N,F]`. `spark_session.py` usa `local[*,4]`; en equipos con poca memoria pon `SPARK_MASTER=local[2,4]` en `.env` y reinicia el kernel. |
+| `request returned 500 Internal Server Error for API route` en cualquier comando `docker` | El motor de Docker se colgó por falta de memoria del equipo. Cierra Docker Desktop (si no responde, desde el Administrador de tareas), ejecuta `wsl --shutdown`, baja `memory` en `.wslconfig` y vuelve a abrirlo. Los datos del volumen no se pierden. |
 | `No module named 'pyspark'` con `docker exec` | Contenedor creado con un compose antiguo. Ejecuta `docker compose up -d` para recrearlo (los datos no se pierden). |
 
 ## Notebooks
@@ -158,7 +161,7 @@ Verificado: el servidor arranca, el bucket se crea, la consola web abre en el pu
 
 ## Pendientes conocidos
 
-- **T0.4 (casi cerrada):** el bronze se reconstruyó con `multiLine=True` y los notebooks `01` a `03` quedaron ejecutados con sus salidas (12-nov-2026). Falta repetir el flujo completo desde un clon limpio y un MinIO vacío con el pipeline actual; es la prueba que hará el compañero siguiendo este README.
+- **T0.4 (cerrada):** el 13-nov-2026 se repitió el flujo desde un clon limpio y un MinIO vacío, siguiendo este README, en un equipo con 8 GB de RAM (Docker con 4,8 GB, `SPARK_DRIVER_MEMORY=2g`, `SPARK_MASTER=local[2,4]`). Resultado: 9.099.859 registros leídos = 9.099.432 en el bronze + 427 en cuarentena, 0 mal formados; el bronze particionado también tiene 9.099.432 filas. Coincide con la ejecución de referencia del 12-nov-2026. No se repitió la medición de tiempos de consulta del `01`.
 - **T0.3 (cerrada):** el `02` trabaja sobre 9.099.432 registros, igual que el bronze, y las conclusiones de los notebooks `01`, `02` y `03` se generan con las variables.
 - **T0.2:** las credenciales salen de variables de entorno. La búsqueda en el historial con el valor de la clave anterior (`git log -p --all -S"<clave anterior>"`) no devolvió nada. Repítela si se sospecha que se subió una clave; el valor no se escribe aquí.
 - **Medición del CSV:** la consulta sobre el CSV dio 888 s con una repetición y 1.806 s de mediana con tres (1.669 a 2.078 s). La limpieza nueva añade trabajo por registro y la máquina pudo tener otra carga; no se investigó. Cítese como medición en un equipo concreto.
