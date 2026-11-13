@@ -59,7 +59,7 @@ Probado el 11 de noviembre de 2026 en Windows con Docker Desktop y PowerShell, p
 5. **Cargar los datos:** descarga el `.zip` de Drive, descomprímelo en `data\` y ejecuta `docker compose run --rm minio-load`. Pasos detallados en `data/README.md`. Al terminar, `rawdata/secop/` contiene el CSV.
 6. **Abrir JupyterLab:** http://localhost:8888/?token=TU_TOKEN (o pega el token cuando lo pida). Entra a `work/notebooks/`.
 7. **Construir el bronze:** en el notebook `01`, cambia `RECONSTRUIR_BRONZE = False` por `True` y ejecuta todo (Run → Run All Cells). Lee el CSV **una sola vez** y escribe un Parquet intermedio; de ahí salen el bronze (sin particionar y particionado) y la cuarentena. En el equipo de referencia (8 núcleos, 7,6 GB) el notebook completo tardó unas 2 h 15 min: unos 30 min la escritura del Parquet intermedio (el CSV se lee con `multiLine=True`, que usa un solo núcleo; ver *Notas sobre los datos*) y unos 90 min la medición de consulta sobre el CSV, que repite la lectura completa tres veces (`REPETICIONES_CSV`; con 1 se ahorra más de una hora). Para dejarlo corriendo sin navegador, ver *Ejecutar sin navegador*.
-8. **Ejecutar el resto** de los notebooks en orden (el `02` y el `03` tardan unos 3 minutos cada uno). Después de la primera vez, deja `RECONSTRUIR_BRONZE = False`.
+8. **Ejecutar el resto** de los notebooks en orden (el `02` y el `03` tardan unos 3 minutos cada uno). Después de la primera vez, deja `RECONSTRUIR_BRONZE = False`. El `04` sigue la misma idea con `RECONSTRUIR_SILVER` y `RECONSTRUIR_GOLD`: ponlos en `True` la primera vez para escribir silver y gold.
 
 ### Accesos
 | Qué | Dirección |
@@ -114,7 +114,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `01_corte1_bronze_y_almacenamiento.ipynb` | 1 | Lectura, limpieza y capa bronze en Parquet; comparación de CSV, Parquet y Parquet particionado | Ejecutado el 12-nov-2026 |
 | `02_corte2_shuffle_y_sesgo.ipynb` | 2 | `groupByKey` frente a `reduceByKey`, volumen de shuffle y sesgo de datos | Ejecutado el 12-nov-2026 |
 | `03_corte2_pagerank.ipynb` | 2 | PageRank entidad → contratista | Ejecutado el 12-nov-2026 |
-| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | Por hacer |
+| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 a T1.6 por hacer |
 | `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | Por hacer |
 | `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | Por hacer |
 
@@ -131,8 +131,10 @@ s3a://rawdata/
 ├── cuarentena/secop                      registros rechazados
 ├── procesado/                            tablas resumen
 ├── benchmark_escritura/                  salidas de la prueba de tiempos de escritura
-├── silver/                               (Corte 3) sin duplicados
-└── gold/                                 (Corte 3) adjudicaciones
+├── silver/secop/contratos                (Corte 3) una fila por proceso + adjudicación
+├── silver/secop/descartados              (Corte 3) filas descartadas con su motivo
+├── gold/secop/adjudicaciones             (Corte 3) contratos adjudicados, por año de adjudicación
+└── gold/secop/excluidos                  (Corte 3) adjudicados que no pasan a gold, con su motivo
 ```
 
 ## Trabajo en equipo

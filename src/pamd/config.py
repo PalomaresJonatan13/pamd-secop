@@ -9,6 +9,8 @@ QUARANTINE_PARQUET = "s3a://rawdata/cuarentena/secop"
 # Corte 3, Punto 1 (notebook 04)
 SILVER_PARQUET = "s3a://rawdata/silver/secop/contratos"
 SILVER_DESCARTADOS_PARQUET = "s3a://rawdata/silver/secop/descartados"
+GOLD_PARQUET = "s3a://rawdata/gold/secop/adjudicaciones"
+GOLD_EXCLUIDOS_PARQUET = "s3a://rawdata/gold/secop/excluidos"
 
 WRITE_MODE = "overwrite"
 OUTPUT_PARTITIONS = 36
