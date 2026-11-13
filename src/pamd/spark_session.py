@@ -34,6 +34,11 @@ def get_spark(app_name: str = "PAMD-SECOP") -> SparkSession:
     spark = (
         SparkSession.builder
         .appName(app_name)
+        # local[N,F]: N núcleos y hasta F intentos por tarea. En modo local Spark no reintenta una
+        # tarea fallida salvo que se indique F; sin reintentos, un error pasajero del almacenamiento
+        # (por ejemplo `IncompleteBody` al confirmar archivos en MinIO) aborta toda la escritura.
+        # En equipos con poca memoria conviene SPARK_MASTER=local[2,4] en .env.
+        .master(os.environ.get("SPARK_MASTER", "local[*,4]"))
         .config(
             "spark.jars.packages",
             "org.apache.hadoop:hadoop-aws:3.3.4,"
