@@ -20,7 +20,7 @@ Repositorio: https://github.com/PalomaresJonatan13/pamd-secop
 ├── dashboard/                Punto 4 del Corte 3
 ├── report/                   informe técnico
 ├── presentation/             presentación ejecutiva
-└── docs/                     plan de subtareas
+└── docs/                     plan de subtareas, articulación de los cortes y diagrama de linaje
 ```
 
 ## Puesta en marcha
@@ -114,7 +114,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `01_corte1_bronze_y_almacenamiento.ipynb` | 1 | Lectura, limpieza y capa bronze en Parquet; comparación de CSV, Parquet y Parquet particionado | Ejecutado el 12-nov-2026 |
 | `02_corte2_shuffle_y_sesgo.ipynb` | 2 | `groupByKey` frente a `reduceByKey`, volumen de shuffle y sesgo de datos | Ejecutado el 12-nov-2026 |
 | `03_corte2_pagerank.ipynb` | 2 | PageRank entidad → contratista | Ejecutado el 12-nov-2026 |
-| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 y T1.5 ejecutadas el 14-nov-2026; T1.6 por hacer |
+| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 a T1.6 ejecutadas el 14-nov-2026 |
 | `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | Por hacer |
 | `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | Por hacer |
 
@@ -168,6 +168,7 @@ Verificado: el servidor arranca, el bucket se crea, la consola web abre en el pu
 
 ## Pendientes conocidos
 
+- **T1.6 (cerrada):** el párrafo de articulación de los cortes, la tabla de rutas y el diagrama de linaje están en `docs/articulacion_cortes.md` y `docs/linaje_datos.svg` (PNG para la presentación); el diagrama se regenera con `scripts/dibujar_linaje.py`. Las cifras del diagrama son las del 14-nov-2026; el notebook `04` comprueba que cada ruta existe y que las cifras cuadran. Las cifras del Corte 2 se calcularon sobre el bronze (con repeticiones) y no son comparables con las de gold.
 - **T1.5 (cerrada):** la tabla de reconciliación del notebook `04` explica todas las filas: 9.099.859 leídas = 530.192 en gold + 8.569.667 descartadas, cada una con su motivo. Los valores atípicos se **marcan**, no se borran: gold conserva los 530.192 contratos. Las reglas están en `src/pamd/calidad.py` y las comparten los resúmenes, el streaming y el dashboard (`marcar_atipicos(unificar_nit_entidad(gold), silver)`): un contrato es *inconsistente* si su valor adjudicado es al menos 100 veces el precio base, y *extremo* si supera 10¹³ pesos (10¹² si no hay precio base utilizable). Resultado: 432 atípicos que suman el 99,80 % del valor de gold. Un umbral solo por valor no servía, porque entre 10¹² y 10¹³ había contratos reales y errores mezclados. Se unificaron 99 NIT de entidad con el dígito de verificación pegado. Límites: 8.921 contratos (1,7 %) no tienen precio base utilizable y solo se detectan si son extremos; 189 contratos con razón entre 10 y 100 quedan como normales (pesan 0,0003 % del valor).
 - **T1.4 (cerrada):** cuatro tablas en `procesado/` (4.050 entidades, 99.606 contratistas, 34 departamentos y 136 meses), cada una con las mismas sumas que gold: 530.192 contratos y `valor_total + valor_atipicos` igual al valor de gold. `valor_total` y `valor_promedio` excluyen los atípicos. Una entidad es un NIT y puede agrupar varias dependencias; su nombre es el más frecuente. Los contratos sin departamento van a la categoría `SIN DEPARTAMENTO`.
 - **T0.4 (cerrada):** el 13-nov-2026 se repitió el flujo desde un clon limpio y un MinIO vacío, siguiendo este README, en un equipo con 8 GB de RAM (Docker con 4,8 GB, `SPARK_DRIVER_MEMORY=2g`, `SPARK_MASTER=local[2,4]`). Resultado: 9.099.859 registros leídos = 9.099.432 en el bronze + 427 en cuarentena, 0 mal formados; el bronze particionado también tiene 9.099.432 filas. Coincide con la ejecución de referencia del 12-nov-2026. No se repitió la medición de tiempos de consulta del `01`.
