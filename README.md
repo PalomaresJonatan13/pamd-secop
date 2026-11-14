@@ -13,7 +13,7 @@ Repositorio: https://github.com/PalomaresJonatan13/pamd-secop
 ├── docker-compose.yml        MinIO + JupyterLab con Spark 3.5.1 (servicio `spark`)
 ├── .env.example              plantilla de variables (copiar como .env)
 ├── requirements.txt          dependencias para ejecutar sin Docker
-├── src/pamd/                 código compartido (rutas y sesión de Spark)
+├── src/pamd/                 código compartido (rutas, sesión de Spark y reglas de calidad de gold)
 ├── notebooks/                notebooks numerados en orden de ejecución
 ├── scripts/                  utilidades (revisión de la cuarentena sin Spark)
 ├── data/                     instrucciones para obtener el CSV (los datos no se versionan)
@@ -114,7 +114,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `01_corte1_bronze_y_almacenamiento.ipynb` | 1 | Lectura, limpieza y capa bronze en Parquet; comparación de CSV, Parquet y Parquet particionado | Ejecutado el 12-nov-2026 |
 | `02_corte2_shuffle_y_sesgo.ipynb` | 2 | `groupByKey` frente a `reduceByKey`, volumen de shuffle y sesgo de datos | Ejecutado el 12-nov-2026 |
 | `03_corte2_pagerank.ipynb` | 2 | PageRank entidad → contratista | Ejecutado el 12-nov-2026 |
-| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.5 ejecutada el 14-nov-2026; T1.4 y T1.6 por hacer |
+| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 y T1.5 ejecutadas el 14-nov-2026; T1.6 por hacer |
 | `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | Por hacer |
 | `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | Por hacer |
 
@@ -130,6 +130,11 @@ s3a://rawdata/
 ├── bronze/secop/contratos_particionado   Parquet por año y departamento
 ├── cuarentena/secop                      registros rechazados
 ├── procesado/                            tablas resumen
+│   ├── precio_base_*                     (Corte 1) precio base por departamento y año, y por modalidad
+│   ├── adjudicaciones_por_entidad        (Corte 3) una fila por entidad (NIT)
+│   ├── adjudicaciones_por_contratista    (Corte 3) una fila por contratista
+│   ├── adjudicaciones_por_departamento   (Corte 3) una fila por departamento de la entidad
+│   └── adjudicaciones_por_mes            (Corte 3) una fila por mes de adjudicación
 ├── benchmark_escritura/                  salidas de la prueba de tiempos de escritura
 ├── silver/secop/contratos                (Corte 3) una fila por proceso + adjudicación
 ├── silver/secop/descartados              (Corte 3) filas descartadas con su motivo
@@ -163,6 +168,8 @@ Verificado: el servidor arranca, el bucket se crea, la consola web abre en el pu
 
 ## Pendientes conocidos
 
+- **T1.5 (cerrada):** la tabla de reconciliación del notebook `04` explica todas las filas: 9.099.859 leídas = 530.192 en gold + 8.569.667 descartadas, cada una con su motivo. Los valores atípicos se **marcan**, no se borran: gold conserva los 530.192 contratos. Las reglas están en `src/pamd/calidad.py` y las comparten los resúmenes, el streaming y el dashboard (`marcar_atipicos(unificar_nit_entidad(gold), silver)`): un contrato es *inconsistente* si su valor adjudicado es al menos 100 veces el precio base, y *extremo* si supera 10¹³ pesos (10¹² si no hay precio base utilizable). Resultado: 432 atípicos que suman el 99,80 % del valor de gold. Un umbral solo por valor no servía, porque entre 10¹² y 10¹³ había contratos reales y errores mezclados. Se unificaron 99 NIT de entidad con el dígito de verificación pegado. Límites: 8.921 contratos (1,7 %) no tienen precio base utilizable y solo se detectan si son extremos; 189 contratos con razón entre 10 y 100 quedan como normales (pesan 0,0003 % del valor).
+- **T1.4 (cerrada):** cuatro tablas en `procesado/` (4.050 entidades, 99.606 contratistas, 34 departamentos y 136 meses), cada una con las mismas sumas que gold: 530.192 contratos y `valor_total + valor_atipicos` igual al valor de gold. `valor_total` y `valor_promedio` excluyen los atípicos. Una entidad es un NIT y puede agrupar varias dependencias; su nombre es el más frecuente. Los contratos sin departamento van a la categoría `SIN DEPARTAMENTO`.
 - **T0.4 (cerrada):** el 13-nov-2026 se repitió el flujo desde un clon limpio y un MinIO vacío, siguiendo este README, en un equipo con 8 GB de RAM (Docker con 4,8 GB, `SPARK_DRIVER_MEMORY=2g`, `SPARK_MASTER=local[2,4]`). Resultado: 9.099.859 registros leídos = 9.099.432 en el bronze + 427 en cuarentena, 0 mal formados; el bronze particionado también tiene 9.099.432 filas. Coincide con la ejecución de referencia del 12-nov-2026. No se repitió la medición de tiempos de consulta del `01`.
 - **T0.3 (cerrada):** el `02` trabaja sobre 9.099.432 registros, igual que el bronze, y las conclusiones de los notebooks `01`, `02` y `03` se generan con las variables.
 - **T0.2:** las credenciales salen de variables de entorno. La búsqueda en el historial con el valor de la clave anterior (`git log -p --all -S"<clave anterior>"`) no devolvió nada. Repítela si se sospecha que se subió una clave; el valor no se escribe aquí.
