@@ -12,5 +12,11 @@ SILVER_DESCARTADOS_PARQUET = "s3a://rawdata/silver/secop/descartados"
 GOLD_PARQUET = "s3a://rawdata/gold/secop/adjudicaciones"
 GOLD_EXCLUIDOS_PARQUET = "s3a://rawdata/gold/secop/excluidos"
 
+# Corte 3, Punto 1: tablas resumen (T1.4). `procesado/` ya guarda tablas del Corte 1 (precio_base_*); no se pisan.
+PROCESADO_ENTIDAD_PARQUET = "s3a://rawdata/procesado/adjudicaciones_por_entidad"
+PROCESADO_CONTRATISTA_PARQUET = "s3a://rawdata/procesado/adjudicaciones_por_contratista"
+PROCESADO_DEPARTAMENTO_PARQUET = "s3a://rawdata/procesado/adjudicaciones_por_departamento"
+PROCESADO_MES_PARQUET = "s3a://rawdata/procesado/adjudicaciones_por_mes"
+
 WRITE_MODE = "overwrite"
 OUTPUT_PARTITIONS = 36
