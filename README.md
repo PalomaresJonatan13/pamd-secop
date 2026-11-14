@@ -114,7 +114,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `01_corte1_bronze_y_almacenamiento.ipynb` | 1 | Lectura, limpieza y capa bronze en Parquet; comparación de CSV, Parquet y Parquet particionado | Ejecutado el 12-nov-2026 |
 | `02_corte2_shuffle_y_sesgo.ipynb` | 2 | `groupByKey` frente a `reduceByKey`, volumen de shuffle y sesgo de datos | Ejecutado el 12-nov-2026 |
 | `03_corte2_pagerank.ipynb` | 2 | PageRank entidad → contratista | Ejecutado el 12-nov-2026 |
-| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 a T1.6 por hacer |
+| `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.5 ejecutada el 14-nov-2026; T1.4 y T1.6 por hacer |
 | `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | Por hacer |
 | `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | Por hacer |
 
