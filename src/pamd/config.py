@@ -18,5 +18,11 @@ PROCESADO_CONTRATISTA_PARQUET = "s3a://rawdata/procesado/adjudicaciones_por_cont
 PROCESADO_DEPARTAMENTO_PARQUET = "s3a://rawdata/procesado/adjudicaciones_por_departamento"
 PROCESADO_MES_PARQUET = "s3a://rawdata/procesado/adjudicaciones_por_mes"
 
+# Corte 3, Punto 2: flujo continuo (notebook 05)
+STREAMING_LOTES = "s3a://rawdata/streaming/lotes"                       # micro-lotes preparados (T2.2)
+STREAMING_ENTRADA = "s3a://rawdata/streaming/entrada"                   # carpeta que lee el flujo; los lotes llegan aquí uno a uno
+STREAMING_TARDIOS = "s3a://rawdata/streaming/tardios"                   # registros que llegaron fuera de la tolerancia (T2.5)
+STREAMING_CHECKPOINT = "s3a://rawdata/streaming/checkpoint/ventanas"    # punto de control del flujo (T3.1)
+
 WRITE_MODE = "overwrite"
 OUTPUT_PARTITIONS = 36
