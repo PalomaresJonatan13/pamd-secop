@@ -344,6 +344,10 @@ class DestinoVentanas:
     se cae a mitad de una escritura, basta con que Spark repita el micro-lote (lo hace solo, porque no quedó
     confirmado en el checkpoint): el paso 1 reescribe la misma carpeta y el paso 2 rehace completos los meses
     afectados, incluidas las ventanas que ese micro-lote no traía.
+
+    Si llega el micro-lote N, cualquier carpeta de cambios con un número mayor es de una ejecución anterior (Spark
+    numera los micro-lotes en orden y solo repite el último). guardar() las borra antes de escribir, así que
+    volver a ejecutar el flujo desde cero sobre el mismo destino no mezcla los cambios de las dos ejecuciones.
     """
 
     def __init__(self, spark, ruta):
@@ -357,25 +361,43 @@ class DestinoVentanas:
         try:
             n = df.count()
             self.lotes.append((batch_id, n))
+            self._olvidar_cambios_desde(batch_id if n == 0 else batch_id + 1)
             if n == 0:
                 return  # un disparo sin ventanas cambiadas no escribe nada
-            df.coalesce(1).write.mode("overwrite").parquet(f"{self.cambios}/batch_id={batch_id}")
-
-            meses = df.select("mes").distinct()
-            ultima_primero = Window.partitionBy(*CLAVES_VENTANA).orderBy(F.col("batch_id").desc())
-            (
-                self.spark.read.parquet(self.cambios)
-                .filter(F.col("batch_id") <= batch_id)
-                .join(F.broadcast(meses), "mes", "left_semi")
-                .withColumn("_orden", F.row_number().over(ultima_primero))
-                .filter("_orden = 1")
-                .select(*df.columns, F.date_format("mes", "yyyy-MM").alias("anio_mes"))
-                .repartition("anio_mes")  # un archivo por mes
-                .write.mode("overwrite").option("partitionOverwriteMode", "dynamic")
-                .partitionBy("anio_mes").parquet(self.tabla)
-            )
+            self._escribir_cambios(df, batch_id)
+            self._rehacer_tabla(df, batch_id)
         finally:
             df.unpersist()
+
+    def _olvidar_cambios_desde(self, batch_id):
+        """Borra las carpetas de cambios con número >= batch_id (restos de una ejecución anterior)."""
+        fs, camino = _fs(self.spark, self.cambios)
+        if not fs.exists(camino):
+            return
+        for estado in fs.listStatus(camino):
+            nombre = estado.getPath().getName()
+            if nombre.startswith("batch_id=") and int(nombre.split("=", 1)[1]) >= batch_id:
+                fs.delete(estado.getPath(), True)
+
+    def _escribir_cambios(self, df, batch_id):
+        """Paso 1: las ventanas del micro-lote, en su propia carpeta."""
+        df.coalesce(1).write.mode("overwrite").parquet(f"{self.cambios}/batch_id={batch_id}")
+
+    def _rehacer_tabla(self, df, batch_id):
+        """Paso 2: los meses tocados por el micro-lote, con la última versión de cada ventana."""
+        meses = df.select("mes").distinct()
+        ultima_primero = Window.partitionBy(*CLAVES_VENTANA).orderBy(F.col("batch_id").desc())
+        (
+            self.spark.read.parquet(self.cambios)
+            .filter(F.col("batch_id") <= batch_id)
+            .join(F.broadcast(meses), "mes", "left_semi")
+            .withColumn("_orden", F.row_number().over(ultima_primero))
+            .filter("_orden = 1")
+            .select(*df.columns, F.date_format("mes", "yyyy-MM").alias("anio_mes"))
+            .repartition("anio_mes")  # un archivo por mes
+            .write.mode("overwrite").option("partitionOverwriteMode", "dynamic")
+            .partitionBy("anio_mes").parquet(self.tabla)
+        )
 
     def leer(self):
         """La tabla de ventanas tal como está en MinIO (una fila por mes y departamento)."""
