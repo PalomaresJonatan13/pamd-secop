@@ -254,3 +254,45 @@ def archivos_por_disparo(spark, checkpoint):
         r["disparo"]: r["ruta"].rsplit("/", 1)[-1].replace(".parquet", "")
         for r in offsets.join(fuente, "log_offset").collect()
     }
+
+
+# --- Punto de control y reinicio (T3.1) ---
+
+def lotes_preparados(spark, origen):
+    """Nombres de los lotes escritos en T2.2, en orden de llegada (el nombre empieza con la posición)."""
+    fs, camino = _fs(spark, origen)
+    nombres = [e.getPath().getName() for e in fs.listStatus(camino) if e.isDirectory()]
+    return sorted(n.split("=", 1)[1] for n in nombres if n.startswith("archivo="))
+
+
+def contenido_checkpoint(spark, checkpoint):
+    """Archivos del checkpoint (ruta relativa y tamaño), sin los .crc de control."""
+    fs, camino = _fs(spark, checkpoint)
+    base = fs.makeQualified(camino).toString().rstrip("/") + "/"
+    archivos, it = [], fs.listFiles(camino, True)
+    while it.hasNext():
+        estado = it.next()
+        ruta = estado.getPath().toString()
+        if not estado.getPath().getName().endswith(".crc"):
+            archivos.append((ruta[len(base):] if ruta.startswith(base) else ruta, estado.getLen()))
+    return sorted(archivos)
+
+
+def leer_texto(spark, ruta):
+    """Contenido de un archivo pequeño del checkpoint (offsets, commits, metadata)."""
+    fs, camino = _fs(spark, ruta)
+    entrada = fs.open(camino)
+    lector = spark._jvm.java.io.BufferedReader(spark._jvm.java.io.InputStreamReader(entrada, "UTF-8"))
+    lineas, linea = [], lector.readLine()
+    while linea is not None:
+        lineas.append(linea)
+        linea = lector.readLine()
+    lector.close()
+    return lineas
+
+
+def copiar_carpeta(spark, origen, destino):
+    """Copia una carpeta completa (por ejemplo, el checkpoint) para probar cambios sin tocar el original."""
+    fs, src = _fs(spark, origen)
+    _, dst = _fs(spark, destino)
+    spark._jvm.org.apache.hadoop.fs.FileUtil.copy(fs, src, fs, dst, False, spark._jsc.hadoopConfiguration())

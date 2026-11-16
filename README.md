@@ -116,7 +116,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `03_corte2_pagerank.ipynb` | 2 | PageRank entidad → contratista | Ejecutado el 12-nov-2026 |
 | `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 a T1.6 ejecutadas el 14-nov-2026 |
 | `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | T2.1 a T2.6 ejecutadas el 15-nov-2026 |
-| `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | Por hacer |
+| `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | T3.1 ejecutada el 15-nov-2026; T3.2 a T3.5 por hacer |
 
 El notebook original (cortes 1 y 2) se dividió en los tres primeros. Los tres se ejecutaron el 12 de noviembre de 2026 sobre el bronze reconstruido, y sus salidas están guardadas. Los notebooks 02 y 03 leen el bronze ya escrito en MinIO, así que el 01 debe ejecutarse antes (con `RECONSTRUIR_BRONZE = True` la primera vez).
 
@@ -169,7 +169,7 @@ MinIO retiró `minio/minio` y `minio/mc` de Docker Hub en septiembre de 2026 (se
 - **Servidor:** `pgsty/silo` (bifurcación de MinIO con la misma línea de comandos), fijado en `docker-compose.yml`. Se cambia con `MINIO_IMAGE` en `.env`.
 - **Cliente:** `amazon/aws-cli`, para crear el bucket y cargar el CSV.
 
-Verificado: el servidor arranca, el bucket se crea, la consola web abre en el puerto 9002, el CSV se carga, Spark lo lee y la escritura completa del bronze, la cuarentena y las tablas de `procesado/` funciona (12-nov-2026). Aún sin confirmar: el uso de checkpoints de streaming (Corte 3).
+Verificado: el servidor arranca, el bucket se crea, la consola web abre en el puerto 9002, el CSV se carga, Spark lo lee y la escritura completa del bronze, la cuarentena y las tablas de `procesado/` funciona (12-nov-2026). El checkpoint de streaming en MinIO también funciona: el notebook `06` (T3.1) detiene el flujo y lo reinicia sin releer lotes (15-nov-2026).
 
 ## Pendientes conocidos
 
