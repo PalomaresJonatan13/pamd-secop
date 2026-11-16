@@ -94,17 +94,19 @@ def _fs(spark, ruta):
     return camino.getFileSystem(spark._jsc.hadoopConfiguration()), camino
 
 
-def entregar_lote(spark, origen, destino, archivo):
+def entregar_lote(spark, origen, destino, archivo, nombre=None):
     """Copia el único Parquet del lote preparado a la carpeta de entrada del flujo, como <archivo>.parquet.
 
     En MinIO (S3) un objeto aparece completo o no aparece, así que el flujo nunca ve un archivo a medio copiar.
+    Con 'nombre' el archivo se deja con otro nombre (<nombre>.parquet): sirve para volver a depositar un lote
+    ya procesado como si fuera un archivo nuevo (T3.3).
     """
     jvm = spark._jvm
     fs, _ = _fs(spark, origen)
     partes = fs.globStatus(jvm.org.apache.hadoop.fs.Path(f"{origen}/archivo={archivo}/part-*.parquet"))
     if partes is None or len(partes) != 1:
         raise RuntimeError(f"El lote {archivo} debe tener exactamente un archivo Parquet en {origen}")
-    destino_archivo = jvm.org.apache.hadoop.fs.Path(f"{destino}/{archivo}.parquet")
+    destino_archivo = jvm.org.apache.hadoop.fs.Path(f"{destino}/{nombre or archivo}.parquet")
     jvm.org.apache.hadoop.fs.FileUtil.copy(fs, partes[0].getPath(), fs, destino_archivo, False, spark._jsc.hadoopConfiguration())
 
 
@@ -297,6 +299,31 @@ def copiar_carpeta(spark, origen, destino):
     fs, src = _fs(spark, origen)
     _, dst = _fs(spark, destino)
     spark._jvm.org.apache.hadoop.fs.FileUtil.copy(fs, src, fs, dst, False, spark._jsc.hadoopConfiguration())
+
+
+# --- Deduplicación dentro del flujo (T3.3) ---
+
+# La clave natural elegida en T1.1: una fila de gold por proceso y adjudicación
+CLAVE_CONTRATO = ["id_del_proceso", "id_adjudicacion"]
+
+
+def ventanas_mensuales_sin_repetidos(flujo, tolerancia, sin_departamento):
+    """La agregación de ventanas_mensuales, descartando antes los contratos que ya pasaron por el flujo.
+
+    dropDuplicates guarda en el estado la clave de cada contrato visto y descarta las filas que la repiten, vengan
+    en el mismo archivo o en otro. 'mes' entra en la clave para que la marca de agua pueda liberar ese estado: las
+    claves de un mes se olvidan cuando el mes queda por debajo de la marca de agua. Un repetido de un mes ya
+    olvidado tampoco se cuenta, porque llega por debajo de la marca de agua y se descarta por tardío.
+
+    Es otra consulta para Spark (un operador con estado más), así que necesita su propio checkpoint.
+    """
+    return (
+        con_mes_y_departamento(flujo, sin_departamento)
+        .withWatermark("mes", tolerancia)
+        .dropDuplicates([*CLAVE_CONTRATO, "mes"])
+        .groupBy(*CLAVES_VENTANA)
+        .agg(*medidas())
+    )
 
 
 # --- Destino idempotente (T3.2) ---
