@@ -115,7 +115,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `02_corte2_shuffle_y_sesgo.ipynb` | 2 | `groupByKey` frente a `reduceByKey`, volumen de shuffle y sesgo de datos | Ejecutado el 12-nov-2026 |
 | `03_corte2_pagerank.ipynb` | 2 | PageRank entidad → contratista | Ejecutado el 12-nov-2026 |
 | `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 a T1.6 ejecutadas el 14-nov-2026 |
-| `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | T2.1 (diseño) aprobada y T2.2 (micro-lotes) ejecutada el 15-nov-2026; T2.3 a T2.6 por hacer |
+| `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | T2.1 a T2.6 ejecutadas el 15-nov-2026 |
 | `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | Por hacer |
 
 El notebook original (cortes 1 y 2) se dividió en los tres primeros. Los tres se ejecutaron el 12 de noviembre de 2026 sobre el bronze reconstruido, y sus salidas están guardadas. Los notebooks 02 y 03 leen el bronze ya escrito en MinIO, así que el 01 debe ejecutarse antes (con `RECONSTRUIR_BRONZE = True` la primera vez).

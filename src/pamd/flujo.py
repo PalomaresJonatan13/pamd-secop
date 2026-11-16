@@ -124,3 +124,133 @@ def crear_carpeta(spark, ruta):
 def existe(spark, ruta):
     fs, camino = _fs(spark, ruta)
     return bool(fs.exists(camino))
+
+
+# --- Lectura y ventanas (T2.3 a T2.5) ---
+
+# Esquema explícito de los micro-lotes: el flujo no lo infiere de los archivos que van llegando
+ESQUEMA_FLUJO = (
+    "id_del_proceso STRING, id_adjudicacion STRING, fecha_adjudicacion DATE, departamento_entidad STRING, "
+    "valor_total_adjudicacion DECIMAL(20,2), es_atipico BOOLEAN, es_valor_cero BOOLEAN"
+)
+
+
+def leer_flujo(spark, entrada):
+    """Flujo sobre la carpeta de entrada: un archivo (un lote) por disparo."""
+    return spark.readStream.schema(ESQUEMA_FLUJO).option("maxFilesPerTrigger", 1).parquet(entrada)
+
+
+def con_mes_y_departamento(df, sin_departamento):
+    """Claves de la ventana: inicio del mes de adjudicación (marca de tiempo) y departamento de la entidad.
+
+    Se usa igual en el flujo y en el cálculo por lotes de T2.6, para que las dos versiones agrupen exactamente igual.
+    Los contratos sin departamento van a la misma categoría que en las tablas de T1.4.
+    """
+    departamento = F.trim("departamento_entidad")
+    return (
+        df.withColumn("mes", F.date_trunc("month", F.col("fecha_adjudicacion").cast("timestamp")))
+        .withColumn("departamento", F.when(departamento != "", departamento).otherwise(F.lit(sin_departamento)))
+    )
+
+
+def medidas():
+    """Las medidas de las tablas resumen de T1.4: los atípicos se cuentan y se suman aparte del valor normal."""
+    normal = ~F.col("es_atipico")
+    return [
+        F.count("*").alias("contratos"),
+        F.sum(F.when(~normal, 1).otherwise(0)).alias("contratos_atipicos"),
+        F.sum(F.col("es_valor_cero").cast("int")).alias("contratos_valor_cero"),
+        F.sum(F.when(normal, F.col("valor_total_adjudicacion")).otherwise(0)).alias("valor_total"),
+        F.sum(F.when(~normal, F.col("valor_total_adjudicacion")).otherwise(0)).alias("valor_atipicos"),
+    ]
+
+
+CLAVES_VENTANA = ["mes", "departamento"]
+
+
+def ventanas_mensuales(flujo, tolerancia, sin_departamento):
+    """Agregación por mes calendario y departamento, con marca de agua sobre el inicio del mes."""
+    return (
+        con_mes_y_departamento(flujo, sin_departamento)
+        .withWatermark("mes", tolerancia)
+        .groupBy(*CLAVES_VENTANA)
+        .agg(*medidas())
+    )
+
+
+def agregar_por_lotes(df, sin_departamento):
+    """La misma agregación que el flujo, como consulta normal (sin marca de agua)."""
+    return con_mes_y_departamento(df, sin_departamento).groupBy(*CLAVES_VENTANA).agg(*medidas())
+
+
+class TablaEnMemoria:
+    """Destino de T2: guarda en el driver la última versión de cada ventana.
+
+    En modo update cada micro-lote trae solo las ventanas que cambiaron, con su valor acumulado; guardar() reemplaza
+    esas ventanas y deja las demás como estaban. El destino idempotente en MinIO (T3.2) sustituye esta clase.
+    """
+
+    def __init__(self):
+        self.filas = {}
+        self.esquema = None
+        self.lotes = []
+
+    def guardar(self, df, batch_id):
+        if self.esquema is None:
+            self.esquema = df.schema
+        cambiadas = df.collect()
+        for fila in cambiadas:
+            self.filas[tuple(fila[c] for c in CLAVES_VENTANA)] = fila
+        self.lotes.append((batch_id, len(cambiadas)))
+
+    def copia(self):
+        return dict(self.filas)
+
+    def como_dataframe(self, spark):
+        return spark.createDataFrame(list(self.filas.values()), self.esquema)
+
+
+def registrar_tardios(spark, entrada, archivo, marca_de_agua, destino, sin_departamento):
+    """Guarda aparte las filas de un lote que Spark descartó por llegar después de la marca de agua.
+
+    Son las filas cuyo mes empieza antes de la marca de agua con la que se procesó el lote. Se escriben en
+    <destino>/archivo=<lote> sobrescribiendo, así que registrar dos veces el mismo lote no las duplica.
+    """
+    filas = (
+        con_mes_y_departamento(spark.read.schema(ESQUEMA_FLUJO).parquet(f"{entrada}/{archivo}.parquet"), sin_departamento)
+        .filter(F.col("mes") < F.to_timestamp(F.lit(marca_de_agua)))
+        .drop("mes", "departamento")
+    )
+    n = filas.count()
+    if n:
+        filas.write.mode("overwrite").parquet(f"{destino}/archivo={archivo}")
+    return n
+
+
+def archivos_por_disparo(spark, checkpoint):
+    """Qué archivo leyó cada disparo, según lo que Spark guarda en el checkpoint.
+
+    sources/0 numera los archivos en el orden en que la fuente los encontró (logOffset) y offsets/<disparo> guarda
+    hasta qué logOffset llegó cada disparo. Un disparo sin datos repite el logOffset del anterior.
+    """
+    fuente = (
+        spark.read.text(f"{checkpoint}/sources/0")
+        .filter(F.col("value").startswith("{"))
+        .select(
+            F.get_json_object("value", "$.path").alias("ruta"),
+            F.get_json_object("value", "$.batchId").cast("long").alias("log_offset"),
+        )
+        .distinct()
+    )
+    offsets = (
+        spark.read.text(f"{checkpoint}/offsets")
+        .filter(F.col("value").contains("logOffset"))
+        .select(
+            F.regexp_extract(F.input_file_name(), r"/(\d+)$", 1).cast("long").alias("disparo"),
+            F.get_json_object("value", "$.logOffset").cast("long").alias("log_offset"),
+        )
+    )
+    return {
+        r["disparo"]: r["ruta"].rsplit("/", 1)[-1].replace(".parquet", "")
+        for r in offsets.join(fuente, "log_offset").collect()
+    }
