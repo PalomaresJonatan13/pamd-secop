@@ -3,7 +3,7 @@
 La usan el notebook 05 (T2.2 a T2.6) y el 06 (T3.1 a T3.4), para que los dos simulen exactamente el mismo flujo.
 Los parámetros (número de lotes, semilla, tardíos, tolerancia) se fijan en el notebook 05 (T2.1).
 """
-from pyspark.sql import functions as F
+from pyspark.sql import Window, functions as F
 
 from pamd.calidad import marcar_atipicos, unificar_nit_entidad
 
@@ -187,7 +187,8 @@ class TablaEnMemoria:
     """Destino de T2: guarda en el driver la última versión de cada ventana.
 
     En modo update cada micro-lote trae solo las ventanas que cambiaron, con su valor acumulado; guardar() reemplaza
-    esas ventanas y deja las demás como estaban. El destino idempotente en MinIO (T3.2) sustituye esta clase.
+    esas ventanas y deja las demás como estaban. Vive en la memoria del driver, así que se pierde si el proceso
+    se cae; el destino idempotente en MinIO es DestinoVentanas (T3.2).
     """
 
     def __init__(self):
@@ -296,3 +297,59 @@ def copiar_carpeta(spark, origen, destino):
     fs, src = _fs(spark, origen)
     _, dst = _fs(spark, destino)
     spark._jvm.org.apache.hadoop.fs.FileUtil.copy(fs, src, fs, dst, False, spark._jsc.hadoopConfiguration())
+
+
+# --- Destino idempotente (T3.2) ---
+
+class DestinoVentanas:
+    """Destino de T3.2: la tabla de ventanas en MinIO, escrita de forma que repetir un micro-lote no cambie nada.
+
+    En modo update cada micro-lote trae solo las ventanas que cambiaron, con su valor acumulado. guardar() hace
+    dos escrituras, y las dos reemplazan en vez de añadir:
+
+    1. <ruta>/cambios/batch_id=<N>: las ventanas del micro-lote N. La carpeta se sobrescribe entera, así que
+       guardar otra vez el micro-lote N deja el mismo contenido.
+    2. <ruta>/tabla/anio_mes=<mes>: la tabla que se consulta. Para cada mes tocado por el micro-lote se toma, de
+       todos los cambios hasta N, la última versión de cada ventana y se sobrescribe la partición del mes
+       (sobrescritura dinámica: los meses que el micro-lote no toca quedan como estaban).
+
+    La tabla se reconstruye siempre a partir de los cambios, nunca a partir de sí misma. Por eso, si el proceso
+    se cae a mitad de una escritura, basta con que Spark repita el micro-lote (lo hace solo, porque no quedó
+    confirmado en el checkpoint): el paso 1 reescribe la misma carpeta y el paso 2 rehace completos los meses
+    afectados, incluidas las ventanas que ese micro-lote no traía.
+    """
+
+    def __init__(self, spark, ruta):
+        self.spark = spark
+        self.cambios = f"{ruta}/cambios"
+        self.tabla = f"{ruta}/tabla"
+        self.lotes = []
+
+    def guardar(self, df, batch_id):
+        df.persist()
+        try:
+            n = df.count()
+            self.lotes.append((batch_id, n))
+            if n == 0:
+                return  # un disparo sin ventanas cambiadas no escribe nada
+            df.coalesce(1).write.mode("overwrite").parquet(f"{self.cambios}/batch_id={batch_id}")
+
+            meses = df.select("mes").distinct()
+            ultima_primero = Window.partitionBy(*CLAVES_VENTANA).orderBy(F.col("batch_id").desc())
+            (
+                self.spark.read.parquet(self.cambios)
+                .filter(F.col("batch_id") <= batch_id)
+                .join(F.broadcast(meses), "mes", "left_semi")
+                .withColumn("_orden", F.row_number().over(ultima_primero))
+                .filter("_orden = 1")
+                .select(*df.columns, F.date_format("mes", "yyyy-MM").alias("anio_mes"))
+                .repartition("anio_mes")  # un archivo por mes
+                .write.mode("overwrite").option("partitionOverwriteMode", "dynamic")
+                .partitionBy("anio_mes").parquet(self.tabla)
+            )
+        finally:
+            df.unpersist()
+
+    def leer(self):
+        """La tabla de ventanas tal como está en MinIO (una fila por mes y departamento)."""
+        return self.spark.read.parquet(self.tabla).drop("anio_mes")

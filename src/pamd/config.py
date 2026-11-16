@@ -23,6 +23,7 @@ STREAMING_LOTES = "s3a://rawdata/streaming/lotes"                       # micro-
 STREAMING_ENTRADA = "s3a://rawdata/streaming/entrada"                   # carpeta que lee el flujo; los lotes llegan aquí uno a uno
 STREAMING_TARDIOS = "s3a://rawdata/streaming/tardios"                   # registros que llegaron fuera de la tolerancia (T2.5)
 STREAMING_CHECKPOINT = "s3a://rawdata/streaming/checkpoint/ventanas"    # punto de control del flujo (T3.1)
+STREAMING_VENTANAS = "s3a://rawdata/streaming/ventanas"                 # destino idempotente: cambios/ por micro-lote y tabla/ por mes (T3.2)
 
 WRITE_MODE = "overwrite"
 OUTPUT_PARTITIONS = 36
