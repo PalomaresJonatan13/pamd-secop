@@ -144,7 +144,10 @@ s3a://rawdata/
     ├── lotes                             micro-lotes preparados a partir de gold
     ├── entrada                           carpeta que lee el flujo; los lotes llegan uno a uno
     ├── tardios                           registros que llegaron fuera de la tolerancia
-    └── checkpoint/ventanas               punto de control del flujo
+    ├── checkpoint/ventanas               punto de control del flujo
+    └── ventanas                          destino idempotente del notebook 06 (T3.2)
+        ├── cambios                       ventanas que cambió cada micro-lote, una carpeta por micro-lote
+        └── tabla                         última versión de cada ventana, por mes
 ```
 
 ## Trabajo en equipo
