@@ -65,6 +65,27 @@ gold, flujo = metadatos["gold"], metadatos["flujo"]
 meses = sorted(serie_completa["anio_mes"].unique())
 departamentos_todos = sorted(serie_completa["departamento"].unique())
 
+# Filtros iniciales desde la dirección, para abrir el dashboard ya filtrado o repetir una captura:
+#   ?departamento=Antioquia&departamento=Boyacá&entidad=NIT:899999034&desde=2020-01&hasta=2023-12&n=10&orden=valor
+# (departamento y entidad se pueden repetir; orden es 'valor' o 'contratos'). Se leen una sola vez al abrir la sesión;
+# los valores que no existen se ignoran. Después mandan los filtros de la pantalla.
+# Streamlit registra una vez en el log del servidor que 'f_meses' (o 'n_ranking') tiene valor por defecto y otro puesto desde la sesión;
+# es solo un aviso de registro, y quitar el valor por defecto rompe el rango de meses al recargar.
+if "_filtros_de_la_url" not in st.session_state:
+    st.session_state["_filtros_de_la_url"] = True
+    consulta = st.query_params
+    if elegidos := [d for d in consulta.get_all("departamento") if d in departamentos_todos]:
+        st.session_state["f_departamento"] = elegidos
+    if elegidas := consulta.get_all("entidad"):
+        st.session_state["f_entidad"] = elegidas  # las que no existan se quitan más abajo, igual que al cambiar de departamento
+    desde, hasta = consulta.get("desde", meses[0]), consulta.get("hasta", meses[-1])
+    if desde in meses and hasta in meses and desde <= hasta and (desde, hasta) != (meses[0], meses[-1]):
+        st.session_state["f_meses"] = (desde, hasta)
+    if consulta.get("n", "").isdigit() and 1 <= int(consulta["n"]) <= 50:
+        st.session_state["n_ranking"] = int(consulta["n"])
+    if consulta.get("orden") in ("valor", "contratos"):
+        st.session_state["orden_ranking"] = "Valor adjudicado" if consulta["orden"] == "valor" else "Número de contratos"
+
 with st.sidebar:
     st.header("Filtros")
     departamentos = st.multiselect(
@@ -296,6 +317,16 @@ def mostrar_ranking(pantalla, titulo: str, df: pd.DataFrame, clave: str, nombres
             "Participación": [porcentaje(x, total_orden) for x in top[columna_orden]],
         }),
         hide_index=True,
+        # anchos fijos: con el automático, la última columna quedaba cortada a la derecha
+        column_config={
+            "#": st.column_config.TextColumn(width=35),
+            "Nombre": st.column_config.TextColumn(width=384),
+            "Identificación": st.column_config.TextColumn(width=134),
+            "Contratos": st.column_config.TextColumn(width=70),
+            "Atípicos": st.column_config.TextColumn(width=65),
+            "Valor (millones de pesos)": st.column_config.TextColumn(width=150),
+            "Participación": st.column_config.TextColumn(width=95),
+        },
     )
     pantalla.caption(
         f"Los {len(top)} primeros suman el {porcentaje(top[columna_orden].sum(), total_orden)} "

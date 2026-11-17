@@ -1,4 +1,4 @@
-# Evidencias para el informe (T2.3 a T3.5)
+# Evidencias para el informe (T2.3 a T4.7)
 
 Capturas de las salidas guardadas en los notebooks `05` y `06`, tal como quedaron en `main` el 15-nov-2026. No hubo que volver a ejecutar nada: si se vuelven a correr los notebooks, las cifras deben ser las mismas. Las capturas de T3.2 a T3.4 son de las salidas del notebook `06` ejecutado el 16-nov-2026.
 
@@ -18,6 +18,19 @@ Capturas de las salidas guardadas en los notebooks `05` y `06`, tal como quedaro
 | `t3.3_lote_repetido.png` | T3.3 | Con deduplicación, tres lotes ya procesados vuelven a la entrada (mismo nombre, otro nombre con meses abiertos, otro nombre con meses cerrados): filas leídas, motivo del descarte y cifras iguales | `06`, `# T3.3 · Los tres casos` |
 | `t3.4_caida_durante_la_escritura.png` | T3.4 | Registro del escenario A: parada tras el lote 8, caída a mitad de la escritura del lote 15 y repetición del mismo micro-lote al reiniciar | `06`, `# T3.4 · Escenario A` |
 | `t3.4_tabla_de_escenarios.png` | T3.4 | Tabla de los tres escenarios con conteo, valor y estado frente a la ejecución limpia y al cálculo por lotes (0 ventanas distintas), y contratos por año en cada escenario | `06`, `# T3.4 · Tabla de los tres escenarios` |
+
+Las capturas de T4.7 son del dashboard y se toman con `scripts/capturar_dashboard.py`; sus comentarios al pie (qué muestra y qué permite concluir) están en `t4.7_capturas_comentadas.md`.
+
+| Archivo | Qué muestra | Dirección del dashboard |
+|---|---|---|
+| `t4.7_cabecera_sin_filtros.png` | Filtros abiertos, cinco tarjetas con los totales de gold y fecha del último lote procesado | `/` |
+| `t4.7_modulo_tiempo.png` | Valor y contratos por mes con las franjas de la ley de garantías y el cierre fiscal, y los picos | `/` |
+| `t4.7_modulo_rankings.png` | Top 10 de entidades y de contratistas por valor | `/?n=10&orden=valor` |
+| `t4.7_modulo_geografia.png` | Valor por departamento, con «Sin departamento» como categoría aparte | `/` |
+| `t4.7_modulo_concentracion.png` | Entidades que reúnen el 50 % y el 80 % del valor, y curva acumulada | `/` |
+| `t4.7_filtro_antioquia_2020_2023.png` | Todos los módulos con un departamento y un rango de meses | `/?departamento=Antioquia&desde=2020-01&hasta=2023-12` |
+| `t4.7_filtro_una_entidad.png` | Todos los módulos con una sola entidad (el SENA, 2019 a 2025) | `/?entidad=NIT:899999034&desde=2019-01&hasta=2025-12` |
+| `t4.7_filtro_sin_resultados.png` | Combinación sin contratos: aviso claro en lugar de un error | `/?departamento=SIN%20DEPARTAMENTO&desde=2015-06&hasta=2015-07` |
 
 La explicación del mecanismo (T3.5) está en `docs/resiliencia_idempotencia.md`, con el diagrama `docs/mecanismo_resiliencia.svg` (PNG para la presentación).
 

@@ -1,0 +1,2355 @@
+{
+ "generado_utc": "2026-11-17 02:30",
+ "casos": [
+  {
+   "nombre": "sin filtros",
+   "departamentos": [],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 530192,
+    "contratos_atipicos": 432,
+    "valor_total": 352909018925397,
+    "valor_atipicos": 174714776221732357,
+    "entidades": 4050,
+    "contratistas": 99606
+   },
+   "mensual": {
+    "2026-05": {
+     "contratos": 7441,
+     "valor_total": 5503036881496
+    },
+    "2020-06": {
+     "contratos": 2978,
+     "valor_total": 992321672355
+    },
+    "2024-09": {
+     "contratos": 6508,
+     "valor_total": 3943024674977
+    },
+    "2019-10": {
+     "contratos": 3213,
+     "valor_total": 1111554749704
+    },
+    "2020-12": {
+     "contratos": 6189,
+     "valor_total": 5615617288011
+    },
+    "2018-10": {
+     "contratos": 2954,
+     "valor_total": 850338568204
+    },
+    "2020-02": {
+     "contratos": 1601,
+     "valor_total": 881280996765
+    },
+    "2023-08": {
+     "contratos": 6421,
+     "valor_total": 3276657562746
+    },
+    "2024-02": {
+     "contratos": 3529,
+     "valor_total": 2132800642088
+    },
+    "2017-09": {
+     "contratos": 1564,
+     "valor_total": 263011829891
+    },
+    "2021-07": {
+     "contratos": 4691,
+     "valor_total": 2077173506357
+    },
+    "2022-04": {
+     "contratos": 4582,
+     "valor_total": 2138797299795
+    },
+    "2019-11": {
+     "contratos": 3235,
+     "valor_total": 1476276104806
+    },
+    "2023-12": {
+     "contratos": 9125,
+     "valor_total": 11657415672413
+    },
+    "2021-04": {
+     "contratos": 3711,
+     "valor_total": 4052616924847
+    },
+    "2025-04": {
+     "contratos": 6938,
+     "valor_total": 3645119358117
+    },
+    "2026-06": {
+     "contratos": 7734,
+     "valor_total": 5392431574296
+    },
+    "2023-11": {
+     "contratos": 7496,
+     "valor_total": 4470065903028
+    },
+    "2022-06": {
+     "contratos": 5971,
+     "valor_total": 3875371468917
+    },
+    "2017-10": {
+     "contratos": 1551,
+     "valor_total": 258798193548
+    },
+    "2025-01": {
+     "contratos": 1559,
+     "valor_total": 3411121561225
+    },
+    "2025-08": {
+     "contratos": 7039,
+     "valor_total": 4888777863846
+    },
+    "2021-06": {
+     "contratos": 4773,
+     "valor_total": 2438621818934
+    },
+    "2017-05": {
+     "contratos": 843,
+     "valor_total": 70848120477
+    },
+    "2018-06": {
+     "contratos": 2730,
+     "valor_total": 648285002226
+    },
+    "2019-03": {
+     "contratos": 2732,
+     "valor_total": 1034105673670
+    },
+    "2022-02": {
+     "contratos": 2817,
+     "valor_total": 3099959564056
+    },
+    "2017-11": {
+     "contratos": 2296,
+     "valor_total": 639335348465
+    },
+    "2022-08": {
+     "contratos": 6082,
+     "valor_total": 3067104455744
+    },
+    "2018-03": {
+     "contratos": 2208,
+     "valor_total": 646255059905
+    },
+    "2023-07": {
+     "contratos": 5653,
+     "valor_total": 2732641057602
+    },
+    "2020-05": {
+     "contratos": 2736,
+     "valor_total": 3087324434668
+    },
+    "2026-08": {
+     "contratos": 5754,
+     "valor_total": 4698140556801
+    },
+    "2021-11": {
+     "contratos": 8194,
+     "valor_total": 5897203204158
+    },
+    "2024-08": {
+     "contratos": 6053,
+     "valor_total": 3105815595456
+    },
+    "2023-03": {
+     "contratos": 5858,
+     "valor_total": 3697294657503
+    },
+    "2023-10": {
+     "contratos": 6664,
+     "valor_total": 3447605226587
+    },
+    "2017-03": {
+     "contratos": 1211,
+     "valor_total": 60001306048
+    },
+    "2018-02": {
+     "contratos": 1266,
+     "valor_total": 418544788308
+    },
+    "2016-12": {
+     "contratos": 279,
+     "valor_total": 60560451165
+    },
+    "2017-08": {
+     "contratos": 1628,
+     "valor_total": 309386304223
+    },
+    "2021-03": {
+     "contratos": 3327,
+     "valor_total": 2362618178888
+    },
+    "2021-02": {
+     "contratos": 1589,
+     "valor_total": 1810498064361
+    },
+    "2022-07": {
+     "contratos": 5472,
+     "valor_total": 3252908853434
+    },
+    "2019-07": {
+     "contratos": 3109,
+     "valor_total": 1040305297518
+    },
+    "2017-06": {
+     "contratos": 803,
+     "valor_total": 82086936715
+    },
+    "2016-10": {
+     "contratos": 224,
+     "valor_total": 470669249276
+    },
+    "2026-04": {
+     "contratos": 7595,
+     "valor_total": 3638403515107
+    },
+    "2023-02": {
+     "contratos": 3391,
+     "valor_total": 4006360176182
+    },
+    "2024-06": {
+     "contratos": 5858,
+     "valor_total": 2926242225005
+    },
+    "2017-02": {
+     "contratos": 1545,
+     "valor_total": 368185474782
+    },
+    "2021-10": {
+     "contratos": 5751,
+     "valor_total": 3646982751921
+    },
+    "2021-12": {
+     "contratos": 8252,
+     "valor_total": 5757269751258
+    },
+    "2020-11": {
+     "contratos": 4810,
+     "valor_total": 1569695591506
+    },
+    "2017-04": {
+     "contratos": 665,
+     "valor_total": 55627429018
+    },
+    "2018-05": {
+     "contratos": 2990,
+     "valor_total": 560175894731
+    },
+    "2022-11": {
+     "contratos": 7330,
+     "valor_total": 5775503616286
+    },
+    "2023-09": {
+     "contratos": 6312,
+     "valor_total": 3287154436175
+    },
+    "2018-08": {
+     "contratos": 2862,
+     "valor_total": 898744149412
+    },
+    "2017-07": {
+     "contratos": 1263,
+     "valor_total": 137959093539
+    },
+    "2023-04": {
+     "contratos": 5119,
+     "valor_total": 5015748833561
+    },
+    "2023-05": {
+     "contratos": 6320,
+     "valor_total": 4200243069710
+    },
+    "2021-05": {
+     "contratos": 4132,
+     "valor_total": 3138444167028
+    },
+    "2022-10": {
+     "contratos": 5632,
+     "valor_total": 2852390979505
+    },
+    "2019-05": {
+     "contratos": 3265,
+     "valor_total": 739585276415
+    },
+    "2020-07": {
+     "contratos": 3656,
+     "valor_total": 1433169707466
+    },
+    "2024-12": {
+     "contratos": 11304,
+     "valor_total": 10442005493001
+    },
+    "2025-11": {
+     "contratos": 9750,
+     "valor_total": 6415436099507
+    },
+    "2023-01": {
+     "contratos": 1234,
+     "valor_total": 1616704295484
+    },
+    "2024-03": {
+     "contratos": 4718,
+     "valor_total": 3191056688548
+    },
+    "2019-08": {
+     "contratos": 2697,
+     "valor_total": 849253331634
+    },
+    "2026-02": {
+     "contratos": 4053,
+     "valor_total": 2798145218535
+    },
+    "2022-09": {
+     "contratos": 5858,
+     "valor_total": 2865993581900
+    },
+    "2019-01": {
+     "contratos": 1196,
+     "valor_total": 1017218848097
+    },
+    "2019-09": {
+     "contratos": 2789,
+     "valor_total": 1576463372368
+    },
+    "2024-05": {
+     "contratos": 6476,
+     "valor_total": 3124149369712
+    },
+    "2025-06": {
+     "contratos": 7067,
+     "valor_total": 4319053523806
+    },
+    "2020-03": {
+     "contratos": 2660,
+     "valor_total": 1164490937382
+    },
+    "2025-12": {
+     "contratos": 11437,
+     "valor_total": 14998406092454
+    },
+    "2017-12": {
+     "contratos": 2801,
+     "valor_total": 933475236952
+    },
+    "2022-03": {
+     "contratos": 5643,
+     "valor_total": 4021486785688
+    },
+    "2023-06": {
+     "contratos": 7951,
+     "valor_total": 5297755698170
+    },
+    "2024-11": {
+     "contratos": 8394,
+     "valor_total": 4622469055546
+    },
+    "2025-02": {
+     "contratos": 3807,
+     "valor_total": 2723040822534
+    },
+    "2025-10": {
+     "contratos": 10078,
+     "valor_total": 6956454579894
+    },
+    "2022-05": {
+     "contratos": 5817,
+     "valor_total": 3216403831049
+    },
+    "2018-11": {
+     "contratos": 3562,
+     "valor_total": 3846367202210
+    },
+    "2016-11": {
+     "contratos": 290,
+     "valor_total": 63975829034
+    },
+    "2024-10": {
+     "contratos": 7924,
+     "valor_total": 4317452526614
+    },
+    "2021-08": {
+     "contratos": 5373,
+     "valor_total": 2190441560139
+    },
+    "2020-01": {
+     "contratos": 667,
+     "valor_total": 1322358528580
+    },
+    "2019-06": {
+     "contratos": 2753,
+     "valor_total": 1064583452276
+    },
+    "2025-03": {
+     "contratos": 5505,
+     "valor_total": 2927864699398
+    },
+    "2024-07": {
+     "contratos": 5869,
+     "valor_total": 3165298751159
+    },
+    "2019-04": {
+     "contratos": 2613,
+     "valor_total": 848512593830
+    },
+    "2020-09": {
+     "contratos": 3836,
+     "valor_total": 1573907025223
+    },
+    "2018-12": {
+     "contratos": 4260,
+     "valor_total": 6167933463826
+    },
+    "2016-07": {
+     "contratos": 239,
+     "valor_total": 12108290826
+    },
+    "2026-01": {
+     "contratos": 2959,
+     "valor_total": 5146745047514
+    },
+    "2025-07": {
+     "contratos": 8151,
+     "valor_total": 6970732793712
+    },
+    "2019-12": {
+     "contratos": 3380,
+     "valor_total": 3399331002843
+    },
+    "2022-12": {
+     "contratos": 9607,
+     "valor_total": 9907092565119
+    },
+    "2020-08": {
+     "contratos": 3046,
+     "valor_total": 1298858582206
+    },
+    "2024-04": {
+     "contratos": 6184,
+     "valor_total": 3819168848762
+    },
+    "2018-04": {
+     "contratos": 2700,
+     "valor_total": 497638991194
+    },
+    "2018-01": {
+     "contratos": 1543,
+     "valor_total": 2724315722176
+    },
+    "2025-09": {
+     "contratos": 7966,
+     "valor_total": 6265148255525
+    },
+    "2021-01": {
+     "contratos": 596,
+     "valor_total": 897501353600
+    },
+    "2019-02": {
+     "contratos": 2211,
+     "valor_total": 864874458855
+    },
+    "2016-08": {
+     "contratos": 225,
+     "valor_total": 24611033727
+    },
+    "2026-03": {
+     "contratos": 7126,
+     "valor_total": 4358530984782
+    },
+    "2020-04": {
+     "contratos": 2617,
+     "valor_total": 1629993088862
+    },
+    "2020-10": {
+     "contratos": 4364,
+     "valor_total": 1899189510206
+    },
+    "2025-05": {
+     "contratos": 7714,
+     "valor_total": 4850237167399
+    },
+    "2021-09": {
+     "contratos": 5711,
+     "valor_total": 3715105425501
+    },
+    "2024-01": {
+     "contratos": 1250,
+     "valor_total": 1828748334033
+    },
+    "2017-01": {
+     "contratos": 2114,
+     "valor_total": 138644112510
+    },
+    "2022-01": {
+     "contratos": 1906,
+     "valor_total": 1645055822523
+    },
+    "2018-09": {
+     "contratos": 2481,
+     "valor_total": 996088986606
+    },
+    "2026-07": {
+     "contratos": 7424,
+     "valor_total": 9041083943187
+    },
+    "2018-07": {
+     "contratos": 2585,
+     "valor_total": 1169781983843
+    },
+    "2016-09": {
+     "contratos": 226,
+     "valor_total": 24600571319
+    },
+    "2016-06": {
+     "contratos": 147,
+     "valor_total": 21657953901
+    },
+    "2016-01": {
+     "contratos": 18,
+     "valor_total": 1091205094
+    },
+    "2015-11": {
+     "contratos": 7,
+     "valor_total": 788812842
+    },
+    "2016-05": {
+     "contratos": 65,
+     "valor_total": 4105744541
+    },
+    "2016-04": {
+     "contratos": 99,
+     "valor_total": 3657303906
+    },
+    "2016-03": {
+     "contratos": 28,
+     "valor_total": 1522967088
+    },
+    "2016-02": {
+     "contratos": 19,
+     "valor_total": 4877523644
+    },
+    "2015-09": {
+     "contratos": 6,
+     "valor_total": 2716624880
+    },
+    "2015-12": {
+     "contratos": 9,
+     "valor_total": 140261517
+    },
+    "2015-10": {
+     "contratos": 3,
+     "valor_total": 933164150
+    },
+    "2015-08": {
+     "contratos": 1,
+     "valor_total": 22020100
+    },
+    "2015-07": {
+     "contratos": 2,
+     "valor_total": 3979563127
+    },
+    "2015-06": {
+     "contratos": 1,
+     "valor_total": 563760000
+    },
+    "2026-09": {
+     "contratos": 1,
+     "valor_total": 1007000
+    }
+   }
+  },
+  {
+   "nombre": "Antioquia, 2020-2023",
+   "departamentos": [
+    "Antioquia"
+   ],
+   "entidades": [],
+   "desde": "2020-01",
+   "hasta": "2023-12",
+   "totales": {
+    "contratos": 27728,
+    "contratos_atipicos": 18,
+    "valor_total": 15492643343984,
+    "valor_atipicos": 89884915460803389,
+    "entidades": 279,
+    "contratistas": 7050
+   },
+   "mensual": {
+    "2020-02": {
+     "contratos": 152,
+     "valor_total": 233064149721
+    },
+    "2023-08": {
+     "contratos": 854,
+     "valor_total": 267072331480
+    },
+    "2021-07": {
+     "contratos": 616,
+     "valor_total": 369941193680
+    },
+    "2022-04": {
+     "contratos": 611,
+     "valor_total": 148588872887
+    },
+    "2023-12": {
+     "contratos": 962,
+     "valor_total": 278315379915
+    },
+    "2021-04": {
+     "contratos": 311,
+     "valor_total": 460704319715
+    },
+    "2023-11": {
+     "contratos": 752,
+     "valor_total": 180174463076
+    },
+    "2022-06": {
+     "contratos": 762,
+     "valor_total": 390600950252
+    },
+    "2021-06": {
+     "contratos": 632,
+     "valor_total": 350018271681
+    },
+    "2022-02": {
+     "contratos": 359,
+     "valor_total": 158166762705
+    },
+    "2022-08": {
+     "contratos": 845,
+     "valor_total": 492010504115
+    },
+    "2023-07": {
+     "contratos": 672,
+     "valor_total": 175584760575
+    },
+    "2020-05": {
+     "contratos": 195,
+     "valor_total": 138818289599
+    },
+    "2021-11": {
+     "contratos": 1355,
+     "valor_total": 887843534595
+    },
+    "2023-03": {
+     "contratos": 849,
+     "valor_total": 483348359355
+    },
+    "2023-10": {
+     "contratos": 708,
+     "valor_total": 193822926200
+    },
+    "2021-03": {
+     "contratos": 255,
+     "valor_total": 168574874625
+    },
+    "2022-07": {
+     "contratos": 819,
+     "valor_total": 589244289487
+    },
+    "2023-02": {
+     "contratos": 575,
+     "valor_total": 773759274816
+    },
+    "2021-10": {
+     "contratos": 715,
+     "valor_total": 262299462895
+    },
+    "2021-12": {
+     "contratos": 711,
+     "valor_total": 161657004057
+    },
+    "2020-11": {
+     "contratos": 441,
+     "valor_total": 92747368368
+    },
+    "2022-11": {
+     "contratos": 1118,
+     "valor_total": 337610522981
+    },
+    "2023-09": {
+     "contratos": 668,
+     "valor_total": 260257189501
+    },
+    "2023-04": {
+     "contratos": 666,
+     "valor_total": 298286564597
+    },
+    "2023-05": {
+     "contratos": 822,
+     "valor_total": 315526377173
+    },
+    "2020-07": {
+     "contratos": 288,
+     "valor_total": 151702049989
+    },
+    "2023-01": {
+     "contratos": 263,
+     "valor_total": 460465290201
+    },
+    "2022-09": {
+     "contratos": 811,
+     "valor_total": 508101442435
+    },
+    "2022-03": {
+     "contratos": 729,
+     "valor_total": 326085188839
+    },
+    "2023-06": {
+     "contratos": 1360,
+     "valor_total": 1098430845601
+    },
+    "2022-05": {
+     "contratos": 812,
+     "valor_total": 234614373922
+    },
+    "2021-08": {
+     "contratos": 717,
+     "valor_total": 313192842135
+    },
+    "2022-12": {
+     "contratos": 995,
+     "valor_total": 770193833728
+    },
+    "2020-08": {
+     "contratos": 248,
+     "valor_total": 173217615254
+    },
+    "2021-01": {
+     "contratos": 72,
+     "valor_total": 190539278118
+    },
+    "2020-10": {
+     "contratos": 384,
+     "valor_total": 156691852913
+    },
+    "2022-01": {
+     "contratos": 140,
+     "valor_total": 125402338892
+    },
+    "2020-12": {
+     "contratos": 335,
+     "valor_total": 326741479333
+    },
+    "2021-02": {
+     "contratos": 117,
+     "valor_total": 242372261625
+    },
+    "2021-05": {
+     "contratos": 465,
+     "valor_total": 196868271043
+    },
+    "2022-10": {
+     "contratos": 822,
+     "valor_total": 673059410310
+    },
+    "2020-09": {
+     "contratos": 351,
+     "valor_total": 130291656655
+    },
+    "2020-04": {
+     "contratos": 199,
+     "valor_total": 141149997366
+    },
+    "2021-09": {
+     "contratos": 711,
+     "valor_total": 318542580744
+    },
+    "2020-06": {
+     "contratos": 209,
+     "valor_total": 93549321884
+    },
+    "2020-03": {
+     "contratos": 214,
+     "valor_total": 272837901281
+    },
+    "2020-01": {
+     "contratos": 61,
+     "valor_total": 120555513665
+    }
+   }
+  },
+  {
+   "nombre": "Bogotá, 2022",
+   "departamentos": [
+    "Distrito Capital de Bogotá"
+   ],
+   "entidades": [],
+   "desde": "2022-01",
+   "hasta": "2022-12",
+   "totales": {
+    "contratos": 16315,
+    "contratos_atipicos": 5,
+    "valor_total": 21387853888125,
+    "valor_atipicos": 115271695530,
+    "entidades": 262,
+    "contratistas": 6573
+   },
+   "mensual": {
+    "2022-04": {
+     "contratos": 1151,
+     "valor_total": 662234285636
+    },
+    "2022-06": {
+     "contratos": 1461,
+     "valor_total": 923853225315
+    },
+    "2022-02": {
+     "contratos": 478,
+     "valor_total": 1819334984138
+    },
+    "2022-08": {
+     "contratos": 1533,
+     "valor_total": 962495337829
+    },
+    "2022-07": {
+     "contratos": 1447,
+     "valor_total": 1140792857147
+    },
+    "2022-11": {
+     "contratos": 1718,
+     "valor_total": 3987699639985
+    },
+    "2022-10": {
+     "contratos": 1318,
+     "valor_total": 1027940993101
+    },
+    "2022-09": {
+     "contratos": 1511,
+     "valor_total": 1117608040382
+    },
+    "2022-03": {
+     "contratos": 1107,
+     "valor_total": 2480020307493
+    },
+    "2022-05": {
+     "contratos": 1368,
+     "valor_total": 1844855368540
+    },
+    "2022-12": {
+     "contratos": 2485,
+     "valor_total": 4423559613715
+    },
+    "2022-01": {
+     "contratos": 738,
+     "valor_total": 997459234844
+    }
+   }
+  },
+  {
+   "nombre": "Valle del Cauca y Cundinamarca",
+   "departamentos": [
+    "Valle del Cauca",
+    "Cundinamarca"
+   ],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 63245,
+    "contratos_atipicos": 46,
+    "valor_total": 25845172860793,
+    "valor_atipicos": 24208054696930119,
+    "entidades": 467,
+    "contratistas": 16349
+   },
+   "mensual": {
+    "2026-05": {
+     "contratos": 1072,
+     "valor_total": 464643330932
+    },
+    "2020-06": {
+     "contratos": 270,
+     "valor_total": 54413192412
+    },
+    "2024-09": {
+     "contratos": 735,
+     "valor_total": 196383692346
+    },
+    "2020-12": {
+     "contratos": 385,
+     "valor_total": 101442385890
+    },
+    "2019-10": {
+     "contratos": 267,
+     "valor_total": 45076592280
+    },
+    "2018-10": {
+     "contratos": 186,
+     "valor_total": 15439506824
+    },
+    "2020-02": {
+     "contratos": 151,
+     "valor_total": 18451801438
+    },
+    "2023-08": {
+     "contratos": 836,
+     "valor_total": 327815347506
+    },
+    "2024-02": {
+     "contratos": 439,
+     "valor_total": 274704151352
+    },
+    "2021-07": {
+     "contratos": 546,
+     "valor_total": 171287279197
+    },
+    "2017-09": {
+     "contratos": 80,
+     "valor_total": 1579471311
+    },
+    "2022-04": {
+     "contratos": 645,
+     "valor_total": 408784760991
+    },
+    "2019-11": {
+     "contratos": 231,
+     "valor_total": 26248199031
+    },
+    "2023-12": {
+     "contratos": 1042,
+     "valor_total": 260165183516
+    },
+    "2021-04": {
+     "contratos": 339,
+     "valor_total": 99774593520
+    },
+    "2025-04": {
+     "contratos": 942,
+     "valor_total": 292446315542
+    },
+    "2026-06": {
+     "contratos": 1081,
+     "valor_total": 322259590240
+    },
+    "2023-11": {
+     "contratos": 1043,
+     "valor_total": 504163333838
+    },
+    "2022-06": {
+     "contratos": 806,
+     "valor_total": 279564472431
+    },
+    "2025-01": {
+     "contratos": 138,
+     "valor_total": 109495692619
+    },
+    "2025-08": {
+     "contratos": 964,
+     "valor_total": 366292850511
+    },
+    "2021-06": {
+     "contratos": 572,
+     "valor_total": 105373475136
+    },
+    "2018-06": {
+     "contratos": 221,
+     "valor_total": 18267319807
+    },
+    "2022-02": {
+     "contratos": 503,
+     "valor_total": 246661083494
+    },
+    "2017-11": {
+     "contratos": 230,
+     "valor_total": 12922802230
+    },
+    "2022-08": {
+     "contratos": 834,
+     "valor_total": 456831150026
+    },
+    "2023-07": {
+     "contratos": 766,
+     "valor_total": 311495445341
+    },
+    "2026-08": {
+     "contratos": 725,
+     "valor_total": 268982515179
+    },
+    "2021-11": {
+     "contratos": 1200,
+     "valor_total": 652222002188
+    },
+    "2024-08": {
+     "contratos": 626,
+     "valor_total": 213935372912
+    },
+    "2023-03": {
+     "contratos": 792,
+     "valor_total": 301320714027
+    },
+    "2023-10": {
+     "contratos": 909,
+     "valor_total": 241319784871
+    },
+    "2021-03": {
+     "contratos": 270,
+     "valor_total": 200848173993
+    },
+    "2021-02": {
+     "contratos": 97,
+     "valor_total": 43645778606
+    },
+    "2022-07": {
+     "contratos": 709,
+     "valor_total": 277553088647
+    },
+    "2026-04": {
+     "contratos": 1152,
+     "valor_total": 278738144673
+    },
+    "2023-02": {
+     "contratos": 465,
+     "valor_total": 403467533183
+    },
+    "2024-06": {
+     "contratos": 780,
+     "valor_total": 251242128002
+    },
+    "2021-10": {
+     "contratos": 792,
+     "valor_total": 254729093092
+    },
+    "2021-12": {
+     "contratos": 1108,
+     "valor_total": 669257461138
+    },
+    "2020-11": {
+     "contratos": 414,
+     "valor_total": 76426866253
+    },
+    "2018-05": {
+     "contratos": 224,
+     "valor_total": 40786603494
+    },
+    "2022-11": {
+     "contratos": 1044,
+     "valor_total": 259182124265
+    },
+    "2023-09": {
+     "contratos": 910,
+     "valor_total": 375802923339
+    },
+    "2018-08": {
+     "contratos": 179,
+     "valor_total": 15792156950
+    },
+    "2017-07": {
+     "contratos": 83,
+     "valor_total": 1659014032
+    },
+    "2023-04": {
+     "contratos": 720,
+     "valor_total": 1041121472097
+    },
+    "2023-05": {
+     "contratos": 814,
+     "valor_total": 272083379851
+    },
+    "2021-05": {
+     "contratos": 434,
+     "valor_total": 120432063979
+    },
+    "2022-10": {
+     "contratos": 819,
+     "valor_total": 345501243694
+    },
+    "2019-05": {
+     "contratos": 249,
+     "valor_total": 44785478619
+    },
+    "2020-07": {
+     "contratos": 344,
+     "valor_total": 63516012358
+    },
+    "2024-12": {
+     "contratos": 1604,
+     "valor_total": 1073404616025
+    },
+    "2025-11": {
+     "contratos": 1530,
+     "valor_total": 1061289031328
+    },
+    "2024-03": {
+     "contratos": 673,
+     "valor_total": 443504283891
+    },
+    "2026-02": {
+     "contratos": 598,
+     "valor_total": 237992348264
+    },
+    "2022-09": {
+     "contratos": 774,
+     "valor_total": 347545925953
+    },
+    "2024-05": {
+     "contratos": 799,
+     "valor_total": 233399526070
+    },
+    "2025-06": {
+     "contratos": 1039,
+     "valor_total": 293012276120
+    },
+    "2025-12": {
+     "contratos": 1705,
+     "valor_total": 894695099478
+    },
+    "2017-12": {
+     "contratos": 168,
+     "valor_total": 22718962618
+    },
+    "2022-03": {
+     "contratos": 966,
+     "valor_total": 254478329223
+    },
+    "2023-06": {
+     "contratos": 1089,
+     "valor_total": 638676269005
+    },
+    "2024-11": {
+     "contratos": 1166,
+     "valor_total": 306572516011
+    },
+    "2025-02": {
+     "contratos": 539,
+     "valor_total": 246671754920
+    },
+    "2025-10": {
+     "contratos": 1386,
+     "valor_total": 640108527968
+    },
+    "2022-05": {
+     "contratos": 772,
+     "valor_total": 280333910081
+    },
+    "2018-11": {
+     "contratos": 252,
+     "valor_total": 30550057319
+    },
+    "2024-10": {
+     "contratos": 959,
+     "valor_total": 301808071213
+    },
+    "2021-08": {
+     "contratos": 595,
+     "valor_total": 160533342052
+    },
+    "2020-01": {
+     "contratos": 52,
+     "valor_total": 24217292398
+    },
+    "2019-06": {
+     "contratos": 216,
+     "valor_total": 27396834264
+    },
+    "2025-03": {
+     "contratos": 767,
+     "valor_total": 287911083482
+    },
+    "2024-07": {
+     "contratos": 711,
+     "valor_total": 295240874330
+    },
+    "2019-04": {
+     "contratos": 213,
+     "valor_total": 28346552222
+    },
+    "2026-01": {
+     "contratos": 369,
+     "valor_total": 520653467453
+    },
+    "2025-07": {
+     "contratos": 1065,
+     "valor_total": 386373195072
+    },
+    "2022-12": {
+     "contratos": 1227,
+     "valor_total": 850538224545
+    },
+    "2024-04": {
+     "contratos": 747,
+     "valor_total": 168237311576
+    },
+    "2018-04": {
+     "contratos": 222,
+     "valor_total": 24511044231
+    },
+    "2025-09": {
+     "contratos": 1111,
+     "valor_total": 662178793956
+    },
+    "2026-03": {
+     "contratos": 1066,
+     "valor_total": 568935249022
+    },
+    "2020-04": {
+     "contratos": 248,
+     "valor_total": 44251301662
+    },
+    "2020-10": {
+     "contratos": 338,
+     "valor_total": 92299993539
+    },
+    "2025-05": {
+     "contratos": 1113,
+     "valor_total": 454147356925
+    },
+    "2021-09": {
+     "contratos": 718,
+     "valor_total": 181264385720
+    },
+    "2018-09": {
+     "contratos": 200,
+     "valor_total": 23159544688
+    },
+    "2026-07": {
+     "contratos": 1035,
+     "valor_total": 349261323448
+    },
+    "2020-05": {
+     "contratos": 211,
+     "valor_total": 47995989105
+    },
+    "2017-08": {
+     "contratos": 122,
+     "valor_total": 1425818910
+    },
+    "2019-08": {
+     "contratos": 199,
+     "valor_total": 30939124475
+    },
+    "2020-03": {
+     "contratos": 270,
+     "valor_total": 73404390764
+    },
+    "2020-09": {
+     "contratos": 286,
+     "valor_total": 181232568897
+    },
+    "2018-12": {
+     "contratos": 210,
+     "valor_total": 223734440723
+    },
+    "2019-12": {
+     "contratos": 189,
+     "valor_total": 20665237780
+    },
+    "2020-08": {
+     "contratos": 220,
+     "valor_total": 35428106077
+    },
+    "2018-01": {
+     "contratos": 66,
+     "valor_total": 4252081514
+    },
+    "2019-02": {
+     "contratos": 241,
+     "valor_total": 45071945036
+    },
+    "2024-01": {
+     "contratos": 140,
+     "valor_total": 121272728571
+    },
+    "2022-01": {
+     "contratos": 150,
+     "valor_total": 75957693518
+    },
+    "2018-07": {
+     "contratos": 201,
+     "valor_total": 25757111176
+    },
+    "2019-03": {
+     "contratos": 222,
+     "valor_total": 45740561196
+    },
+    "2018-03": {
+     "contratos": 188,
+     "valor_total": 10436575911
+    },
+    "2019-07": {
+     "contratos": 259,
+     "valor_total": 50175265333
+    },
+    "2019-01": {
+     "contratos": 136,
+     "valor_total": 7717107036
+    },
+    "2019-09": {
+     "contratos": 230,
+     "valor_total": 28198954954
+    },
+    "2017-10": {
+     "contratos": 138,
+     "valor_total": 5187687986
+    },
+    "2023-01": {
+     "contratos": 145,
+     "valor_total": 127835728109
+    },
+    "2017-06": {
+     "contratos": 51,
+     "valor_total": 397144671
+    },
+    "2018-02": {
+     "contratos": 116,
+     "valor_total": 10078076974
+    },
+    "2017-03": {
+     "contratos": 7,
+     "valor_total": 160259500
+    },
+    "2021-01": {
+     "contratos": 13,
+     "valor_total": 9407827765
+    },
+    "2017-05": {
+     "contratos": 10,
+     "valor_total": 35899195
+    },
+    "2017-04": {
+     "contratos": 2,
+     "valor_total": 48637712
+    },
+    "2017-02": {
+     "contratos": 3,
+     "valor_total": 21459725
+    },
+    "2016-11": {
+     "contratos": 1,
+     "valor_total": 16726040
+    },
+    "2016-02": {
+     "contratos": 1,
+     "valor_total": 3493800
+    },
+    "2016-12": {
+     "contratos": 1,
+     "valor_total": 15410945
+    },
+    "2016-10": {
+     "contratos": 2,
+     "valor_total": 5982120
+    }
+   }
+  },
+  {
+   "nombre": "SIN DEPARTAMENTO",
+   "departamentos": [
+    "SIN DEPARTAMENTO"
+   ],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 18874,
+    "contratos_atipicos": 21,
+    "valor_total": 3429990333840,
+    "valor_atipicos": 8480936225953631,
+    "entidades": 608,
+    "contratistas": 6993
+   },
+   "mensual": {
+    "2026-05": {
+     "contratos": 260,
+     "valor_total": 153092672198
+    },
+    "2024-09": {
+     "contratos": 194,
+     "valor_total": 56546052761
+    },
+    "2018-10": {
+     "contratos": 182,
+     "valor_total": 6126490379
+    },
+    "2020-02": {
+     "contratos": 134,
+     "valor_total": 4271885727
+    },
+    "2024-02": {
+     "contratos": 191,
+     "valor_total": 11712841614
+    },
+    "2021-07": {
+     "contratos": 143,
+     "valor_total": 9637108893
+    },
+    "2022-04": {
+     "contratos": 115,
+     "valor_total": 20067562522
+    },
+    "2025-04": {
+     "contratos": 182,
+     "valor_total": 59763192906
+    },
+    "2026-06": {
+     "contratos": 219,
+     "valor_total": 55431919665
+    },
+    "2023-11": {
+     "contratos": 236,
+     "valor_total": 30787899808
+    },
+    "2022-06": {
+     "contratos": 185,
+     "valor_total": 27575208488
+    },
+    "2017-10": {
+     "contratos": 72,
+     "valor_total": 3705574443
+    },
+    "2025-08": {
+     "contratos": 223,
+     "valor_total": 75133653954
+    },
+    "2018-06": {
+     "contratos": 251,
+     "valor_total": 17939027638
+    },
+    "2019-03": {
+     "contratos": 203,
+     "valor_total": 5608174790
+    },
+    "2022-08": {
+     "contratos": 164,
+     "valor_total": 41067912878
+    },
+    "2018-03": {
+     "contratos": 184,
+     "valor_total": 4667675008
+    },
+    "2023-07": {
+     "contratos": 218,
+     "valor_total": 27799617073
+    },
+    "2021-11": {
+     "contratos": 193,
+     "valor_total": 20214446456
+    },
+    "2024-08": {
+     "contratos": 147,
+     "valor_total": 21504691568
+    },
+    "2017-08": {
+     "contratos": 63,
+     "valor_total": 3028722491
+    },
+    "2021-03": {
+     "contratos": 136,
+     "valor_total": 81076587602
+    },
+    "2022-07": {
+     "contratos": 168,
+     "valor_total": 75304130046
+    },
+    "2019-07": {
+     "contratos": 189,
+     "valor_total": 8608648681
+    },
+    "2026-04": {
+     "contratos": 217,
+     "valor_total": 54739666076
+    },
+    "2021-10": {
+     "contratos": 167,
+     "valor_total": 20300092891
+    },
+    "2021-12": {
+     "contratos": 213,
+     "valor_total": 17060763835
+    },
+    "2020-11": {
+     "contratos": 154,
+     "valor_total": 13741560910
+    },
+    "2018-05": {
+     "contratos": 231,
+     "valor_total": 9602731027
+    },
+    "2022-11": {
+     "contratos": 226,
+     "valor_total": 29141829423
+    },
+    "2023-09": {
+     "contratos": 206,
+     "valor_total": 119266562302
+    },
+    "2018-08": {
+     "contratos": 224,
+     "valor_total": 25511853331
+    },
+    "2023-05": {
+     "contratos": 214,
+     "valor_total": 31983818237
+    },
+    "2021-05": {
+     "contratos": 143,
+     "valor_total": 19361585957
+    },
+    "2022-10": {
+     "contratos": 191,
+     "valor_total": 49915688777
+    },
+    "2019-05": {
+     "contratos": 220,
+     "valor_total": 8344058627
+    },
+    "2024-12": {
+     "contratos": 271,
+     "valor_total": 90954852247
+    },
+    "2019-08": {
+     "contratos": 152,
+     "valor_total": 18634507421
+    },
+    "2026-02": {
+     "contratos": 191,
+     "valor_total": 36729988703
+    },
+    "2022-09": {
+     "contratos": 203,
+     "valor_total": 23805118612
+    },
+    "2019-09": {
+     "contratos": 121,
+     "valor_total": 22055540681
+    },
+    "2024-05": {
+     "contratos": 175,
+     "valor_total": 28998831449
+    },
+    "2025-06": {
+     "contratos": 189,
+     "valor_total": 37197090616
+    },
+    "2020-03": {
+     "contratos": 159,
+     "valor_total": 4518991347
+    },
+    "2025-12": {
+     "contratos": 292,
+     "valor_total": 93649589625
+    },
+    "2024-11": {
+     "contratos": 230,
+     "valor_total": 50443243873
+    },
+    "2025-10": {
+     "contratos": 306,
+     "valor_total": 152158232462
+    },
+    "2022-05": {
+     "contratos": 192,
+     "valor_total": 9903031610
+    },
+    "2018-11": {
+     "contratos": 189,
+     "valor_total": 6156423764
+    },
+    "2024-10": {
+     "contratos": 223,
+     "valor_total": 38391477242
+    },
+    "2021-08": {
+     "contratos": 186,
+     "valor_total": 11561384532
+    },
+    "2019-06": {
+     "contratos": 132,
+     "valor_total": 5382833380
+    },
+    "2025-03": {
+     "contratos": 160,
+     "valor_total": 46667258112
+    },
+    "2024-07": {
+     "contratos": 147,
+     "valor_total": 40433966919
+    },
+    "2019-04": {
+     "contratos": 145,
+     "valor_total": 3297451860
+    },
+    "2020-09": {
+     "contratos": 131,
+     "valor_total": 6567415464
+    },
+    "2026-01": {
+     "contratos": 122,
+     "valor_total": 63933882841
+    },
+    "2025-07": {
+     "contratos": 198,
+     "valor_total": 34166964959
+    },
+    "2019-12": {
+     "contratos": 109,
+     "valor_total": 9126863033
+    },
+    "2024-04": {
+     "contratos": 163,
+     "valor_total": 25187728593
+    },
+    "2018-01": {
+     "contratos": 85,
+     "valor_total": 39016749007
+    },
+    "2019-02": {
+     "contratos": 152,
+     "valor_total": 5170025172
+    },
+    "2026-03": {
+     "contratos": 235,
+     "valor_total": 52569720468
+    },
+    "2020-04": {
+     "contratos": 132,
+     "valor_total": 7050991244
+    },
+    "2020-10": {
+     "contratos": 137,
+     "valor_total": 31005900569
+    },
+    "2025-05": {
+     "contratos": 240,
+     "valor_total": 39752160284
+    },
+    "2021-09": {
+     "contratos": 143,
+     "valor_total": 16756935916
+    },
+    "2018-09": {
+     "contratos": 166,
+     "valor_total": 5523230651
+    },
+    "2020-12": {
+     "contratos": 146,
+     "valor_total": 28705083507
+    },
+    "2019-10": {
+     "contratos": 145,
+     "valor_total": 17020425505
+    },
+    "2023-08": {
+     "contratos": 160,
+     "valor_total": 55142735314
+    },
+    "2019-11": {
+     "contratos": 135,
+     "valor_total": 10160061076
+    },
+    "2021-06": {
+     "contratos": 162,
+     "valor_total": 17464695278
+    },
+    "2020-05": {
+     "contratos": 157,
+     "valor_total": 6431611652
+    },
+    "2018-02": {
+     "contratos": 137,
+     "valor_total": 8567843773
+    },
+    "2023-02": {
+     "contratos": 149,
+     "valor_total": 26729127687
+    },
+    "2017-07": {
+     "contratos": 52,
+     "valor_total": 5006152050
+    },
+    "2025-11": {
+     "contratos": 277,
+     "valor_total": 72028839262
+    },
+    "2024-03": {
+     "contratos": 186,
+     "valor_total": 35064138393
+    },
+    "2019-01": {
+     "contratos": 67,
+     "valor_total": 3381805591
+    },
+    "2017-12": {
+     "contratos": 114,
+     "valor_total": 11630917667
+    },
+    "2022-03": {
+     "contratos": 161,
+     "valor_total": 15651937591
+    },
+    "2016-11": {
+     "contratos": 22,
+     "valor_total": 12982550628
+    },
+    "2018-12": {
+     "contratos": 183,
+     "valor_total": 19747672800
+    },
+    "2022-12": {
+     "contratos": 278,
+     "valor_total": 87417152773
+    },
+    "2018-04": {
+     "contratos": 195,
+     "valor_total": 10556465615
+    },
+    "2026-07": {
+     "contratos": 163,
+     "valor_total": 26233619544
+    },
+    "2021-04": {
+     "contratos": 135,
+     "valor_total": 25890610649
+    },
+    "2025-01": {
+     "contratos": 77,
+     "valor_total": 33430081401
+    },
+    "2017-05": {
+     "contratos": 80,
+     "valor_total": 2853342925
+    },
+    "2022-02": {
+     "contratos": 115,
+     "valor_total": 6793798427
+    },
+    "2026-08": {
+     "contratos": 147,
+     "valor_total": 76607422660
+    },
+    "2023-03": {
+     "contratos": 237,
+     "valor_total": 32919505364
+    },
+    "2023-10": {
+     "contratos": 183,
+     "valor_total": 53301170861
+    },
+    "2023-04": {
+     "contratos": 183,
+     "valor_total": 28091597889
+    },
+    "2020-07": {
+     "contratos": 125,
+     "valor_total": 7081462982
+    },
+    "2023-06": {
+     "contratos": 211,
+     "valor_total": 63544374431
+    },
+    "2025-02": {
+     "contratos": 170,
+     "valor_total": 34061081966
+    },
+    "2025-09": {
+     "contratos": 195,
+     "valor_total": 33778337643
+    },
+    "2024-01": {
+     "contratos": 56,
+     "valor_total": 8866322223
+    },
+    "2017-01": {
+     "contratos": 130,
+     "valor_total": 7597634835
+    },
+    "2023-12": {
+     "contratos": 246,
+     "valor_total": 120412159345
+    },
+    "2017-11": {
+     "contratos": 115,
+     "valor_total": 8309075751
+    },
+    "2016-12": {
+     "contratos": 13,
+     "valor_total": 1089141439
+    },
+    "2021-02": {
+     "contratos": 78,
+     "valor_total": 5245754633
+    },
+    "2017-02": {
+     "contratos": 74,
+     "valor_total": 4089305623
+    },
+    "2017-04": {
+     "contratos": 69,
+     "valor_total": 1997447749
+    },
+    "2018-07": {
+     "contratos": 158,
+     "valor_total": 14899935328
+    },
+    "2017-09": {
+     "contratos": 70,
+     "valor_total": 17154642012
+    },
+    "2017-06": {
+     "contratos": 62,
+     "valor_total": 2771186361
+    },
+    "2024-06": {
+     "contratos": 175,
+     "valor_total": 34446395388
+    },
+    "2020-06": {
+     "contratos": 159,
+     "valor_total": 6016902680
+    },
+    "2016-04": {
+     "contratos": 12,
+     "valor_total": 95940410
+    },
+    "2022-01": {
+     "contratos": 47,
+     "valor_total": 10940552554
+    },
+    "2023-01": {
+     "contratos": 51,
+     "valor_total": 12939222706
+    },
+    "2020-01": {
+     "contratos": 51,
+     "valor_total": 834298623
+    },
+    "2020-08": {
+     "contratos": 107,
+     "valor_total": 11600059607
+    },
+    "2016-08": {
+     "contratos": 11,
+     "valor_total": 5553437534
+    },
+    "2016-07": {
+     "contratos": 7,
+     "valor_total": 574967162
+    },
+    "2017-03": {
+     "contratos": 48,
+     "valor_total": 6158214932
+    },
+    "2016-02": {
+     "contratos": 1,
+     "valor_total": 9500
+    },
+    "2021-01": {
+     "contratos": 15,
+     "valor_total": 1656230972
+    },
+    "2016-03": {
+     "contratos": 6,
+     "valor_total": 58959886
+    },
+    "2016-06": {
+     "contratos": 9,
+     "valor_total": 1399551284
+    },
+    "2016-09": {
+     "contratos": 9,
+     "valor_total": 235219014
+    },
+    "2016-10": {
+     "contratos": 9,
+     "valor_total": 256908643
+    },
+    "2016-05": {
+     "contratos": 5,
+     "valor_total": 104943104
+    }
+   }
+  },
+  {
+   "nombre": "una entidad (SENA), 2019-2025",
+   "departamentos": [],
+   "entidades": [
+    "NIT:899999034"
+   ],
+   "desde": "2019-01",
+   "hasta": "2025-12",
+   "totales": {
+    "contratos": 29449,
+    "contratos_atipicos": 5,
+    "valor_total": 5094943030604,
+    "valor_atipicos": 42303100000,
+    "entidades": 1,
+    "contratistas": 6326
+   },
+   "mensual": {
+    "2024-09": {
+     "contratos": 561,
+     "valor_total": 56195550121
+    },
+    "2020-12": {
+     "contratos": 699,
+     "valor_total": 142521421297
+    },
+    "2019-10": {
+     "contratos": 61,
+     "valor_total": 64524612747
+    },
+    "2023-08": {
+     "contratos": 590,
+     "valor_total": 52134381804
+    },
+    "2021-07": {
+     "contratos": 374,
+     "valor_total": 23371543923
+    },
+    "2023-12": {
+     "contratos": 844,
+     "valor_total": 142870422974
+    },
+    "2021-04": {
+     "contratos": 227,
+     "valor_total": 34936233502
+    },
+    "2023-11": {
+     "contratos": 790,
+     "valor_total": 54273888034
+    },
+    "2022-06": {
+     "contratos": 561,
+     "valor_total": 42406454645
+    },
+    "2025-08": {
+     "contratos": 653,
+     "valor_total": 74280293773
+    },
+    "2021-06": {
+     "contratos": 373,
+     "valor_total": 35191803959
+    },
+    "2022-08": {
+     "contratos": 481,
+     "valor_total": 37053475885
+    },
+    "2023-07": {
+     "contratos": 505,
+     "valor_total": 40967881021
+    },
+    "2020-05": {
+     "contratos": 229,
+     "valor_total": 48030038004
+    },
+    "2021-11": {
+     "contratos": 552,
+     "valor_total": 55912582605
+    },
+    "2024-08": {
+     "contratos": 523,
+     "valor_total": 45717032953
+    },
+    "2023-03": {
+     "contratos": 136,
+     "valor_total": 89044013654
+    },
+    "2023-10": {
+     "contratos": 674,
+     "valor_total": 49975264302
+    },
+    "2022-07": {
+     "contratos": 452,
+     "valor_total": 52308549623
+    },
+    "2024-06": {
+     "contratos": 583,
+     "valor_total": 89856270370
+    },
+    "2021-10": {
+     "contratos": 451,
+     "valor_total": 28538289049
+    },
+    "2020-11": {
+     "contratos": 663,
+     "valor_total": 64269849465
+    },
+    "2022-11": {
+     "contratos": 527,
+     "valor_total": 22223704586
+    },
+    "2022-10": {
+     "contratos": 424,
+     "valor_total": 20646271440
+    },
+    "2020-07": {
+     "contratos": 384,
+     "valor_total": 71473481338
+    },
+    "2024-12": {
+     "contratos": 610,
+     "valor_total": 76196479862
+    },
+    "2023-01": {
+     "contratos": 5,
+     "valor_total": 2233386271
+    },
+    "2024-03": {
+     "contratos": 177,
+     "valor_total": 16371587863
+    },
+    "2022-09": {
+     "contratos": 455,
+     "valor_total": 24363926746
+    },
+    "2024-05": {
+     "contratos": 505,
+     "valor_total": 38607424095
+    },
+    "2025-06": {
+     "contratos": 640,
+     "valor_total": 92668139233
+    },
+    "2025-12": {
+     "contratos": 789,
+     "valor_total": 164095805317
+    },
+    "2022-03": {
+     "contratos": 234,
+     "valor_total": 18274687294
+    },
+    "2023-06": {
+     "contratos": 490,
+     "valor_total": 41808183206
+    },
+    "2024-11": {
+     "contratos": 621,
+     "valor_total": 75782341262
+    },
+    "2025-10": {
+     "contratos": 758,
+     "valor_total": 399573498541
+    },
+    "2022-05": {
+     "contratos": 492,
+     "valor_total": 28749215331
+    },
+    "2024-10": {
+     "contratos": 570,
+     "valor_total": 41698602607
+    },
+    "2021-08": {
+     "contratos": 457,
+     "valor_total": 41814860848
+    },
+    "2025-03": {
+     "contratos": 187,
+     "valor_total": 40023997775
+    },
+    "2024-07": {
+     "contratos": 532,
+     "valor_total": 46253962445
+    },
+    "2025-07": {
+     "contratos": 708,
+     "valor_total": 93791843008
+    },
+    "2022-12": {
+     "contratos": 397,
+     "valor_total": 42994624397
+    },
+    "2020-08": {
+     "contratos": 363,
+     "valor_total": 96197109371
+    },
+    "2024-04": {
+     "contratos": 426,
+     "valor_total": 48071622810
+    },
+    "2025-09": {
+     "contratos": 620,
+     "valor_total": 73901943785
+    },
+    "2020-04": {
+     "contratos": 196,
+     "valor_total": 64775650946
+    },
+    "2020-10": {
+     "contratos": 507,
+     "valor_total": 65455272814
+    },
+    "2025-05": {
+     "contratos": 612,
+     "valor_total": 172112668501
+    },
+    "2021-09": {
+     "contratos": 470,
+     "valor_total": 39356464666
+    },
+    "2024-02": {
+     "contratos": 53,
+     "valor_total": 25834011104
+    },
+    "2022-04": {
+     "contratos": 293,
+     "valor_total": 23714683804
+    },
+    "2025-04": {
+     "contratos": 343,
+     "valor_total": 66735060109
+    },
+    "2022-02": {
+     "contratos": 44,
+     "valor_total": 1814490613
+    },
+    "2021-12": {
+     "contratos": 580,
+     "valor_total": 97947721675
+    },
+    "2023-09": {
+     "contratos": 577,
+     "valor_total": 57636586657
+    },
+    "2023-05": {
+     "contratos": 349,
+     "valor_total": 25365965773
+    },
+    "2021-05": {
+     "contratos": 294,
+     "valor_total": 41752222950
+    },
+    "2025-11": {
+     "contratos": 800,
+     "valor_total": 226261315152
+    },
+    "2020-03": {
+     "contratos": 193,
+     "valor_total": 125598215840
+    },
+    "2019-06": {
+     "contratos": 45,
+     "valor_total": 3294562564
+    },
+    "2020-06": {
+     "contratos": 279,
+     "valor_total": 16511326917
+    },
+    "2019-11": {
+     "contratos": 103,
+     "valor_total": 23763800588
+    },
+    "2021-03": {
+     "contratos": 139,
+     "valor_total": 31981562468
+    },
+    "2019-07": {
+     "contratos": 49,
+     "valor_total": 24320089348
+    },
+    "2023-04": {
+     "contratos": 212,
+     "valor_total": 23795702154
+    },
+    "2019-05": {
+     "contratos": 57,
+     "valor_total": 4584775303
+    },
+    "2020-09": {
+     "contratos": 434,
+     "valor_total": 89039910802
+    },
+    "2023-02": {
+     "contratos": 47,
+     "valor_total": 28628198611
+    },
+    "2019-09": {
+     "contratos": 57,
+     "valor_total": 707758808208
+    },
+    "2019-02": {
+     "contratos": 14,
+     "valor_total": 343916014
+    },
+    "2019-08": {
+     "contratos": 41,
+     "valor_total": 11966774828
+    },
+    "2025-02": {
+     "contratos": 51,
+     "valor_total": 16639398648
+    },
+    "2022-01": {
+     "contratos": 51,
+     "valor_total": 88033162807
+    },
+    "2021-02": {
+     "contratos": 20,
+     "valor_total": 1105487092
+    },
+    "2020-02": {
+     "contratos": 50,
+     "valor_total": 11203048796
+    },
+    "2019-12": {
+     "contratos": 82,
+     "valor_total": 28421459787
+    },
+    "2019-03": {
+     "contratos": 13,
+     "valor_total": 886817266
+    },
+    "2024-01": {
+     "contratos": 10,
+     "valor_total": 4141977240
+    },
+    "2020-01": {
+     "contratos": 10,
+     "valor_total": 723007720
+    },
+    "2019-04": {
+     "contratos": 17,
+     "valor_total": 504782770
+    },
+    "2025-01": {
+     "contratos": 4,
+     "valor_total": 737576928
+    }
+   }
+  },
+  {
+   "nombre": "primeros años, 2015-2017",
+   "departamentos": [],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2017-12",
+   "totales": {
+    "contratos": 20172,
+    "contratos_atipicos": 66,
+    "valor_total": 4019941716305,
+    "valor_atipicos": 134347645856870,
+    "entidades": 379,
+    "contratistas": 13015
+   },
+   "mensual": {
+    "2017-09": {
+     "contratos": 1564,
+     "valor_total": 263011829891
+    },
+    "2017-10": {
+     "contratos": 1551,
+     "valor_total": 258798193548
+    },
+    "2017-05": {
+     "contratos": 843,
+     "valor_total": 70848120477
+    },
+    "2017-11": {
+     "contratos": 2296,
+     "valor_total": 639335348465
+    },
+    "2017-03": {
+     "contratos": 1211,
+     "valor_total": 60001306048
+    },
+    "2016-12": {
+     "contratos": 279,
+     "valor_total": 60560451165
+    },
+    "2017-08": {
+     "contratos": 1628,
+     "valor_total": 309386304223
+    },
+    "2017-06": {
+     "contratos": 803,
+     "valor_total": 82086936715
+    },
+    "2016-10": {
+     "contratos": 224,
+     "valor_total": 470669249276
+    },
+    "2017-02": {
+     "contratos": 1545,
+     "valor_total": 368185474782
+    },
+    "2017-04": {
+     "contratos": 665,
+     "valor_total": 55627429018
+    },
+    "2017-07": {
+     "contratos": 1263,
+     "valor_total": 137959093539
+    },
+    "2017-12": {
+     "contratos": 2801,
+     "valor_total": 933475236952
+    },
+    "2016-11": {
+     "contratos": 290,
+     "valor_total": 63975829034
+    },
+    "2016-07": {
+     "contratos": 239,
+     "valor_total": 12108290826
+    },
+    "2016-08": {
+     "contratos": 225,
+     "valor_total": 24611033727
+    },
+    "2017-01": {
+     "contratos": 2114,
+     "valor_total": 138644112510
+    },
+    "2016-09": {
+     "contratos": 226,
+     "valor_total": 24600571319
+    },
+    "2016-06": {
+     "contratos": 147,
+     "valor_total": 21657953901
+    },
+    "2016-01": {
+     "contratos": 18,
+     "valor_total": 1091205094
+    },
+    "2015-11": {
+     "contratos": 7,
+     "valor_total": 788812842
+    },
+    "2016-05": {
+     "contratos": 65,
+     "valor_total": 4105744541
+    },
+    "2016-04": {
+     "contratos": 99,
+     "valor_total": 3657303906
+    },
+    "2016-03": {
+     "contratos": 28,
+     "valor_total": 1522967088
+    },
+    "2016-02": {
+     "contratos": 19,
+     "valor_total": 4877523644
+    },
+    "2015-09": {
+     "contratos": 6,
+     "valor_total": 2716624880
+    },
+    "2015-12": {
+     "contratos": 9,
+     "valor_total": 140261517
+    },
+    "2015-10": {
+     "contratos": 3,
+     "valor_total": 933164150
+    },
+    "2015-08": {
+     "contratos": 1,
+     "valor_total": 22020100
+    },
+    "2015-07": {
+     "contratos": 2,
+     "valor_total": 3979563127
+    },
+    "2015-06": {
+     "contratos": 1,
+     "valor_total": 563760000
+    }
+   }
+  }
+ ]
+}

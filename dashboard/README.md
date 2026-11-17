@@ -2,7 +2,48 @@
 
 Dashboard interactivo del Observatorio de Contratación Pública. Responde las tres preguntas del enunciado: dónde se concentra el gasto, quiénes son los principales actores y cómo varía la contratación en el tiempo.
 
-**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología), T4.3 (filtros y tarjetas), T4.4 (visualización temporal), T4.5 (rankings) y T4.6 (geografía y concentración) cerradas el 16-nov-2026. Falta T4.7: pruebas finales y capturas comentadas.
+**Estado:** el bloque 4 está cerrado el 16-nov-2026: T4.1 (tablas de consumo), T4.2 (tecnología), T4.3 (filtros y tarjetas), T4.4 (visualización temporal), T4.5 (rankings), T4.6 (geografía y concentración) y T4.7 (pruebas de consistencia y capturas).
+
+## Pruebas de consistencia y capturas (T4.7)
+
+**Fecha del último lote.** Bajo el título, el dashboard muestra «Último lote procesado por el flujo»: la hora en que el flujo del notebook `06` escribió su último micro-lote (2026-11-16 23:17 UTC, de `metadatos.json`), junto con la fecha de generación de las tablas y el periodo de los datos.
+
+**Cifras comparadas con Spark.** Tres comprobadores comparan el dashboard con consultas de Spark que parten **directamente de gold**, sin usar las tablas de consumo, para siete combinaciones de filtros (sin filtros; Antioquia 2020-2023; Bogotá 2022; Valle del Cauca y Cundinamarca; SIN DEPARTAMENTO; una entidad, el SENA, 2019-2025; 2015-2017). Cada combinación compara en pesos y contratos exactos:
+
+| Comprobador | Qué compara | Referencia de Spark |
+|---|---|---|
+| `comprobar_cifras.py` | las 5 tarjetas (contratos, atípicos, valor, entidades y contratistas distintos) y **cada punto del gráfico mensual**, incluidos los meses sin contratos | `verificacion/cifras_spark.json` |
+| `comprobar_rankings.py` | 4 tops de 10 filas (entidades y contratistas, por valor y por contratos) y las tablas de la pantalla | `verificacion/rankings_spark.json` |
+| `comprobar_geografia.py` | valor y contratos de cada departamento (con «Sin departamento»), y la concentración (entidades para el 50 % y el 80 %, 10 primeras) | `verificacion/geografia_spark.json` |
+
+Cifras de las tarjetas, las mismas en Spark y en el dashboard:
+
+| Combinación de filtros | Contratos | Valor (pesos, sin atípicos) | Entidades | Contratistas | Meses |
+|---|---|---|---|---|---|
+| Sin filtros | 530.192 | 352.909.018.925.397 | 4.050 | 99.606 | 136 |
+| Antioquia, 2020 a 2023 | 27.728 | 15.492.643.343.984 | 279 | 7.050 | 48 |
+| Bogotá, 2022 | 16.315 | 21.387.853.888.125 | 262 | 6.573 | 12 |
+| Valle del Cauca y Cundinamarca | 63.245 | 25.845.172.860.793 | 467 | 16.349 | 136 |
+| SIN DEPARTAMENTO | 18.874 | 3.429.990.333.840 | 608 | 6.993 | 136 |
+| Una entidad (SENA), 2019 a 2025 | 29.449 | 5.094.943.030.604 | 1 | 6.326 | 84 |
+| 2015 a 2017 | 20.172 | 4.019.941.716.305 | 379 | 13.015 | 31 |
+
+Resultado del 16-nov-2026: **todas las cifras coinciden**. Cada comprobador se probó alterando a propósito la referencia (un peso, un contratista, una entidad, un mes, el orden de dos filas, la categoría «Sin departamento») y falla en todos los casos.
+
+Para repetirlo, con el entorno de Spark levantado, primero se regeneran las referencias y después se comprueba:
+
+```
+docker exec spark python /home/jovyan/work/scripts/consultas_spark_cifras.py
+docker exec spark python /home/jovyan/work/scripts/consultas_spark_rankings.py
+docker exec spark python /home/jovyan/work/scripts/consultas_spark_geografia.py
+.venv\Scripts\python scripts\comprobar_dashboard.py
+```
+
+Si gold o las tablas de consumo cambian, hay que volver a ejecutar los tres primeros. El último comando no necesita Spark: solo lee los JSON de `verificacion/` y las tablas de `data/`.
+
+**Capturas comentadas.** Ocho capturas (cada módulo y tres filtros: departamento y fechas, una sola entidad y una combinación sin resultados) con su comentario al pie, en `report/evidencias/t4.7_capturas_comentadas.md`. Se toman con `.venv\Scripts\python scripts\capturar_dashboard.py` (Microsoft Edge sin ventana; no instala nada). Los filtros van en la dirección para que cada captura se pueda repetir, por ejemplo `http://localhost:8501/?departamento=Antioquia&desde=2020-01&hasta=2023-12`. Parámetros: `departamento` y `entidad` (se pueden repetir), `desde` y `hasta` (`AAAA-MM`), `n` (1 a 50) y `orden` (`valor` o `contratos`); los valores que no existen se ignoran, y después mandan los filtros de la pantalla.
+
+**Abre sin errores en un entorno limpio.** Se probó con una copia de los archivos del repositorio en una carpeta nueva, sin Spark, Java ni Docker: se creó un entorno de Python desde cero, se instaló `dashboard/requirements.txt` (unos 55 s; Streamlit 1.67, pandas 3.1), el dashboard respondió en 1 s con el comando de arranque, cargó completo en 8 s con 0 excepciones, errores y avisos, y los tres comprobadores pasaron. **No se probó en el equipo de la sustentación**: hay que abrirlo allí antes, con Python 3.10 o posterior y acceso a internet para instalar los paquetes la primera vez (o instalarlos antes).
 
 ## Geografía y concentración (T4.6)
 
