@@ -1,0 +1,671 @@
+{
+ "generado_utc": "2026-11-17 02:05",
+ "casos": [
+  {
+   "nombre": "sin filtros",
+   "departamentos": [],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 530192,
+    "valor_total": 352909018925397
+   },
+   "por_departamento": {
+    "Cundinamarca": {
+     "contratos": 29126,
+     "contratos_atipicos": 23,
+     "valor_total": 10768458248252
+    },
+    "Antioquia": {
+     "contratos": 59982,
+     "contratos_atipicos": 43,
+     "valor_total": 38696546390939
+    },
+    "Norte de Santander": {
+     "contratos": 11774,
+     "contratos_atipicos": 6,
+     "valor_total": 5040552222574
+    },
+    "Santander": {
+     "contratos": 24481,
+     "contratos_atipicos": 23,
+     "valor_total": 9363747585156
+    },
+    "Atlántico": {
+     "contratos": 10683,
+     "contratos_atipicos": 4,
+     "valor_total": 7386003332930
+    },
+    "Distrito Capital de Bogotá": {
+     "contratos": 150188,
+     "contratos_atipicos": 169,
+     "valor_total": 189139613976302
+    },
+    "Casanare": {
+     "contratos": 7313,
+     "contratos_atipicos": 8,
+     "valor_total": 2997100179592
+    },
+    "Huila": {
+     "contratos": 11122,
+     "contratos_atipicos": 5,
+     "valor_total": 2449537038789
+    },
+    "Bolívar": {
+     "contratos": 13311,
+     "contratos_atipicos": 10,
+     "valor_total": 9487438647058
+    },
+    "Magdalena": {
+     "contratos": 4402,
+     "contratos_atipicos": 3,
+     "valor_total": 4175035292125
+    },
+    "Valle del Cauca": {
+     "contratos": 34119,
+     "contratos_atipicos": 23,
+     "valor_total": 15076714612541
+    },
+    "Risaralda": {
+     "contratos": 8918,
+     "contratos_atipicos": 4,
+     "valor_total": 3700484233281
+    },
+    "Sucre": {
+     "contratos": 5254,
+     "contratos_atipicos": 5,
+     "valor_total": 2559717163148
+    },
+    "La Guajira": {
+     "contratos": 4674,
+     "contratos_atipicos": 3,
+     "valor_total": 2710129028967
+    },
+    "Tolima": {
+     "contratos": 14692,
+     "contratos_atipicos": 7,
+     "valor_total": 5447538884596
+    },
+    "Guaviare": {
+     "contratos": 1036,
+     "contratos_atipicos": 0,
+     "valor_total": 92700634692
+    },
+    "San Andrés, Providencia y Santa Catalina": {
+     "contratos": 1976,
+     "contratos_atipicos": 1,
+     "valor_total": 689905929004
+    },
+    "Vichada": {
+     "contratos": 1334,
+     "contratos_atipicos": 2,
+     "valor_total": 142403397140
+    },
+    "Cauca": {
+     "contratos": 7787,
+     "contratos_atipicos": 2,
+     "valor_total": 1564806336202
+    },
+    "Quindío": {
+     "contratos": 6336,
+     "contratos_atipicos": 6,
+     "valor_total": 1439865967753
+    },
+    "Meta": {
+     "contratos": 15195,
+     "contratos_atipicos": 8,
+     "valor_total": 6231663601454
+    },
+    "Amazonas": {
+     "contratos": 2169,
+     "contratos_atipicos": 2,
+     "valor_total": 437368431111
+    },
+    "Cesar": {
+     "contratos": 6184,
+     "contratos_atipicos": 10,
+     "valor_total": 5280931625992
+    },
+    "Córdoba": {
+     "contratos": 5508,
+     "contratos_atipicos": 2,
+     "valor_total": 4122691537537
+    },
+    "Vaupés": {
+     "contratos": 311,
+     "contratos_atipicos": 0,
+     "valor_total": 23190062503
+    },
+    "Guainía": {
+     "contratos": 662,
+     "contratos_atipicos": 0,
+     "valor_total": 47417744192
+    },
+    "Chocó": {
+     "contratos": 2700,
+     "contratos_atipicos": 1,
+     "valor_total": 2770704429769
+    },
+    "Arauca": {
+     "contratos": 4934,
+     "contratos_atipicos": 0,
+     "valor_total": 2004578930784
+    },
+    "Caquetá": {
+     "contratos": 6715,
+     "contratos_atipicos": 5,
+     "valor_total": 1469149132638
+    },
+    "Putumayo": {
+     "contratos": 4827,
+     "contratos_atipicos": 2,
+     "valor_total": 1561401045818
+    },
+    "Boyacá": {
+     "contratos": 30007,
+     "contratos_atipicos": 21,
+     "valor_total": 6696680134674
+    },
+    "SIN DEPARTAMENTO": {
+     "contratos": 18874,
+     "contratos_atipicos": 21,
+     "valor_total": 3429990333840
+    },
+    "Caldas": {
+     "contratos": 15941,
+     "contratos_atipicos": 10,
+     "valor_total": 4278163584593
+    },
+    "Nariño": {
+     "contratos": 7657,
+     "contratos_atipicos": 3,
+     "valor_total": 1626789229451
+    }
+   },
+   "concentracion": {
+    "entidades": 4050,
+    "total": 352909018925397,
+    "top10_valor": 110242804767820,
+    "para_50": 30,
+    "para_80": 150
+   }
+  },
+  {
+   "nombre": "Antioquia, 2020-2023",
+   "departamentos": [
+    "Antioquia"
+   ],
+   "entidades": [],
+   "desde": "2020-01",
+   "hasta": "2023-12",
+   "totales": {
+    "contratos": 27728,
+    "valor_total": 15492643343984
+   },
+   "por_departamento": {
+    "Antioquia": {
+     "contratos": 27728,
+     "contratos_atipicos": 18,
+     "valor_total": 15492643343984
+    }
+   },
+   "concentracion": {
+    "entidades": 279,
+    "total": 15492643343984,
+    "top10_valor": 11691479536927,
+    "para_50": 2,
+    "para_80": 15
+   }
+  },
+  {
+   "nombre": "Bogotá, 2022",
+   "departamentos": [
+    "Distrito Capital de Bogotá"
+   ],
+   "entidades": [],
+   "desde": "2022-01",
+   "hasta": "2022-12",
+   "totales": {
+    "contratos": 16315,
+    "valor_total": 21387853888125
+   },
+   "por_departamento": {
+    "Distrito Capital de Bogotá": {
+     "contratos": 16315,
+     "contratos_atipicos": 5,
+     "valor_total": 21387853888125
+    }
+   },
+   "concentracion": {
+    "entidades": 262,
+    "total": 21387853888125,
+    "top10_valor": 12134868796090,
+    "para_50": 8,
+    "para_80": 32
+   }
+  },
+  {
+   "nombre": "Valle del Cauca y Cundinamarca",
+   "departamentos": [
+    "Valle del Cauca",
+    "Cundinamarca"
+   ],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 63245,
+    "valor_total": 25845172860793
+   },
+   "por_departamento": {
+    "Cundinamarca": {
+     "contratos": 29126,
+     "contratos_atipicos": 23,
+     "valor_total": 10768458248252
+    },
+    "Valle del Cauca": {
+     "contratos": 34119,
+     "contratos_atipicos": 23,
+     "valor_total": 15076714612541
+    }
+   },
+   "concentracion": {
+    "entidades": 467,
+    "total": 25845172860793,
+    "top10_valor": 13814754185315,
+    "para_50": 9,
+    "para_80": 34
+   }
+  },
+  {
+   "nombre": "SIN DEPARTAMENTO",
+   "departamentos": [
+    "SIN DEPARTAMENTO"
+   ],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 18874,
+    "valor_total": 3429990333840
+   },
+   "por_departamento": {
+    "SIN DEPARTAMENTO": {
+     "contratos": 18874,
+     "contratos_atipicos": 21,
+     "valor_total": 3429990333840
+    }
+   },
+   "concentracion": {
+    "entidades": 608,
+    "total": 3429990333840,
+    "top10_valor": 1575928658305,
+    "para_50": 12,
+    "para_80": 38
+   }
+  },
+  {
+   "nombre": "una entidad (SENA), 2019-2025",
+   "departamentos": [],
+   "entidades": [
+    "NIT:899999034"
+   ],
+   "desde": "2019-01",
+   "hasta": "2025-12",
+   "totales": {
+    "contratos": 29449,
+    "valor_total": 5094943030604
+   },
+   "por_departamento": {
+    "Cundinamarca": {
+     "contratos": 859,
+     "contratos_atipicos": 0,
+     "valor_total": 78724809560
+    },
+    "Antioquia": {
+     "contratos": 2691,
+     "contratos_atipicos": 1,
+     "valor_total": 339077643016
+    },
+    "Norte de Santander": {
+     "contratos": 697,
+     "contratos_atipicos": 0,
+     "valor_total": 70594823328
+    },
+    "Atlántico": {
+     "contratos": 1154,
+     "contratos_atipicos": 0,
+     "valor_total": 153389869187
+    },
+    "Santander": {
+     "contratos": 2288,
+     "contratos_atipicos": 1,
+     "valor_total": 155752514345
+    },
+    "Distrito Capital de Bogotá": {
+     "contratos": 3018,
+     "contratos_atipicos": 0,
+     "valor_total": 2643056918129
+    },
+    "Huila": {
+     "contratos": 1632,
+     "contratos_atipicos": 0,
+     "valor_total": 104886082260
+    },
+    "Bolívar": {
+     "contratos": 856,
+     "contratos_atipicos": 0,
+     "valor_total": 133583558807
+    },
+    "Magdalena": {
+     "contratos": 791,
+     "contratos_atipicos": 0,
+     "valor_total": 61828547218
+    },
+    "Valle del Cauca": {
+     "contratos": 2493,
+     "contratos_atipicos": 0,
+     "valor_total": 274654728812
+    },
+    "Sucre": {
+     "contratos": 435,
+     "contratos_atipicos": 1,
+     "valor_total": 32248421402
+    },
+    "La Guajira": {
+     "contratos": 649,
+     "contratos_atipicos": 0,
+     "valor_total": 71731504771
+    },
+    "Tolima": {
+     "contratos": 1078,
+     "contratos_atipicos": 1,
+     "valor_total": 84453254790
+    },
+    "Quindío": {
+     "contratos": 626,
+     "contratos_atipicos": 0,
+     "valor_total": 43447889023
+    },
+    "Cauca": {
+     "contratos": 1202,
+     "contratos_atipicos": 0,
+     "valor_total": 113175031837
+    },
+    "Meta": {
+     "contratos": 682,
+     "contratos_atipicos": 0,
+     "valor_total": 55708185608
+    },
+    "Amazonas": {
+     "contratos": 230,
+     "contratos_atipicos": 1,
+     "valor_total": 14611847208
+    },
+    "Cesar": {
+     "contratos": 646,
+     "contratos_atipicos": 0,
+     "valor_total": 72347558809
+    },
+    "Córdoba": {
+     "contratos": 637,
+     "contratos_atipicos": 0,
+     "valor_total": 66128697127
+    },
+    "Vaupés": {
+     "contratos": 149,
+     "contratos_atipicos": 0,
+     "valor_total": 8486976442
+    },
+    "Arauca": {
+     "contratos": 274,
+     "contratos_atipicos": 0,
+     "valor_total": 23223131919
+    },
+    "Putumayo": {
+     "contratos": 213,
+     "contratos_atipicos": 0,
+     "valor_total": 28593171036
+    },
+    "Boyacá": {
+     "contratos": 1124,
+     "contratos_atipicos": 0,
+     "valor_total": 131758989897
+    },
+    "Caldas": {
+     "contratos": 1221,
+     "contratos_atipicos": 0,
+     "valor_total": 93168317707
+    },
+    "Nariño": {
+     "contratos": 1389,
+     "contratos_atipicos": 0,
+     "valor_total": 73731401488
+    },
+    "Risaralda": {
+     "contratos": 899,
+     "contratos_atipicos": 0,
+     "valor_total": 68739231985
+    },
+    "San Andrés, Providencia y Santa Catalina": {
+     "contratos": 220,
+     "contratos_atipicos": 0,
+     "valor_total": 16976780513
+    },
+    "Chocó": {
+     "contratos": 356,
+     "contratos_atipicos": 0,
+     "valor_total": 21480505218
+    },
+    "Guainía": {
+     "contratos": 179,
+     "contratos_atipicos": 0,
+     "valor_total": 11327342849
+    },
+    "Caquetá": {
+     "contratos": 333,
+     "contratos_atipicos": 0,
+     "valor_total": 19719128685
+    },
+    "Guaviare": {
+     "contratos": 250,
+     "contratos_atipicos": 0,
+     "valor_total": 20112538644
+    },
+    "Vichada": {
+     "contratos": 178,
+     "contratos_atipicos": 0,
+     "valor_total": 8223628984
+    }
+   },
+   "concentracion": {
+    "entidades": 1,
+    "total": 5094943030604,
+    "top10_valor": 5094943030604,
+    "para_50": 1,
+    "para_80": 1
+   }
+  },
+  {
+   "nombre": "primeros años, 2015-2017",
+   "departamentos": [],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2017-12",
+   "totales": {
+    "contratos": 20172,
+    "valor_total": 4019941716305
+   },
+   "por_departamento": {
+    "Cundinamarca": {
+     "contratos": 677,
+     "contratos_atipicos": 2,
+     "valor_total": 25816194809
+    },
+    "Antioquia": {
+     "contratos": 322,
+     "contratos_atipicos": 1,
+     "valor_total": 72738473040
+    },
+    "Norte de Santander": {
+     "contratos": 38,
+     "contratos_atipicos": 0,
+     "valor_total": 4957027792
+    },
+    "Santander": {
+     "contratos": 2374,
+     "contratos_atipicos": 3,
+     "valor_total": 37783031499
+    },
+    "Distrito Capital de Bogotá": {
+     "contratos": 14017,
+     "contratos_atipicos": 58,
+     "valor_total": 3636140005309
+    },
+    "Casanare": {
+     "contratos": 43,
+     "contratos_atipicos": 0,
+     "valor_total": 3726809819
+    },
+    "Bolívar": {
+     "contratos": 275,
+     "contratos_atipicos": 0,
+     "valor_total": 29978661127
+    },
+    "Valle del Cauca": {
+     "contratos": 222,
+     "contratos_atipicos": 0,
+     "valor_total": 20382575986
+    },
+    "La Guajira": {
+     "contratos": 46,
+     "contratos_atipicos": 0,
+     "valor_total": 11654869025
+    },
+    "Caquetá": {
+     "contratos": 60,
+     "contratos_atipicos": 0,
+     "valor_total": 3305594318
+    },
+    "SIN DEPARTAMENTO": {
+     "contratos": 1053,
+     "contratos_atipicos": 2,
+     "valor_total": 96653845443
+    },
+    "Huila": {
+     "contratos": 52,
+     "contratos_atipicos": 0,
+     "valor_total": 3450637904
+    },
+    "Sucre": {
+     "contratos": 67,
+     "contratos_atipicos": 0,
+     "valor_total": 4602237365
+    },
+    "Guaviare": {
+     "contratos": 21,
+     "contratos_atipicos": 0,
+     "valor_total": 910395378
+    },
+    "Quindío": {
+     "contratos": 39,
+     "contratos_atipicos": 0,
+     "valor_total": 2365291043
+    },
+    "Meta": {
+     "contratos": 93,
+     "contratos_atipicos": 0,
+     "valor_total": 4211181837
+    },
+    "Córdoba": {
+     "contratos": 28,
+     "contratos_atipicos": 0,
+     "valor_total": 4531192353
+    },
+    "Cauca": {
+     "contratos": 68,
+     "contratos_atipicos": 0,
+     "valor_total": 2076196484
+    },
+    "Arauca": {
+     "contratos": 20,
+     "contratos_atipicos": 0,
+     "valor_total": 3196954409
+    },
+    "Tolima": {
+     "contratos": 257,
+     "contratos_atipicos": 0,
+     "valor_total": 19449122624
+    },
+    "San Andrés, Providencia y Santa Catalina": {
+     "contratos": 27,
+     "contratos_atipicos": 0,
+     "valor_total": 1723651071
+    },
+    "Boyacá": {
+     "contratos": 33,
+     "contratos_atipicos": 0,
+     "valor_total": 3884546066
+    },
+    "Risaralda": {
+     "contratos": 54,
+     "contratos_atipicos": 0,
+     "valor_total": 7773249215
+    },
+    "Putumayo": {
+     "contratos": 15,
+     "contratos_atipicos": 0,
+     "valor_total": 1790462809
+    },
+    "Vichada": {
+     "contratos": 23,
+     "contratos_atipicos": 0,
+     "valor_total": 589170890
+    },
+    "Cesar": {
+     "contratos": 28,
+     "contratos_atipicos": 0,
+     "valor_total": 3170240982
+    },
+    "Atlántico": {
+     "contratos": 89,
+     "contratos_atipicos": 0,
+     "valor_total": 7008746416
+    },
+    "Amazonas": {
+     "contratos": 18,
+     "contratos_atipicos": 0,
+     "valor_total": 1069819186
+    },
+    "Chocó": {
+     "contratos": 14,
+     "contratos_atipicos": 0,
+     "valor_total": 569141315
+    },
+    "Caldas": {
+     "contratos": 79,
+     "contratos_atipicos": 0,
+     "valor_total": 2999631841
+    },
+    "Nariño": {
+     "contratos": 16,
+     "contratos_atipicos": 0,
+     "valor_total": 1290653546
+    },
+    "Guainía": {
+     "contratos": 4,
+     "contratos_atipicos": 0,
+     "valor_total": 142105404
+    }
+   },
+   "concentracion": {
+    "entidades": 379,
+    "total": 4019941716305,
+    "top10_valor": 2524577635702,
+    "para_50": 6,
+    "para_80": 24
+   }
+  }
+ ]
+}
