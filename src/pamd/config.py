@@ -28,3 +28,10 @@ STREAMING_CHECKPOINT_SIN_REPETIDOS = "s3a://rawdata/streaming/checkpoint/ventana
 
 WRITE_MODE = "overwrite"
 OUTPUT_PARTITIONS = 36
+
+# Corte 3, Punto 4: tablas de consumo del dashboard (notebook 07, T4.1). Se exportan también a dashboard/data/.
+DASHBOARD_SERIE_PARQUET = "s3a://rawdata/procesado/dashboard/serie_mensual"                    # mes x departamento x entidad
+DASHBOARD_CONTRATISTAS_MES_PARQUET = "s3a://rawdata/procesado/dashboard/contratistas_mensual"  # mes x departamento x entidad x contratista
+DASHBOARD_ENTIDADES_PARQUET = "s3a://rawdata/procesado/dashboard/entidades"                    # nombre de cada entidad
+DASHBOARD_CONTRATISTAS_PARQUET = "s3a://rawdata/procesado/dashboard/contratistas"              # nombre de cada contratista
+DASHBOARD_VENTANAS_PARQUET = "s3a://rawdata/procesado/dashboard/ventanas_flujo"                # ventanas del flujo (mes x departamento)

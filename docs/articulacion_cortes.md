@@ -24,6 +24,7 @@ Cada flecha del diagrama es una carpeta real del bucket `rawdata`. El notebook `
 | Resumen por contratista | `procesado/adjudicaciones_por_contratista` | contratos y valor por contratista | 99.606 | notebook 04 (T1.4) |
 | Resumen por departamento | `procesado/adjudicaciones_por_departamento` | contratos y valor por departamento de la entidad | 34 | notebook 04 (T1.4) |
 | Resumen por mes | `procesado/adjudicaciones_por_mes` | contratos y valor por mes de adjudicación | 136 | notebook 04 (T1.4) |
+| Tablas del dashboard | `procesado/dashboard/` (copia en `dashboard/data/` del repositorio) | serie por mes, departamento y entidad; la misma con contratista; nombres; ventanas del flujo | 99.789 y 481.397 las dos principales (16-nov-2026) | notebook 07 (T4.1) |
 
 ## Qué se reutiliza de cada corte
 

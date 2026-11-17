@@ -17,7 +17,7 @@ Repositorio: https://github.com/PalomaresJonatan13/pamd-secop
 ├── notebooks/                notebooks numerados en orden de ejecución
 ├── scripts/                  utilidades (revisión de la cuarentena sin Spark y generación de los diagramas)
 ├── data/                     instrucciones para obtener el CSV (los datos no se versionan)
-├── dashboard/                Punto 4 del Corte 3
+├── dashboard/                Punto 4 del Corte 3: app de Streamlit y sus tablas de consumo (`dashboard/data/`)
 ├── report/                   informe técnico
 ├── presentation/             presentación ejecutiva
 └── docs/                     plan de subtareas, articulación de los cortes, diagrama de linaje y explicación de la resiliencia del flujo
@@ -117,6 +117,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 a T1.6 ejecutadas el 14-nov-2026 |
 | `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | T2.1 a T2.6 ejecutadas el 15-nov-2026 |
 | `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | T3.1 a T3.4 ejecutadas el 16-nov-2026 (el notebook completo tarda unos 30 min); la explicación del mecanismo (T3.5) está en `docs/resiliencia_idempotencia.md` |
+| `07_corte3_tablas_dashboard.ipynb` | 3 – Punto 4 | Tablas de consumo del dashboard y su exportación a `dashboard/data/` | T4.1 y T4.2 ejecutadas el 16-nov-2026 (tarda unos 2 min) |
 
 El notebook original (cortes 1 y 2) se dividió en los tres primeros. Los tres se ejecutaron el 12 de noviembre de 2026 sobre el bronze reconstruido, y sus salidas están guardadas. Los notebooks 02 y 03 leen el bronze ya escrito en MinIO, así que el 01 debe ejecutarse antes (con `RECONSTRUIR_BRONZE = True` la primera vez).
 
@@ -134,7 +135,8 @@ s3a://rawdata/
 │   ├── adjudicaciones_por_entidad        (Corte 3) una fila por entidad (NIT)
 │   ├── adjudicaciones_por_contratista    (Corte 3) una fila por contratista
 │   ├── adjudicaciones_por_departamento   (Corte 3) una fila por departamento de la entidad
-│   └── adjudicaciones_por_mes            (Corte 3) una fila por mes de adjudicación
+│   ├── adjudicaciones_por_mes            (Corte 3) una fila por mes de adjudicación
+│   └── dashboard/                        (Corte 3) tablas de consumo del dashboard (T4.1); la misma copia está en `dashboard/data/`
 ├── benchmark_escritura/                  salidas de la prueba de tiempos de escritura
 ├── silver/secop/contratos                (Corte 3) una fila por proceso + adjudicación
 ├── silver/secop/descartados              (Corte 3) filas descartadas con su motivo
@@ -151,12 +153,25 @@ s3a://rawdata/
         └── tabla                         última versión de cada ventana, por mes
 ```
 
+## Dashboard
+
+El dashboard (Punto 4) está hecho con Streamlit y lee los archivos de `dashboard/data/`, que vienen en el repositorio: no necesita Docker, Spark ni MinIO. Desde la raíz del repositorio, la primera vez:
+```
+python -m venv .venv
+.venv\Scripts\python -m pip install -r dashboard\requirements.txt
+```
+Y para abrirlo (http://localhost:8501):
+```
+.venv\Scripts\python -m streamlit run dashboard\app.py
+```
+Las tablas, sus columnas y la decisión de tecnología están en `dashboard/README.md`. Si gold o el flujo cambian, se regeneran con el notebook `07` (`RECONSTRUIR_CONSUMO = True`).
+
 ## Trabajo en equipo
 
 - El plan de subtareas está en `docs/plan_de_subtareas.pdf`. Cada tarea tiene un ID (T0.1, T1.2…); úsalo en los mensajes de commit y en los nombres de rama, por ejemplo `t0.2-credenciales`.
 - Trabaja en una rama por tarea y une a `main` con pull request.
 - Dos personas no deben editar el mismo notebook a la vez: un `.ipynb` es un JSON y se resuelve mal al unir cambios. La división por notebooks existe para evitarlo.
-- No subas `.env`, claves ni datos. Si una clave se sube por error, hay que cambiarla; borrarla del archivo no basta.
+- No subas `.env`, claves ni datos. La única excepción es `dashboard/data/`: son tablas agregadas de datos públicos (6,7 MB) y permiten abrir el dashboard con solo clonar. Si una clave se sube por error, hay que cambiarla; borrarla del archivo no basta.
 
 ## Notas sobre los datos
 
@@ -177,6 +192,7 @@ Verificado: el servidor arranca, el bucket se crea, la consola web abre en el pu
 
 ## Pendientes conocidos
 
+- **T4.1 y T4.2 (cerradas):** el dashboard usa Streamlit y lee cinco tablas de consumo y un `metadatos.json` de `dashboard/data/` (6,7 MB; se cargan con pandas en menos de 1 s). El notebook `07` comprueba que cada tabla suma lo mismo que gold (530.192 contratos y los mismos valores en pesos exactos) y que la serie mensual coincide con las 3.735 ventanas del flujo. Los valores se guardan como pesos enteros de 64 bits; gold no tiene centavos. `dashboard/app.py` por ahora solo carga los datos y muestra los totales: faltan los filtros y los módulos (T4.3 a T4.7).
 - **T1.6 (cerrada):** el párrafo de articulación de los cortes, la tabla de rutas y el diagrama de linaje están en `docs/articulacion_cortes.md` y `docs/linaje_datos.svg` (PNG para la presentación); el diagrama se regenera con `scripts/dibujar_linaje.py`. Las cifras del diagrama son las del 14-nov-2026; el notebook `04` comprueba que cada ruta existe y que las cifras cuadran. Las cifras del Corte 2 se calcularon sobre el bronze (con repeticiones) y no son comparables con las de gold.
 - **T1.5 (cerrada):** la tabla de reconciliación del notebook `04` explica todas las filas: 9.099.859 leídas = 530.192 en gold + 8.569.667 descartadas, cada una con su motivo. Los valores atípicos se **marcan**, no se borran: gold conserva los 530.192 contratos. Las reglas están en `src/pamd/calidad.py` y las comparten los resúmenes, el streaming y el dashboard (`marcar_atipicos(unificar_nit_entidad(gold), silver)`): un contrato es *inconsistente* si su valor adjudicado es al menos 100 veces el precio base, y *extremo* si supera 10¹³ pesos (10¹² si no hay precio base utilizable). Resultado: 432 atípicos que suman el 99,80 % del valor de gold. Un umbral solo por valor no servía, porque entre 10¹² y 10¹³ había contratos reales y errores mezclados. Se unificaron 99 NIT de entidad con el dígito de verificación pegado. Límites: 8.921 contratos (1,7 %) no tienen precio base utilizable y solo se detectan si son extremos; 189 contratos con razón entre 10 y 100 quedan como normales (pesan 0,0003 % del valor).
 - **T1.4 (cerrada):** cuatro tablas en `procesado/` (4.050 entidades, 99.606 contratistas, 34 departamentos y 136 meses), cada una con las mismas sumas que gold: 530.192 contratos y `valor_total + valor_atipicos` igual al valor de gold. `valor_total` y `valor_promedio` excluyen los atípicos. Una entidad es un NIT y puede agrupar varias dependencias; su nombre es el más frecuente. Los contratos sin departamento van a la categoría `SIN DEPARTAMENTO`.

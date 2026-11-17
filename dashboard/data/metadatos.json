@@ -1,0 +1,27 @@
+{
+  "generado_utc": "2026-11-17 01:07",
+  "fuente": "gold (s3a://rawdata/gold/secop/adjudicaciones) con las reglas de src/pamd/calidad.py",
+  "gold": {
+    "contratos": 530192,
+    "contratos_atipicos": 432,
+    "contratos_valor_cero": 1527,
+    "valor_total": 352909018925397,
+    "valor_atipicos": 174714776221732357,
+    "primer_mes": "2015-06",
+    "ultimo_mes": "2026-09",
+    "ultima_fecha_adjudicacion": "2026-09-01"
+  },
+  "flujo": {
+    "ultimo_micro_lote": 40,
+    "micro_lotes_con_cambios": 21,
+    "fecha_ultimo_micro_lote_utc": "2026-11-16 23:17",
+    "contratos_tardios_registrados": 866
+  },
+  "filas": {
+    "serie_mensual": 99789,
+    "contratistas_mensual": 481397,
+    "entidades": 4050,
+    "contratistas": 99606,
+    "ventanas_flujo": 3735
+  }
+}
