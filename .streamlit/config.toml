@@ -1,0 +1,8 @@
+# Configuración de Streamlit para el dashboard. Se lee desde la carpeta en la que se lanza `streamlit run dashboard/app.py`
+# (la raíz del repositorio).
+
+[global]
+# «Quitar filtros» asigna los valores por defecto desde un callback, y los filtros tienen un valor por defecto: es el patrón
+# recomendado por Streamlit, pero cada vez avisa en la consola del servidor (con un traceback largo) de que el valor se asignó
+# por dos vías. El aviso es solo informativo; se desactiva para que la consola quede limpia durante la sustentación.
+disableWidgetStateDuplicationWarning = true

@@ -41,7 +41,7 @@ docker exec spark python /home/jovyan/work/scripts/consultas_spark_geografia.py
 
 Si gold o las tablas de consumo cambian, hay que volver a ejecutar los tres primeros. El último comando no necesita Spark: solo lee los JSON de `verificacion/` y las tablas de `data/`.
 
-**Capturas comentadas.** Ocho capturas (cada módulo y tres filtros: departamento y fechas, una sola entidad y una combinación sin resultados) con su comentario al pie, en `report/evidencias/t4.7_capturas_comentadas.md`. Se toman con `.venv\Scripts\python scripts\capturar_dashboard.py` (Microsoft Edge sin ventana; no instala nada). Los filtros van en la dirección para que cada captura se pueda repetir, por ejemplo `http://localhost:8501/?departamento=Antioquia&desde=2020-01&hasta=2023-12`. Parámetros: `departamento` y `entidad` (se pueden repetir), `desde` y `hasta` (`AAAA-MM`), `n` (1 a 50) y `orden` (`valor` o `contratos`); los valores que no existen se ignoran, y después mandan los filtros de la pantalla.
+**Capturas comentadas.** Ocho capturas (cada módulo y tres filtros: departamento y fechas, una sola entidad y una combinación sin resultados) con su comentario al pie, en `report/evidencias/t4.7_capturas_comentadas.md`. Se toman con `.venv\Scripts\python scripts\capturar_dashboard.py` (Microsoft Edge sin ventana; no instala nada). Los filtros van en la dirección para que cada captura se pueda repetir (ver «Filtros y dirección» más abajo).
 
 **Abre sin errores en un entorno limpio.** Se probó con una copia de los archivos del repositorio en una carpeta nueva, sin Spark, Java ni Docker: se creó un entorno de Python desde cero, se instaló `dashboard/requirements.txt` (unos 55 s; Streamlit 1.67, pandas 3.1), el dashboard respondió en 1 s con el comando de arranque, cargó completo en 8 s con 0 excepciones, errores y avisos, y los tres comprobadores pasaron. **No se probó en el equipo de la sustentación**: hay que abrirlo allí antes, con Python 3.10 o posterior y acceso a internet para instalar los paquetes la primera vez (o instalarlos antes).
 
@@ -168,9 +168,27 @@ La barra lateral tiene tres filtros que se aplican a todo lo que muestre el dash
 | Entidad | Selección múltiple con búsqueda por nombre o NIT; sin selección, todas. Solo ofrece las entidades que tienen contratos en los departamentos elegidos, y quita de la selección las que dejan de tenerlos. |
 | Meses de adjudicación | Rango inclusivo de `AAAA-MM` a `AAAA-MM` (2015-06 a 2026-09). |
 
-El botón **Quitar filtros** los deja todos abiertos. Las tarjetas muestran contratos adjudicados, valor adjudicado (sin atípicos), contratos atípicos, entidades y contratistas de lo filtrado. Si una combinación no tiene contratos, aparece un aviso y ninguna tarjeta, no un error. Con todos los filtros abiertos, una línea bajo las tarjetas confirma que los totales coinciden con los de gold.
+El botón **Quitar filtros** los deja todos abiertos: departamento y entidad sin selección y el rango completo de meses (no toca N ni el orden de los rankings). Las tarjetas muestran contratos adjudicados, valor adjudicado (sin atípicos), contratos atípicos, entidades y contratistas de lo filtrado. Si una combinación no tiene contratos, aparece un aviso y ninguna tarjeta, no un error. Con todos los filtros abiertos, una línea bajo las tarjetas confirma que los totales coinciden con los de gold.
 
 Para los módulos siguientes: `app.py` deja `serie` (de `serie_mensual`) y `contratistas` (de `contratistas_mensual`) ya filtradas con `aplicar_filtros()`; solo hay que agruparlas.
+
+### Filtros y dirección
+
+Cada filtro y los controles de los rankings están sincronizados con la dirección del navegador (`bind="query-params"` de Streamlit): la dirección siempre refleja lo que se ve, se puede copiar para compartir una vista, al recargar la página se conserva, y un valor igual al de por defecto no aparece. Parámetros:
+
+| Parámetro | Valor | Ejemplo |
+|---|---|---|
+| `departamento` | nombre exacto; se puede repetir | `departamento=Antioquia&departamento=Boyacá` |
+| `entidad` | el texto con que se muestra, «NOMBRE (NIT)»; se puede repetir | `entidad=INVIAS (800215807)` |
+| `meses` | dos veces: el primer y el último mes, `AAAA-MM` | `meses=2020-01&meses=2023-12` |
+| `n` | de 1 a 50 | `n=5` |
+| `orden` | `Valor` o `Contratos` | `orden=Contratos` |
+
+Ejemplo: `http://localhost:8501/?departamento=Antioquia&meses=2020-01&meses=2023-12&orden=Contratos&n=5`. Los valores que no existen (un departamento inventado, un mes fuera del rango, `n=99`) se ignoran uno a uno. Con `bind`, el valor que se escribe en la dirección es el texto de la opción, por eso la entidad va con su nombre y no con el NIT solo.
+
+**Corrección del 17-nov-2026: «Quitar filtros».** El botón borraba las claves de los controles y llamaba a `st.rerun()`: los datos y las tarjetas volvían al total, pero la barra lateral seguía mostrando los filtros anteriores (por ejemplo «Antioquia» y 2020-01 a 2023-12), así que la pantalla y los datos no coincidían. La prueba de Streamlit no lo detectó porque no tiene un navegador que guarde el estado visible de los controles. Ahora el botón es un callback `on_click` que *asigna* los valores por defecto, que es el patrón que documenta Streamlit, y los filtros viven en la dirección.
+
+**Prueba con un navegador de verdad.** `.venv\Scripts\python scripts\probar_filtros_en_navegador.py` abre el dashboard con Microsoft Edge sin ventana, hace clic y escribe como un usuario y lee lo que hay en pantalla y la dirección. Comprueba, en 15 casos: que los filtros de la dirección se ven en la barra lateral; que «Quitar filtros» limpia la pantalla, los datos y la dirección (también desde una combinación sin resultados y con filtros elegidos a mano); que elegir un departamento filtra y actualiza la dirección; que recargar conserva los filtros; que al quitar un departamento desaparecen las entidades que ya no le corresponden; el orden y N de los rankings; que los valores inválidos se ignoran; y que la consola del servidor queda sin avisos. Se probó que falla si se vuelve al botón antiguo. En Windows con Python 3.14, al cerrar el navegador de golpe la consola puede mostrar un `ConnectionResetError` de asyncio; es ruido de Python, no del dashboard, y la prueba lo ignora.
 
 Comprobado el 16-nov-2026 con la prueba de Streamlit y un cálculo independiente sobre `contratistas_mensual` (otra tabla): sin filtros dan los totales de gold (530.192 contratos, 432 atípicos) y cinco combinaciones de departamento, entidad y meses dan las mismas cifras en las tarjetas (por ejemplo, Antioquia: 59.982 contratos, 38,7 billones, 417 entidades y 12.133 contratistas; el año 2024: 74.067 contratos, los mismos que gold).
 

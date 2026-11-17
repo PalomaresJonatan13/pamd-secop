@@ -26,6 +26,13 @@ PUERTO_APP, PUERTO_EDGE = 8766, 9333
 ANCHO, ALTO = 1400, 6500  # alto de sobra: la página cabe entera y no hay que desplazarse
 EDGE = next((p for p in (r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", r"C:\Program Files\Microsoft\Edge\Application\msedge.exe") if Path(p).exists()), None)
 
+# Texto con el que el dashboard muestra cada entidad, que es también su valor en la dirección
+sys.path.insert(0, str(RAIZ / "dashboard"))
+from consultas import etiquetas_entidades  # noqa: E402
+import pandas as pd  # noqa: E402
+
+ETIQUETA = etiquetas_entidades(pd.read_parquet(RAIZ / "dashboard" / "data" / "entidades.parquet"))
+
 CABECERA, TIEMPO, ACTORES, GEOGRAFIA, CONCENTRACION, TODO = "cabecera", "tiempo", "actores", "geografia", "concentracion", "todo"
 
 # (archivo, filtros de la dirección, zona, gráficos que deben estar dibujados)
@@ -35,9 +42,9 @@ CAPTURAS = [
     ("t4.7_modulo_rankings.png", [], ACTORES, 3),
     ("t4.7_modulo_geografia.png", [], GEOGRAFIA, 3),
     ("t4.7_modulo_concentracion.png", [], CONCENTRACION, 3),
-    ("t4.7_filtro_antioquia_2020_2023.png", [("departamento", "Antioquia"), ("desde", "2020-01"), ("hasta", "2023-12")], TODO, 3),
-    ("t4.7_filtro_una_entidad.png", [("entidad", "NIT:899999034"), ("desde", "2019-01"), ("hasta", "2025-12")], TODO, 2),  # con una sola entidad la curva de concentración no se dibuja
-    ("t4.7_filtro_sin_resultados.png", [("departamento", "SIN DEPARTAMENTO"), ("desde", "2015-06"), ("hasta", "2015-07")], CABECERA, 0),
+    ("t4.7_filtro_antioquia_2020_2023.png", [("departamento", "Antioquia"), ("meses", "2020-01"), ("meses", "2023-12")], TODO, 3),
+    ("t4.7_filtro_una_entidad.png", [("entidad", ETIQUETA["NIT:899999034"]), ("meses", "2019-01"), ("meses", "2025-12")], TODO, 2),  # con una sola entidad la curva de concentración no se dibuja
+    ("t4.7_filtro_sin_resultados.png", [("departamento", "SIN DEPARTAMENTO"), ("meses", "2015-06"), ("meses", "2015-07")], CABECERA, 0),
 ]
 
 

@@ -24,12 +24,13 @@ RAIZ = Path(__file__).resolve().parent.parent
 DASHBOARD = RAIZ / "dashboard"
 sys.path.insert(0, str(DASHBOARD))
 
-from consultas import aplicar_filtros, concentracion_entidades, valor_por_departamento  # noqa: E402
+from consultas import etiquetas_entidades, aplicar_filtros, concentracion_entidades, valor_por_departamento  # noqa: E402
 from streamlit.testing.v1 import AppTest  # noqa: E402
 
 REFERENCIA = json.loads((DASHBOARD / "verificacion" / "geografia_spark.json").read_text(encoding="utf-8"))
 serie = pd.read_parquet(DASHBOARD / "data" / "serie_mensual.parquet")
 SIN_DEPARTAMENTO = "SIN DEPARTAMENTO"
+ETIQUETA = etiquetas_entidades(pd.read_parquet(DASHBOARD / "data" / "entidades.parquet"))  # texto de cada entidad en el dashboard
 errores = []
 
 
@@ -46,10 +47,10 @@ def miles(n: int) -> str:
 def abrir_dashboard(caso: dict) -> AppTest:
     app = AppTest.from_file(str(DASHBOARD / "app.py"), default_timeout=120).run()
     if caso["departamentos"]:
-        app.sidebar.multiselect(key="f_departamento").set_value(caso["departamentos"]).run()
+        app.sidebar.multiselect(key="departamento").set_value(caso["departamentos"]).run()
     if caso["entidades"]:
-        app.sidebar.multiselect(key="f_entidad").set_value(caso["entidades"]).run()
-    app.sidebar.select_slider(key="f_meses").set_value((caso["desde"], caso["hasta"])).run()
+        app.sidebar.multiselect(key="entidad").set_value([ETIQUETA[i] for i in caso["entidades"]]).run()
+    app.sidebar.select_slider(key="meses").set_value((caso["desde"], caso["hasta"])).run()
     return app
 
 
