@@ -84,7 +84,8 @@ services:
     networks:
       - spark-net
 
-  # Pendiente (T4.2): servicio del dashboard, cuando se elija la tecnología.
+  # El dashboard (T4.2) no es un servicio de Docker: es una app de Streamlit que lee dashboard/data/
+  # y se lanza aparte (ver dashboard/README.md).
 
 networks:
   spark-net:
