@@ -1,4 +1,4 @@
 # Dependencias del dashboard (Punto 4). No necesita Spark, Java ni MinIO.
-streamlit>=1.40,<2
+streamlit>=1.55,<2
 pandas>=2.0
 pyarrow>=15

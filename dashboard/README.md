@@ -2,7 +2,48 @@
 
 Dashboard interactivo del Observatorio de Contratación Pública. Responde las tres preguntas del enunciado: dónde se concentra el gasto, quiénes son los principales actores y cómo varía la contratación en el tiempo.
 
-**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología) y T4.3 (filtros y tarjetas) cerradas el 16-nov-2026. Los módulos de tiempo, rankings y geografía se añaden en T4.4 a T4.6.
+**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología), T4.3 (filtros y tarjetas) y T4.4 (visualización temporal) cerradas el 16-nov-2026. Los rankings y el módulo geográfico se añaden en T4.5 y T4.6.
+
+## Visualización temporal (T4.4)
+
+Dos gráficos mensuales con el mismo eje de tiempo: valor adjudicado (billones de pesos, sin atípicos) y número de contratos (con los atípicos incluidos, como en las tarjetas). Responden a los filtros de la barra lateral y muestran todos los meses del rango, también los que no tienen contratos (en cero). Los puntos y las franjas se leen pasando el cursor. Los puntos rojos son los cinco meses de mayor valor y los cinco con más contratos del periodo filtrado, y debajo hay una tabla con ellos y los periodos que los tocan. Dos casillas permiten apagar las franjas de la ley de garantías y las del cierre fiscal.
+
+**Periodos marcados** (`periodos.py` guarda las fechas y las fuentes; consultadas el 16-nov-2026):
+
+| Franja | Periodos | Base |
+|---|---|---|
+| Contratación directa prohibida a todos los entes del Estado (Ley 996 de 2005, art. 33) | Presidencial 2018: 27-ene a 17-jun · 2022: 29-ene a 19-jun · 2026: 31-ene a 21-jun | Cuatro meses antes de la elección presidencial y hasta la segunda vuelta. Elecciones: 27-may y 17-jun de 2018, 29-may y 19-jun de 2022, 31-may y 21-jun de 2026. |
+| Convenios interadministrativos restringidos (art. 38, parágrafo) | Congreso: 11-nov-2017 a 11-mar-2018, 13-nov-2021 a 13-mar-2022, 8-nov-2025 a 8-mar-2026 · Territoriales: 25-jun a 25-oct de 2015, 27-jun a 27-oct de 2019, 29-jun a 29-oct de 2023 | Cuatro meses antes de la elección y hasta ella; alcanza a gobernadores, alcaldes y directivos de entidades territoriales, y solo a esos convenios, por eso va en otro color. |
+| Cierre de vigencia fiscal | Diciembre de cada año | El año fiscal va del 1 de enero al 31 de diciembre. |
+
+Lo que se verificó y lo que no:
+- Las fechas de las elecciones de 2018, 2022 y 2026 (presidencial y Congreso) están en resoluciones de la Registraduría o en notas que las citan, y las ventanas de 2022 y 2026 coinciden con las que publicaron la Mesa de Observación Electoral y la prensa. Las territoriales de 2015 y 2019 se derivan de la regla del último domingo de octubre (Ley 163 de 1994); no se encontró una resolución que las confirme.
+- La regla del art. 33 se tomó del texto transcrito en un concepto del Consejo de Estado y de la Circular 0006 de 2025 de la Agencia Nacional de Contratación Pública, que la aplica como vigente. No se consultó una fuente oficial de vigencia de la ley ni se encontró una modificación posterior: conviene confirmarlo antes de citarlo en el informe.
+- La definición del año fiscal (Decreto 111 de 1996, art. 14) no se abrió en esta consulta.
+- El art. 33 tiene excepciones (defensa y seguridad, crédito público, urgencia manifiesta, entre otras) y no limita prórrogas ni adiciones de contratos ya firmados.
+
+**Cada punto coincide con las ventanas del flujo (T2.4).** Si no hay filtro de entidad, una línea bajo el gráfico compara los puntos del mes con `ventanas_flujo` (contratos y pesos, exactos) para los mismos departamentos y meses. Se comprobó sin filtros (136 meses), con un departamento, con dos departamentos y un rango de 31 meses, y con un solo mes. Con filtro de entidad no hay ventanas equivalentes, porque el flujo agrega por mes y departamento, y la línea lo dice.
+
+### Picos detectados (sin filtros, 16-nov-2026)
+
+| Mayor valor adjudicado | Billones | Más contratos | Contratos |
+|---|---|---|---|
+| 2025-12 | 15,00 | 2025-12 | 11.437 |
+| 2023-12 | 11,66 | 2024-12 | 11.304 |
+| 2024-12 | 10,44 | 2025-10 | 10.078 |
+| 2022-12 | 9,91 | 2025-11 | 9.750 |
+| 2026-07 | 9,04 | 2022-12 | 9.607 |
+
+Qué permite concluir:
+- **Diciembre es el pico de cada año.** Cuatro de los cinco meses de mayor valor y dos de los cinco con más contratos son diciembre. En los años completos de 2017 a 2025, diciembre tiene entre 1,25 y 2,06 veces los contratos y entre 1,97 y 5,12 veces el valor del promedio mensual de enero a noviembre. Coincide con el cierre de la vigencia fiscal, aunque estos datos no prueban la causa.
+- **No se ve una caída consistente dentro de las ventanas del art. 33.** Promedio mensual de febrero a mayo (meses completos de la ventana) frente a los mismos meses de los años vecinos: 2022, 4.715 contratos frente a 3.190 (2021) y 5.172 (2023); 2026, 6.554 frente a 5.991 (2025); 2018, 2.291 frente a 1.066 (2017) y 2.705 (2019). La tendencia creciente y el pico de diciembre pesan más. La serie cuenta todos los contratos adjudicados, no solo la contratación directa: ver los límites.
+- **Octubre y noviembre de 2025 están entre los meses con más contratos**, justo antes de que empezara la restricción del Congreso (8-nov-2025). Es compatible con una aceleración previa, pero los datos no la prueban.
+- **Julio de 2026** es el primer mes completo después de que terminó la restricción presidencial y tiene el quinto mayor valor.
+
+Límites de lectura:
+- El último mes (2026-09) llega solo hasta el 1 de septiembre: su caída no es real. Los primeros meses (2015-06 y 2016) tienen muy pocos contratos (29 en 2015).
+- Las franjas muestran cuándo rige la restricción, no cuánta contratación directa hubo. Para medir el efecto haría falta separar por modalidad de contratación, que las tablas de consumo no traen.
+- Las ventanas de los gráficos muestran los números con la convención de la librería (coma de miles y punto decimal), distinta de la de las tarjetas.
 
 ## Filtros y tarjetas (T4.3)
 

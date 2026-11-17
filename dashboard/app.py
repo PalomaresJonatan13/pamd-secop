@@ -5,13 +5,17 @@ Se lanza desde la raíz del repositorio con:  streamlit run dashboard/app.py
 Lee las tablas de consumo de dashboard/data/ (notebook 07, T4.1) con pandas; no usa Spark ni MinIO.
 
 T4.3: filtros de departamento, entidad y rango de meses en la barra lateral, y tarjetas con los totales filtrados.
-Los módulos de T4.4 a T4.6 (tiempo, rankings y geografía) usan `serie` y `contratistas`, ya filtradas, de este archivo.
+T4.4: gráfico mensual de valor y contratos con los periodos de interés (dashboard/periodos.py) y los picos.
+Los módulos de T4.5 y T4.6 (rankings y geografía) usan `serie` y `contratistas`, ya filtradas, de este archivo.
 """
 import json
 from pathlib import Path
 
+import altair as alt
 import pandas as pd
 import streamlit as st
+
+from periodos import TIPOS, contexto_mes, periodos_en
 
 DATOS = Path(__file__).parent / "data"
 TABLAS = ["serie_mensual", "contratistas_mensual", "entidades", "contratistas", "ventanas_flujo"]
@@ -157,4 +161,115 @@ if not filtros_activos:
         "Sin filtros, los totales " + ("coinciden con los de gold." if coincide else "NO coinciden con los de gold: vuelve a generar las tablas con el notebook 07.")
     )
 
-st.info("Los módulos de tiempo, rankings y geografía se añaden en T4.4 a T4.6 y usarán estos mismos filtros.")
+# --- Evolución en el tiempo (T4.4) ---
+st.subheader("Evolución en el tiempo")
+st.caption(
+    "Valor y número de contratos adjudicados por mes. Las franjas marcan los periodos de la ley de garantías y los cierres "
+    "de vigencia fiscal; los puntos rojos son los meses de mayor valor y de más contratos. Pasa el cursor sobre un punto o una franja para leerla."
+)
+m1, m2 = st.columns(2)
+marcar_ley = m1.checkbox("Marcar la ley de garantías", value=True, key="m_ley")
+marcar_fiscal = m2.checkbox("Marcar el cierre de vigencia fiscal", value=True, key="m_fiscal")
+
+# Eje de tiempo completo y ordenado: los meses sin contratos aparecen en cero, no se saltan
+meses_rango = pd.period_range(mes_desde, mes_hasta, freq="M").strftime("%Y-%m")
+mensual = (
+    serie.groupby("anio_mes")[["contratos", "valor_total"]].sum()
+    .reindex(meses_rango, fill_value=0).rename_axis("anio_mes").reset_index()
+)
+mensual["anio_mes"] = mensual["anio_mes"].astype(str)
+mensual["mes"] = pd.to_datetime(mensual["anio_mes"] + "-01")
+mensual["valor_billones"] = mensual["valor_total"] / 1e12
+mensual["contexto"] = mensual["anio_mes"].map(contexto_mes)
+
+N_PICOS = 5
+picos_valor = mensual[mensual["valor_total"] > 0].nlargest(N_PICOS, "valor_total")
+picos_contratos = mensual[mensual["contratos"] > 0].nlargest(N_PICOS, "contratos")
+meses_pico = set(picos_valor["anio_mes"]) | set(picos_contratos["anio_mes"])
+
+bandas = pd.DataFrame(periodos_en(mes_desde, mes_hasta, ley=marcar_ley, fiscal=marcar_fiscal))
+dominio_x = [mensual["mes"].iloc[0], mensual["mes"].iloc[-1] + pd.offsets.MonthEnd(0) + pd.Timedelta(days=1)]
+n_meses = len(mensual)
+eje_x = alt.Axis(format="%Y-%m" if n_meses <= 36 else "%Y", tickCount="month" if n_meses <= 36 else "year", labelOverlap=True)
+
+
+def grafico_mensual(columna: str, titulo: str, formato: str, con_leyenda: bool) -> alt.Chart:
+    """Línea mensual con puntos que se pueden leer, picos en rojo y franjas de periodos detrás."""
+    x = alt.X("mes:T", title=None, scale=alt.Scale(domain=dominio_x), axis=eje_x)
+    y = alt.Y(f"{columna}:Q", title=titulo, axis=alt.Axis(format=formato))
+    tip = [
+        alt.Tooltip("anio_mes:N", title="Mes"),
+        alt.Tooltip("valor_billones:Q", title="Valor (billones de pesos)", format=",.2f"),
+        alt.Tooltip("contratos:Q", title="Contratos", format=",d"),
+        alt.Tooltip("contexto:N", title="Periodos"),
+    ]
+    capas = []
+    if not bandas.empty:
+        franjas = bandas.assign(fin_exclusivo=pd.to_datetime(bandas["fin"]) + pd.Timedelta(days=1))
+        capas.append(
+            alt.Chart(franjas).mark_rect(clip=True, opacity=0.3).encode(
+                x=alt.X("inicio:T"), x2="fin_exclusivo:T",
+                color=alt.Color(
+                    "tipo:N", title=None,
+                    scale=alt.Scale(domain=TIPOS, range=["#d62728", "#ff9f1c", "#7f8fa6"]),
+                    legend=alt.Legend(orient="top", columns=1, labelLimit=500) if con_leyenda else None,
+                ),
+                tooltip=[alt.Tooltip("nombre:N", title="Periodo"), alt.Tooltip("tipo:N", title="Tipo"),
+                         alt.Tooltip("inicio:T", title="Desde", format="%Y-%m-%d"), alt.Tooltip("fin:T", title="Hasta", format="%Y-%m-%d")],
+            )
+        )
+    base = alt.Chart(mensual).encode(x=x, y=y, tooltip=tip)
+    capas += [
+        base.mark_line(),
+        base.mark_point(filled=True, size=22),
+        alt.Chart(mensual[mensual["anio_mes"].isin(meses_pico)]).encode(x=x, y=y, tooltip=tip).mark_point(
+            filled=True, size=110, color="#ff2d2d", stroke="white", strokeWidth=1),
+    ]
+    return alt.layer(*capas).properties(height=210)
+
+
+st.altair_chart(
+    alt.vconcat(
+        grafico_mensual("valor_billones", "Valor adjudicado (billones de pesos)", ",.1f", True),
+        grafico_mensual("contratos", "Contratos adjudicados", ",d", False),
+    ).resolve_scale(color="shared"),
+    width="stretch",
+)
+
+ultima_fecha = pd.Timestamp(gold["ultima_fecha_adjudicacion"])
+if ultima_fecha.strftime("%Y-%m") == mes_hasta and ultima_fecha != ultima_fecha + pd.offsets.MonthEnd(0):
+    st.caption(
+        f"El último mes de los datos ({mes_hasta}) llega solo hasta el {ultima_fecha:%d-%m-%Y}: su caída no es real. "
+        f"Los primeros meses ({gold['primer_mes']} y 2016) tienen muy pocos contratos."
+    )
+
+# Los puntos deben coincidir con las ventanas del flujo (T2.4), que agregan por mes y departamento: solo comparables sin filtro de entidad
+if entidades:
+    st.caption("Con un filtro de entidad no hay ventanas del flujo equivalentes (el flujo agrega por mes y departamento).")
+else:
+    ventanas = aplicar_filtros(tablas["ventanas_flujo"], departamentos, [], mes_desde, mes_hasta)
+    del_flujo = ventanas.groupby("anio_mes")[["contratos", "valor_total"]].sum().reindex(meses_rango, fill_value=0)
+    coincide_flujo = (
+        (del_flujo["contratos"].to_numpy() == mensual["contratos"].to_numpy()).all()
+        and (del_flujo["valor_total"].to_numpy() == mensual["valor_total"].to_numpy()).all()
+    )
+    if coincide_flujo:
+        st.caption(
+            f"✓ Los {n_meses} puntos mensuales coinciden con las ventanas del flujo (T2.4) para estos filtros."
+            if n_meses > 1 else "✓ El punto mensual coincide con la ventana del flujo (T2.4) para estos filtros."
+        )
+    else:
+        st.warning("Los puntos mensuales NO coinciden con las ventanas del flujo (T2.4): vuelve a generar las tablas con el notebook 07.")
+
+st.markdown(f"**Picos detectados:** los {N_PICOS} meses de mayor valor y de más contratos en el periodo filtrado.")
+p1, p2 = st.columns(2)
+for columna_pantalla, titulo, picos in ((p1, "Mayor valor adjudicado", picos_valor), (p2, "Más contratos adjudicados", picos_contratos)):
+    columna_pantalla.markdown(f"*{titulo}*")
+    columna_pantalla.dataframe(
+        picos.rename(columns={"anio_mes": "Mes", "valor_billones": "Valor (billones)", "contratos": "Contratos", "contexto": "Periodos"})
+        [["Mes", "Valor (billones)", "Contratos", "Periodos"]],
+        hide_index=True,
+        column_config={"Valor (billones)": st.column_config.NumberColumn(format="%.2f")},
+    )
+
+st.info("Los rankings y el módulo geográfico se añaden en T4.5 y T4.6 y usarán estos mismos filtros.")
