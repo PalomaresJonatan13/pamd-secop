@@ -7,7 +7,7 @@ Lee las tablas de consumo de dashboard/data/ (notebook 07, T4.1) con pandas; no 
 T4.3: filtros de departamento, entidad y rango de meses en la barra lateral, y tarjetas con los totales filtrados.
 T4.4: gráfico mensual de valor y contratos con los periodos de interés (dashboard/periodos.py) y los picos.
 T4.5: rankings de entidades y contratistas (dashboard/consultas.py).
-El módulo de T4.6 (geografía) usa `serie` y `contratistas`, ya filtradas, de este archivo.
+T4.6: valor por departamento y concentración del gasto en las entidades.
 """
 import json
 from pathlib import Path
@@ -16,7 +16,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from consultas import aplicar_filtros, calcular_ranking
+from consultas import aplicar_filtros, calcular_ranking, concentracion_entidades, valor_por_departamento
 from periodos import TIPOS, contexto_mes, periodos_en
 
 DATOS = Path(__file__).parent / "data"
@@ -307,4 +307,97 @@ def mostrar_ranking(pantalla, titulo: str, df: pd.DataFrame, clave: str, nombres
 mostrar_ranking(st, f"Top {n_ranking} entidades", serie, "id_entidad", nombres_entidad)
 mostrar_ranking(st, f"Top {n_ranking} contratistas", contratistas, "id_contratista", nombres_contratista)
 
-st.info("El módulo geográfico y de concentración se añade en T4.6 y usará estos mismos filtros.")
+# --- Dónde se concentra el dinero (T4.6) ---
+SIN_DEPARTAMENTO = "SIN DEPARTAMENTO"
+st.subheader("Dónde se concentra el dinero")
+
+por_departamento = valor_por_departamento(serie)
+st.markdown("**Valor adjudicado por departamento**")
+st.caption(
+    "Departamento de la entidad que contrata. Los contratos cuya entidad no informa departamento forman una categoría aparte "
+    "(«Sin departamento»), no se ocultan. El valor no incluye los atípicos."
+)
+barras = por_departamento.assign(
+    valor_billones=por_departamento["valor_total"] / 1e12,
+    participacion=100 * por_departamento["valor_total"] / valor,
+    categoria=por_departamento["departamento"].map(lambda d: "Sin departamento" if d == SIN_DEPARTAMENTO else "Departamento"),
+)
+y_depto = alt.Y("departamento:N", sort=list(barras["departamento"]), title=None, axis=alt.Axis(labelLimit=260))
+x_valor = alt.X("valor_billones:Q", title="Valor adjudicado (billones de pesos)", axis=alt.Axis(format=",.0f"))
+base_barras = alt.Chart(barras).encode(
+    y=y_depto, x=x_valor,
+    tooltip=[
+        alt.Tooltip("departamento:N", title="Departamento"),
+        alt.Tooltip("valor_billones:Q", title="Valor (billones de pesos)", format=",.3f"),
+        alt.Tooltip("participacion:Q", title="% del valor filtrado", format=".1f"),
+        alt.Tooltip("contratos:Q", title="Contratos", format=",d"),
+    ],
+)
+st.altair_chart(
+    (
+        base_barras.mark_bar().encode(
+            color=alt.Color("categoria:N", title=None, scale=alt.Scale(domain=["Departamento", "Sin departamento"], range=["#4c78a8", "#ff9f1c"]),
+                            legend=alt.Legend(orient="top"))
+        )
+        + base_barras.mark_text(align="left", dx=3, fontSize=11, color="#9aa0a6").encode(text=alt.Text("valor_billones:Q", format=",.1f"))
+    ).properties(height=alt.Step(24)),  # 24 px por departamento: se ajusta a 1 barra o a 34
+    width="stretch",
+)
+
+suma_valor, suma_contratos = int(por_departamento["valor_total"].sum()), int(por_departamento["contratos"].sum())
+if suma_valor == valor and suma_contratos == contratos:
+    st.caption(
+        f"✓ La suma de los departamentos mostrados ({len(por_departamento)}: {miles(suma_contratos)} contratos, {billones(suma_valor)}) "
+        "es igual a los totales filtrados de las tarjetas."
+    )
+else:
+    st.warning("La suma por departamento NO coincide con los totales filtrados: vuelve a generar las tablas con el notebook 07.")
+tres_primeros = por_departamento.head(3)
+if len(por_departamento) > 3 and valor:
+    st.caption(
+        f"{', '.join(tres_primeros['departamento'])} suman el {porcentaje(tres_primeros['valor_total'].sum(), valor)} del valor filtrado."
+    )
+sin_depto = por_departamento[por_departamento["departamento"] == SIN_DEPARTAMENTO]
+if not sin_depto.empty:
+    st.caption(
+        f"Sin departamento: {miles(int(sin_depto['contratos'].iloc[0]))} contratos y "
+        f"{porcentaje(int(sin_depto['valor_total'].iloc[0]), valor)} del valor filtrado."
+    )
+
+st.markdown("**Concentración del valor en las entidades**")
+concentracion = concentracion_entidades(serie)
+if concentracion is None:
+    st.info("Con estos filtros el valor adjudicado (sin atípicos) es cero: no hay concentración que medir.")
+else:
+    n_ent, para_50, para_80 = concentracion["entidades"], concentracion["para_50"], concentracion["para_80"]
+    k1, k2, k3 = st.columns(3)
+    k1.metric("Entidades que reúnen el 50 % del valor", miles(para_50), delta=f"{porcentaje(para_50, n_ent)} de las {miles(n_ent)} entidades", delta_color="off", delta_arrow="off")
+    k2.metric("Entidades que reúnen el 80 % del valor", miles(para_80), delta=f"{porcentaje(para_80, n_ent)} de las {miles(n_ent)} entidades", delta_color="off", delta_arrow="off")
+    k3.metric("Las 10 primeras entidades reúnen", porcentaje(concentracion["top10_valor"], concentracion["total"]), delta="del valor filtrado", delta_color="off", delta_arrow="off")
+    st.caption(
+        f"{miles(para_50)} de {miles(n_ent)} entidades ({porcentaje(para_50, n_ent)}) reúnen la mitad del valor adjudicado en lo filtrado; "
+        f"con {miles(para_80)} ({porcentaje(para_80, n_ent)}) se llega al 80 %. Se cuentan las entidades con al menos un contrato."
+    )
+    if n_ent >= 3:
+        curva = concentracion["curva"]
+        marcas = pd.DataFrame({"entidades": [para_50, para_80], "acumulado": [curva["acumulado"].iloc[para_50 - 1], curva["acumulado"].iloc[para_80 - 1]],
+                               "umbral": ["50 %", "80 %"]})
+        x_curva = alt.X("entidades:Q", title="Número de entidades, de mayor a menor valor (escala logarítmica)",
+                        scale=alt.Scale(type="log", domain=[1, n_ent], nice=False), axis=alt.Axis(format=",d"))
+        y_curva = alt.Y("acumulado:Q", title="% acumulado del valor", scale=alt.Scale(domain=[0, 100]))
+        st.altair_chart(
+            alt.layer(
+                alt.Chart(pd.DataFrame({"y": [50, 80]})).mark_rule(strokeDash=[4, 4], opacity=0.5).encode(y="y:Q"),
+                alt.Chart(curva).mark_line().encode(
+                    x=x_curva, y=y_curva,
+                    tooltip=[alt.Tooltip("entidades:Q", title="Entidades", format=",d"), alt.Tooltip("acumulado:Q", title="% acumulado del valor", format=".1f")],
+                ),
+                alt.Chart(marcas).mark_point(filled=True, size=90, color="#ff2d2d").encode(
+                    x="entidades:Q", y="acumulado:Q",
+                    tooltip=[alt.Tooltip("umbral:N", title="Umbral"), alt.Tooltip("entidades:Q", title="Entidades", format=",d"), alt.Tooltip("acumulado:Q", title="% acumulado", format=".1f")],
+                ),
+            ).properties(height=260),
+            width="stretch",
+        )
+    else:
+        st.caption("Con tan pocas entidades la curva no aporta: amplía los filtros para ver la concentración.")

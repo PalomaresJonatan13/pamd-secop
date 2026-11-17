@@ -2,7 +2,39 @@
 
 Dashboard interactivo del Observatorio de Contratación Pública. Responde las tres preguntas del enunciado: dónde se concentra el gasto, quiénes son los principales actores y cómo varía la contratación en el tiempo.
 
-**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología), T4.3 (filtros y tarjetas), T4.4 (visualización temporal) y T4.5 (rankings) cerradas el 16-nov-2026. El módulo geográfico y de concentración se añade en T4.6.
+**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología), T4.3 (filtros y tarjetas), T4.4 (visualización temporal), T4.5 (rankings) y T4.6 (geografía y concentración) cerradas el 16-nov-2026. Falta T4.7: pruebas finales y capturas comentadas.
+
+## Geografía y concentración (T4.6)
+
+Responde dónde se concentra el dinero, con los filtros de la barra lateral:
+
+- **Valor adjudicado por departamento**: barras horizontales ordenadas de mayor a menor, con el valor en billones de pesos y, al pasar el cursor, la participación y los contratos. Los contratos cuya entidad no informa departamento forman la categoría **«Sin departamento»**, con otro color: no se ocultan. Una línea bajo el gráfico comprueba que la suma de los departamentos mostrados es igual al valor y a los contratos filtrados de las tarjetas. No hay mapa: haría falta un archivo con los límites departamentales, y las barras responden la misma pregunta sin una descarga más.
+- **Concentración en las entidades**: cuántas entidades reúnen el 50 % y el 80 % del valor, cuánto suman las 10 primeras, y la curva del valor acumulado con las entidades ordenadas de mayor a menor valor (eje horizontal logarítmico, porque unas pocas entidades pesan casi todo). Se cuentan las entidades con al menos un contrato en lo filtrado, y la comparación con el umbral usa pesos enteros, sin redondeos. Si el valor filtrado es cero no hay concentración que medir y la app lo dice; con menos de tres entidades no se dibuja la curva.
+
+El departamento es el de la entidad que contrata en cada contrato. La lógica está en `consultas.py` (`valor_por_departamento` y `concentracion_entidades`).
+
+### Verificación contra Spark
+
+Para las mismas siete combinaciones de filtros de T4.5 (ver la tabla de T4.5):
+
+1. `docker exec spark python /home/jovyan/work/scripts/consultas_spark_geografia.py` calcula **directamente sobre gold** el valor y los contratos por departamento y la concentración (el acumulado con una función de ventana de Spark) y guarda `verificacion/geografia_spark.json`.
+2. `.venv\Scripts\python scripts\comprobar_geografia.py` compara esa referencia con las funciones del dashboard y con lo que dibuja la app real: los datos de las barras (departamentos y categoría aparte), las tarjetas del 50 % y del 80 %, la curva y la línea de la suma.
+
+Resultado del 16-nov-2026: las siete combinaciones coinciden, con pesos, contratos y número de entidades exactos. Se comprobó que el comprobador falla si se altera un peso, el número de entidades del 50 % o se quita la categoría «Sin departamento» de la referencia. (La primera versión de la referencia guardaba los resultados por departamento en la misma clave que los filtros del caso, y la comprobación resultaba circular; lo detectó esa prueba y se separaron en `departamentos` y `por_departamento`.)
+
+Cifras sin filtros para el informe (pesos sin atípicos):
+
+| Dónde | Cifra |
+|---|---|
+| Bogotá | 53,6 % del valor y 28,3 % de los contratos (150.188) |
+| Los tres primeros departamentos | Bogotá, Antioquia (11,0 %) y Valle del Cauca (4,3 %) suman el 68,8 % del valor |
+| Departamentos para llegar al 80 % | 8 de 34 |
+| Sin departamento | 18.874 contratos (3,6 %) y 1,0 % del valor |
+| Entidades que reúnen la mitad del valor | 30 de 4.050 (0,7 %) |
+| Entidades que reúnen el 80 % y el 90 % | 150 (3,7 %) y 324 (8,0 %) |
+| Las 10 primeras entidades | 31,2 % del valor |
+
+Para leerlas: Bogotá pesa más que todos los demás departamentos juntos en valor, pero menos de un tercio en número de contratos, así que sus contratos son más grandes. Dentro de cada departamento el gasto también se concentra en pocas entidades (en Antioquia, de 2020 a 2023, dos de 279 entidades reúnen la mitad). Es la concentración del valor entre entidades; no dice nada de la competencia dentro de cada contratación.
 
 ## Principales actores (T4.5)
 
