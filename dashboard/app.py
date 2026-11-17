@@ -16,7 +16,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from consultas import aplicar_filtros, calcular_ranking, concentracion_entidades, valor_por_departamento
+from consultas import aplicar_filtros, calcular_ranking, concentracion_entidades, etiquetas_entidades, valor_por_departamento
 from periodos import TIPOS, contexto_mes, periodos_en
 
 DATOS = Path(__file__).parent / "data"
@@ -65,55 +65,55 @@ gold, flujo = metadatos["gold"], metadatos["flujo"]
 meses = sorted(serie_completa["anio_mes"].unique())
 departamentos_todos = sorted(serie_completa["departamento"].unique())
 
-# Filtros iniciales desde la dirección, para abrir el dashboard ya filtrado o repetir una captura:
-#   ?departamento=Antioquia&departamento=Boyacá&entidad=NIT:899999034&desde=2020-01&hasta=2023-12&n=10&orden=valor
-# (departamento y entidad se pueden repetir; orden es 'valor' o 'contratos'). Se leen una sola vez al abrir la sesión;
-# los valores que no existen se ignoran. Después mandan los filtros de la pantalla.
-# Streamlit registra una vez en el log del servidor que 'f_meses' (o 'n_ranking') tiene valor por defecto y otro puesto desde la sesión;
-# es solo un aviso de registro, y quitar el valor por defecto rompe el rango de meses al recargar.
-if "_filtros_de_la_url" not in st.session_state:
-    st.session_state["_filtros_de_la_url"] = True
-    consulta = st.query_params
-    if elegidos := [d for d in consulta.get_all("departamento") if d in departamentos_todos]:
-        st.session_state["f_departamento"] = elegidos
-    if elegidas := consulta.get_all("entidad"):
-        st.session_state["f_entidad"] = elegidas  # las que no existan se quitan más abajo, igual que al cambiar de departamento
-    desde, hasta = consulta.get("desde", meses[0]), consulta.get("hasta", meses[-1])
-    if desde in meses and hasta in meses and desde <= hasta and (desde, hasta) != (meses[0], meses[-1]):
-        st.session_state["f_meses"] = (desde, hasta)
-    if consulta.get("n", "").isdigit() and 1 <= int(consulta["n"]) <= 50:
-        st.session_state["n_ranking"] = int(consulta["n"])
-    if consulta.get("orden") in ("valor", "contratos"):
-        st.session_state["orden_ranking"] = "Valor adjudicado" if consulta["orden"] == "valor" else "Número de contratos"
+RANGO_COMPLETO = (meses[0], meses[-1])
+etiqueta_de = etiquetas_entidades(tablas["entidades"])
+id_de = {etiqueta: i for i, etiqueta in etiqueta_de.items()}
+assert len(id_de) == len(etiqueta_de), "Dos entidades con la misma etiqueta"
+# El texto de cada opción es también su valor en la dirección (?orden=Contratos); con format_func la dirección usaría el texto visible
+ORDENES = ["Valor", "Contratos"]
 
+
+def quitar_filtros():
+    """Deja los tres filtros abiertos.
+
+    Corre como callback del botón, antes de que se dibujen los controles, y *asigna* los valores por defecto: así la
+    pantalla y la dirección cambian junto con los datos. (Borrar las claves y llamar a st.rerun() recalculaba los datos,
+    pero el navegador seguía mostrando los filtros anteriores.)
+    """
+    st.session_state["departamento"] = []
+    st.session_state["entidad"] = []
+    st.session_state["meses"] = RANGO_COMPLETO
+
+
+# Cada filtro está sincronizado con la dirección (bind="query-params"; la clave es el nombre del parámetro), así que la
+# dirección siempre refleja lo que se ve y se puede compartir o repetir. Ejemplo:
+#   ?departamento=Antioquia&departamento=Boyacá&entidad=INVIAS (800215807)&meses=2020-01&meses=2023-12&n=10&orden=Valor
+# Los valores que no existen se ignoran; un valor igual al de por defecto no aparece en la dirección.
 with st.sidebar:
     st.header("Filtros")
     departamentos = st.multiselect(
-        "Departamento", departamentos_todos, key="f_departamento", placeholder="Todos",
+        "Departamento", departamentos_todos, key="departamento", bind="query-params", placeholder="Todos",
         help="Sin selección se incluyen todos. 'SIN DEPARTAMENTO' agrupa los contratos cuya entidad no lo informa.",
     )
 
     # Las entidades ofrecidas son las que tienen contratos en los departamentos elegidos; si un cambio de departamento
     # deja fuera una entidad ya elegida, se quita de la selección (Streamlit falla si la selección sale de las opciones).
+    # Las opciones son el texto visible («NOMBRE (NIT)»), no el NIT: con bind="query-params" la dirección usa el texto de la opción.
     en_departamentos = serie_completa if not departamentos else serie_completa[serie_completa["departamento"].isin(departamentos)]
-    ids_posibles = en_departamentos["id_entidad"].unique()
-    opciones_entidad = sorted(ids_posibles, key=lambda i: (nombres_entidad.get(i, i).casefold(), i))
-    if "f_entidad" in st.session_state:
-        st.session_state["f_entidad"] = [e for e in st.session_state["f_entidad"] if e in set(opciones_entidad)]
-    entidades = st.multiselect(
-        f"Entidad ({miles(len(opciones_entidad))} disponibles)", opciones_entidad, key="f_entidad", placeholder="Todas",
-        format_func=lambda i: f"{nombres_entidad.get(i, i)} ({i.removeprefix('NIT:')})",
+    opciones_entidad = sorted((etiqueta_de[i] for i in en_departamentos["id_entidad"].unique()), key=lambda e: (e.casefold(), e))
+    if "entidad" in st.session_state:
+        st.session_state["entidad"] = [e for e in st.session_state["entidad"] if e in set(opciones_entidad)]
+    elegidas = st.multiselect(
+        f"Entidad ({miles(len(opciones_entidad))} disponibles)", opciones_entidad, key="entidad", bind="query-params", placeholder="Todas",
         help="Escribe para buscar por nombre o NIT. Sin selección se incluyen todas.",
     )
+    entidades = [id_de[e] for e in elegidas]
 
     mes_desde, mes_hasta = st.select_slider(
-        "Meses de adjudicación", options=meses, value=(meses[0], meses[-1]), key="f_meses",
+        "Meses de adjudicación", options=meses, value=RANGO_COMPLETO, key="meses", bind="query-params",
         help="Rango inclusivo, de 'AAAA-MM' a 'AAAA-MM'.",
     )
-    if st.button("Quitar filtros"):
-        for clave in ("f_departamento", "f_entidad", "f_meses"):
-            st.session_state.pop(clave, None)
-        st.rerun()
+    st.button("Quitar filtros", on_click=quitar_filtros)
 
 serie = aplicar_filtros(serie_completa, departamentos, entidades, mes_desde, mes_hasta)
 contratistas = aplicar_filtros(tablas["contratistas_mensual"], departamentos, entidades, mes_desde, mes_hasta)
@@ -268,18 +268,19 @@ else:
     )
     if coincide_flujo:
         st.caption(
-            f"✓ Los {n_meses} puntos mensuales coinciden con las ventanas del flujo (T2.4) para estos filtros."
-            if n_meses > 1 else "✓ El punto mensual coincide con la ventana del flujo (T2.4) para estos filtros."
+            f"✓ Los {n_meses} puntos mensuales coinciden con las ventanas del flujo para estos filtros."
+            if n_meses > 1 else "✓ El punto mensual coincide con la ventana del flujo para estos filtros."
         )
     else:
-        st.warning("Los puntos mensuales NO coinciden con las ventanas del flujo (T2.4): vuelve a generar las tablas con el notebook 07.")
+        st.warning("Los puntos mensuales NO coinciden con las ventanas del flujo: vuelve a generar las tablas con el notebook 07.")
 
 st.markdown(f"**Picos detectados:** los {N_PICOS} meses de mayor valor y de más contratos en el periodo filtrado.")
 p1, p2 = st.columns(2)
 for columna_pantalla, titulo, picos in ((p1, "Mayor valor adjudicado", picos_valor), (p2, "Más contratos adjudicados", picos_contratos)):
     columna_pantalla.markdown(f"*{titulo}*")
     columna_pantalla.dataframe(
-        picos.rename(columns={"anio_mes": "Mes", "valor_billones": "Valor (billones)", "contratos": "Contratos", "contexto": "Periodos"})
+        picos.assign(contratos=picos["contratos"].map(lambda c: miles(int(c))))
+        .rename(columns={"anio_mes": "Mes", "valor_billones": "Valor (billones)", "contratos": "Contratos", "contexto": "Periodos"})
         [["Mes", "Valor (billones)", "Contratos", "Periodos"]],
         hide_index=True,
         column_config={"Valor (billones)": st.column_config.NumberColumn(format="%.2f")},
@@ -292,9 +293,9 @@ st.caption(
     "El valor no incluye los contratos atípicos; los contratos sí los incluyen (columna «Atípicos»). En empate gana el identificador menor."
 )
 r1, r2 = st.columns(2)
-n_ranking = int(r1.number_input("Cuántos mostrar (N)", min_value=1, max_value=50, value=10, step=1, key="n_ranking"))
-orden_ranking = r2.radio("Ordenar por", ["Valor adjudicado", "Número de contratos"], horizontal=True, key="orden_ranking")
-columna_orden = "valor_total" if orden_ranking == "Valor adjudicado" else "contratos"
+n_ranking = int(r1.number_input("Cuántos mostrar (N)", min_value=1, max_value=50, value=10, step=1, key="n", bind="query-params"))
+orden_ranking = r2.radio("Ordenar por", ORDENES, horizontal=True, key="orden", bind="query-params")
+columna_orden = "valor_total" if orden_ranking == "Valor" else "contratos"
 total_orden = valor if columna_orden == "valor_total" else contratos
 nombres_contratista = tablas["contratistas"].set_index("id_contratista")["nombre_contratista"]
 

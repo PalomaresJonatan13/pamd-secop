@@ -9,6 +9,14 @@ import pandas as pd
 MEDIDAS_RANKING = ["contratos", "contratos_atipicos", "valor_total"]
 
 
+def etiquetas_entidades(entidades: pd.DataFrame) -> dict:
+    """Texto que el dashboard muestra y usa en la dirección para cada entidad: 'NOMBRE (NIT)'. Una clave por id_entidad.
+
+    `entidades` es la tabla entidades.parquet (id_entidad, nombre_entidad). El NIT va sin el prefijo 'NIT:'.
+    """
+    return {i: f"{nombre} ({i.removeprefix('NIT:')})" for i, nombre in zip(entidades["id_entidad"], entidades["nombre_entidad"])}
+
+
 def aplicar_filtros(df: pd.DataFrame, departamentos: list, entidades: list, mes_desde: str, mes_hasta: str) -> pd.DataFrame:
     """Filas de df que cumplen los filtros. Una lista vacía significa 'todos'; los meses son 'AAAA-MM' y se comparan como texto."""
     mascara = (df["anio_mes"] >= mes_desde) & (df["anio_mes"] <= mes_hasta)

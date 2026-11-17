@@ -25,12 +25,12 @@ Las capturas de T4.7 son del dashboard y se toman con `scripts/capturar_dashboar
 |---|---|---|
 | `t4.7_cabecera_sin_filtros.png` | Filtros abiertos, cinco tarjetas con los totales de gold y fecha del último lote procesado | `/` |
 | `t4.7_modulo_tiempo.png` | Valor y contratos por mes con las franjas de la ley de garantías y el cierre fiscal, y los picos | `/` |
-| `t4.7_modulo_rankings.png` | Top 10 de entidades y de contratistas por valor | `/?n=10&orden=valor` |
+| `t4.7_modulo_rankings.png` | Top 10 de entidades y de contratistas por valor | `/` |
 | `t4.7_modulo_geografia.png` | Valor por departamento, con «Sin departamento» como categoría aparte | `/` |
 | `t4.7_modulo_concentracion.png` | Entidades que reúnen el 50 % y el 80 % del valor, y curva acumulada | `/` |
-| `t4.7_filtro_antioquia_2020_2023.png` | Todos los módulos con un departamento y un rango de meses | `/?departamento=Antioquia&desde=2020-01&hasta=2023-12` |
-| `t4.7_filtro_una_entidad.png` | Todos los módulos con una sola entidad (el SENA, 2019 a 2025) | `/?entidad=NIT:899999034&desde=2019-01&hasta=2025-12` |
-| `t4.7_filtro_sin_resultados.png` | Combinación sin contratos: aviso claro en lugar de un error | `/?departamento=SIN%20DEPARTAMENTO&desde=2015-06&hasta=2015-07` |
+| `t4.7_filtro_antioquia_2020_2023.png` | Todos los módulos con un departamento y un rango de meses | `/?departamento=Antioquia&meses=2020-01&meses=2023-12` |
+| `t4.7_filtro_una_entidad.png` | Todos los módulos con una sola entidad (el SENA, 2019 a 2025) | `/?entidad=SENA%20REGIONAL%20VALLE%20Grupo%20de%20Apoyo%20Administrativo%20Mixto%20%28899999034%29&meses=2019-01&meses=2025-12` |
+| `t4.7_filtro_sin_resultados.png` | Combinación sin contratos: aviso claro en lugar de un error | `/?departamento=SIN%20DEPARTAMENTO&meses=2015-06&meses=2015-07` |
 
 La explicación del mecanismo (T3.5) está en `docs/resiliencia_idempotencia.md`, con el diagrama `docs/mecanismo_resiliencia.svg` (PNG para la presentación).
 
