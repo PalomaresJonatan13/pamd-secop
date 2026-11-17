@@ -15,12 +15,12 @@ Repositorio: https://github.com/PalomaresJonatan13/pamd-secop
 ├── requirements.txt          dependencias para ejecutar sin Docker
 ├── src/pamd/                 código compartido (rutas, sesión de Spark, reglas de calidad de gold y simulación del flujo)
 ├── notebooks/                notebooks numerados en orden de ejecución
-├── scripts/                  utilidades (revisión de la cuarentena sin Spark)
+├── scripts/                  utilidades (revisión de la cuarentena sin Spark y generación de los diagramas)
 ├── data/                     instrucciones para obtener el CSV (los datos no se versionan)
 ├── dashboard/                Punto 4 del Corte 3
 ├── report/                   informe técnico
 ├── presentation/             presentación ejecutiva
-└── docs/                     plan de subtareas, articulación de los cortes y diagrama de linaje
+└── docs/                     plan de subtareas, articulación de los cortes, diagrama de linaje y explicación de la resiliencia del flujo
 ```
 
 ## Puesta en marcha
@@ -116,7 +116,7 @@ Cada notebook empieza con una celda de configuración que importa `pamd.config` 
 | `03_corte2_pagerank.ipynb` | 2 | PageRank entidad → contratista | Ejecutado el 12-nov-2026 |
 | `04_corte3_silver_gold.ipynb` | 3 – Punto 1 | Deduplicación, silver, gold y tablas resumen | T1.1 a T1.3 ejecutadas el 13-nov-2026; T1.4 a T1.6 ejecutadas el 14-nov-2026 |
 | `05_corte3_streaming_ventanas.ipynb` | 3 – Punto 2 | Micro-lotes, Structured Streaming y ventanas | T2.1 a T2.6 ejecutadas el 15-nov-2026 |
-| `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | T3.1 a T3.4 ejecutadas el 16-nov-2026 (el notebook completo tarda unos 30 min); T3.5 por hacer |
+| `06_corte3_resiliencia_idempotencia.ipynb` | 3 – Punto 3 | Checkpoint, destino idempotente y pruebas de fallo | T3.1 a T3.4 ejecutadas el 16-nov-2026 (el notebook completo tarda unos 30 min); la explicación del mecanismo (T3.5) está en `docs/resiliencia_idempotencia.md` |
 
 El notebook original (cortes 1 y 2) se dividió en los tres primeros. Los tres se ejecutaron el 12 de noviembre de 2026 sobre el bronze reconstruido, y sus salidas están guardadas. Los notebooks 02 y 03 leen el bronze ya escrito en MinIO, así que el 01 debe ejecutarse antes (con `RECONSTRUIR_BRONZE = True` la primera vez).
 

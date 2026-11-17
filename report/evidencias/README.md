@@ -1,6 +1,6 @@
-# Evidencias para el informe (T2.3 a T3.1)
+# Evidencias para el informe (T2.3 a T3.5)
 
-Capturas de las salidas guardadas en los notebooks `05` y `06`, tal como quedaron en `main` el 15-nov-2026. No hubo que volver a ejecutar nada: si se vuelven a correr los notebooks, las cifras deben ser las mismas.
+Capturas de las salidas guardadas en los notebooks `05` y `06`, tal como quedaron en `main` el 15-nov-2026. No hubo que volver a ejecutar nada: si se vuelven a correr los notebooks, las cifras deben ser las mismas. Las capturas de T3.2 a T3.4 son de las salidas del notebook `06` ejecutado el 16-nov-2026.
 
 | Archivo | Subtarea | Qué muestra | Celda de origen |
 |---|---|---|---|
@@ -12,5 +12,13 @@ Capturas de las salidas guardadas en los notebooks `05` y `06`, tal como quedaro
 | `t3.1_contenido_del_checkpoint.png` | T3.1 | Qué guarda el checkpoint tras detener el flujo después del lote 11: carpetas, archivos ya leídos, `offsets` y `commits` del último disparo | `06`, `# T3.1 · Contenido del checkpoint después de la parada` |
 | `t3.1_antes_y_despues_del_reinicio.png` | T3.1 | Lotes leídos antes y después del reinicio con el mismo checkpoint: sigue en el disparo 21 con el lote 12 y no relee ninguno | `06`, `# T3.1 · Tras detener y reiniciar...` |
 | `t3.1_consulta_cambiada.png` | T3.1 | Una consulta cambiada (agrupada solo por mes) no puede usar el checkpoint: `StateSchemaNotCompatible` | `06`, `# T3.1 · Prueba: la misma fuente agrupada solo por mes` |
+| `t3.2_mismo_micro_lote_1_2_y_10_veces.png` | T3.2 | El último micro-lote guardado 1, 2 y 10 veces en el destino idempotente: mismas ventanas, contratos, valor y huella | `06`, `# T3.2 · Repetir el último micro-lote` |
+| `t3.2_contraste_con_append.png` | T3.2 | El mismo micro-lote en modo `append` sobre una copia de la tabla: cada repetición añade 103 filas y 20.913 contratos ya contados | `06`, `# T3.2 · Contraste con append` |
+| `t3.3_sin_deduplicacion.png` | T3.3 | Sin deduplicación, el último lote depositado con otro nombre cuenta 13.179 contratos dos veces | `06`, `# T3.3 · Contraste: la consulta sin deduplicación` |
+| `t3.3_lote_repetido.png` | T3.3 | Con deduplicación, tres lotes ya procesados vuelven a la entrada (mismo nombre, otro nombre con meses abiertos, otro nombre con meses cerrados): filas leídas, motivo del descarte y cifras iguales | `06`, `# T3.3 · Los tres casos` |
+| `t3.4_caida_durante_la_escritura.png` | T3.4 | Registro del escenario A: parada tras el lote 8, caída a mitad de la escritura del lote 15 y repetición del mismo micro-lote al reiniciar | `06`, `# T3.4 · Escenario A` |
+| `t3.4_tabla_de_escenarios.png` | T3.4 | Tabla de los tres escenarios con conteo, valor y estado frente a la ejecución limpia y al cálculo por lotes (0 ventanas distintas), y contratos por año en cada escenario | `06`, `# T3.4 · Tabla de los tres escenarios` |
+
+La explicación del mecanismo (T3.5) está en `docs/resiliencia_idempotencia.md`, con el diagrama `docs/mecanismo_resiliencia.svg` (PNG para la presentación).
 
 Las evidencias de T0.4 y T1.1 a T1.3 son tablas del `README` y del notebook `04`; las de T2.1 y T2.2, la página de diseño y la lista de lotes del notebook `05`.
