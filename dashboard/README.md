@@ -2,7 +2,47 @@
 
 Dashboard interactivo del Observatorio de Contratación Pública. Responde las tres preguntas del enunciado: dónde se concentra el gasto, quiénes son los principales actores y cómo varía la contratación en el tiempo.
 
-**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología), T4.3 (filtros y tarjetas) y T4.4 (visualización temporal) cerradas el 16-nov-2026. Los rankings y el módulo geográfico se añaden en T4.5 y T4.6.
+**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología), T4.3 (filtros y tarjetas), T4.4 (visualización temporal) y T4.5 (rankings) cerradas el 16-nov-2026. El módulo geográfico y de concentración se añade en T4.6.
+
+## Principales actores (T4.5)
+
+Dos tablas, una bajo la otra: las **N entidades** y los **N contratistas** que más pesan en lo filtrado. N se elige entre 1 y 50 (10 por defecto) y el orden, por valor adjudicado o por número de contratos. Cada fila trae nombre, identificación, contratos, contratos atípicos, valor en millones de pesos y su participación en el total filtrado; bajo cada tabla, lo que suman las N primeras. Los rankings respetan los filtros de la barra lateral: se agrupan `serie_mensual` (entidades) y `contratistas_mensual` (contratistas) después de filtrarlas. La lógica está en `consultas.py`.
+
+Reglas de lectura:
+- El valor es `valor_total`, **sin atípicos**; los contratos incluyen los atípicos y por eso hay una columna «Atípicos». Un contratista cuyo contrato más grande es atípico puede aparecer con un valor bajo.
+- En empate gana el identificador menor, así el resultado es siempre el mismo.
+- Una entidad es un NIT y puede agrupar varias dependencias: el nombre que se muestra es el más frecuente (por eso el NIT 899999034, el SENA, aparece como «SENA REGIONAL VALLE» incluso al filtrar por Antioquia).
+- El puntaje de PageRank del Corte 2 (opcional en el plan) no se añadió: no hay una tabla guardada con él y recalcularlo sobre gold daría cifras distintas a las del Corte 2, que se calcularon sobre el bronze.
+
+### Verificación contra Spark
+
+Criterio de T4.5: el top 10 del dashboard debe coincidir con una consulta de Spark sobre gold para al menos tres combinaciones de filtros. Se hicieron siete, con entidades y contratistas, por valor y por número de contratos (28 tops de 10 filas):
+
+| Combinación de filtros | Contratos filtrados |
+|---|---|
+| Sin filtros | 530.192 |
+| Antioquia, 2020 a 2023 | 27.728 |
+| Bogotá, 2022 | 16.315 |
+| Valle del Cauca y Cundinamarca | 63.245 |
+| SIN DEPARTAMENTO | 18.874 |
+| Una entidad (SENA), 2019 a 2025 | 29.449 |
+| Primeros años, 2015 a 2017 | 20.172 |
+
+1. `docker exec spark python /home/jovyan/work/scripts/consultas_spark_rankings.py` calcula los tops **directamente sobre gold** con las reglas de `src/pamd/calidad.py`, sin usar las tablas de consumo, y guarda `verificacion/rankings_spark.json`.
+2. `.venv\Scripts\python scripts\comprobar_rankings.py` compara ese archivo con `calcular_ranking()` (identificador, contratos, atípicos y pesos, exactos) y con lo que muestra el dashboard real, moviendo los filtros y el orden con la prueba de Streamlit. También comprueba N=3 y N=50.
+
+Resultado del 16-nov-2026: las siete combinaciones coinciden en los 28 tops y en las 28 tablas de pantalla, y los totales filtrados son iguales. Se comprobó que el comprobador falla si se altera un número o se cambia el orden de dos filas de la referencia.
+
+Cifras sin filtros para el informe (pesos sin atípicos; cálculo con pandas sobre las tablas de consumo):
+
+| | Primero | Las 10 primeras |
+|---|---|---|
+| Entidades por valor | INVIAS, 6,3 % del valor | 31,2 % del valor |
+| Entidades por contratos | SENA (nombre más frecuente: «SENA REGIONAL VALLE»), 6,2 % de los contratos | 16,9 % de los contratos |
+| Contratistas por valor | GECELCA S.A. E.S.P., 1,2 % del valor | 6,6 % del valor |
+| Contratistas por contratos | La Previsora S.A. Compañía de Seguros, 0,7 % de los contratos | 2,3 % de los contratos |
+
+Entre los 99.236 contratistas con valor mayor que cero, el 1 % de mayor valor (992) concentra el 52,6 % del valor adjudicado.
 
 ## Visualización temporal (T4.4)
 

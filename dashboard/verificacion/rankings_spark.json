@@ -1,0 +1,1736 @@
+{
+ "generado_utc": "2026-11-17 01:41",
+ "n": 10,
+ "casos": [
+  {
+   "nombre": "sin filtros",
+   "departamentos": [],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 530192,
+    "valor_total": 352909018925397
+   },
+   "rankings": {
+    "entidades_por_valor_total": [
+     {
+      "id": "NIT:800215807",
+      "contratos": 5285,
+      "contratos_atipicos": 2,
+      "valor_total": 22256198017874
+     },
+     {
+      "id": "NIT:899999061",
+      "contratos": 18126,
+      "contratos_atipicos": 6,
+      "valor_total": 19436497397090
+     },
+     {
+      "id": "NIT:890905211",
+      "contratos": 4879,
+      "contratos_atipicos": 3,
+      "valor_total": 15980884831288
+     },
+     {
+      "id": "NIT:899999081",
+      "contratos": 864,
+      "contratos_atipicos": 1,
+      "valor_total": 11453591009173
+     },
+     {
+      "id": "NIT:900475780",
+      "contratos": 615,
+      "contratos_atipicos": 0,
+      "valor_total": 8226967368610
+     },
+     {
+      "id": "NIT:899999022",
+      "contratos": 965,
+      "contratos_atipicos": 0,
+      "valor_total": 7681957852147
+     },
+     {
+      "id": "NIT:890900286",
+      "contratos": 4169,
+      "contratos_atipicos": 3,
+      "valor_total": 7117940653596
+     },
+     {
+      "id": "NIT:899999034",
+      "contratos": 32683,
+      "contratos_atipicos": 5,
+      "valor_total": 6187405210046
+     },
+     {
+      "id": "NIT:830063506",
+      "contratos": 620,
+      "contratos_atipicos": 0,
+      "valor_total": 5988647500442
+     },
+     {
+      "id": "NIT:899999059",
+      "contratos": 4725,
+      "contratos_atipicos": 4,
+      "valor_total": 5912714927554
+     }
+    ],
+    "entidades_por_contratos": [
+     {
+      "id": "NIT:899999034",
+      "contratos": 32683,
+      "contratos_atipicos": 5,
+      "valor_total": 6187405210046
+     },
+     {
+      "id": "NIT:899999061",
+      "contratos": 18126,
+      "contratos_atipicos": 6,
+      "valor_total": 19436497397090
+     },
+     {
+      "id": "NIT:899999162",
+      "contratos": 6438,
+      "contratos_atipicos": 29,
+      "valor_total": 1390592739861
+     },
+     {
+      "id": "NIT:800215807",
+      "contratos": 5285,
+      "contratos_atipicos": 2,
+      "valor_total": 22256198017874
+     },
+     {
+      "id": "NIT:890905211",
+      "contratos": 4879,
+      "contratos_atipicos": 3,
+      "valor_total": 15980884831288
+     },
+     {
+      "id": "NIT:899999059",
+      "contratos": 4725,
+      "contratos_atipicos": 4,
+      "valor_total": 5912714927554
+     },
+     {
+      "id": "NIT:890399011",
+      "contratos": 4686,
+      "contratos_atipicos": 6,
+      "valor_total": 4844686665567
+     },
+     {
+      "id": "NIT:899999239",
+      "contratos": 4623,
+      "contratos_atipicos": 4,
+      "valor_total": 3733856169168
+     },
+     {
+      "id": "NIT:890900286",
+      "contratos": 4169,
+      "contratos_atipicos": 3,
+      "valor_total": 7117940653596
+     },
+     {
+      "id": "NIT:890201235",
+      "contratos": 4075,
+      "contratos_atipicos": 5,
+      "valor_total": 3005446894800
+     }
+    ],
+    "contratistas_por_valor_total": [
+     {
+      "id": "NIT:900082143",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 4205027751839
+     },
+     {
+      "id": "NIT:8060088733",
+      "contratos": 112,
+      "contratos_atipicos": 0,
+      "valor_total": 3001973356929
+     },
+     {
+      "id": "NIT:830040256",
+      "contratos": 19,
+      "contratos_atipicos": 0,
+      "valor_total": 2613029607356
+     },
+     {
+      "id": "NIT:800223337",
+      "contratos": 96,
+      "contratos_atipicos": 0,
+      "valor_total": 2208287836785
+     },
+     {
+      "id": "NIT:901965187",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 2124806917129
+     },
+     {
+      "id": "NIT:800096329",
+      "contratos": 59,
+      "contratos_atipicos": 0,
+      "valor_total": 2115566793981
+     },
+     {
+      "id": "NIT:890984761",
+      "contratos": 212,
+      "contratos_atipicos": 0,
+      "valor_total": 1981056805820
+     },
+     {
+      "id": "NIT:860002400",
+      "contratos": 3450,
+      "contratos_atipicos": 0,
+      "valor_total": 1826158571352
+     },
+     {
+      "id": "CODIGO:737261321",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 1566000000000
+     },
+     {
+      "id": "NIT:830048122",
+      "contratos": 4,
+      "contratos_atipicos": 0,
+      "valor_total": 1506681214119
+     }
+    ],
+    "contratistas_por_contratos": [
+     {
+      "id": "NIT:860002400",
+      "contratos": 3450,
+      "contratos_atipicos": 0,
+      "valor_total": 1826158571352
+     },
+     {
+      "id": "NIT:860524654",
+      "contratos": 3189,
+      "contratos_atipicos": 2,
+      "valor_total": 912532184679
+     },
+     {
+      "id": "NIT:900062917",
+      "contratos": 1117,
+      "contratos_atipicos": 1,
+      "valor_total": 817172830852
+     },
+     {
+      "id": "NIT:901406206",
+      "contratos": 804,
+      "contratos_atipicos": 0,
+      "valor_total": 10021005578
+     },
+     {
+      "id": "NIT:804003744",
+      "contratos": 781,
+      "contratos_atipicos": 0,
+      "valor_total": 5297719575
+     },
+     {
+      "id": "NIT:899999063",
+      "contratos": 656,
+      "contratos_atipicos": 0,
+      "valor_total": 817233055984
+     },
+     {
+      "id": "NIT:900204272",
+      "contratos": 648,
+      "contratos_atipicos": 1,
+      "valor_total": 30007428378
+     },
+     {
+      "id": "NIT:890980040",
+      "contratos": 635,
+      "contratos_atipicos": 0,
+      "valor_total": 985098452689
+     },
+     {
+      "id": "CODIGO:700282023",
+      "contratos": 597,
+      "contratos_atipicos": 1,
+      "valor_total": 68361196077
+     },
+     {
+      "id": "CODIGO:700146020",
+      "contratos": 567,
+      "contratos_atipicos": 1,
+      "valor_total": 31726786471
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "Antioquia, 2020-2023",
+   "departamentos": [
+    "Antioquia"
+   ],
+   "entidades": [],
+   "desde": "2020-01",
+   "hasta": "2023-12",
+   "totales": {
+    "contratos": 27728,
+    "valor_total": 15492643343984
+   },
+   "rankings": {
+    "entidades_por_valor_total": [
+     {
+      "id": "NIT:890905211",
+      "contratos": 2419,
+      "contratos_atipicos": 1,
+      "valor_total": 6577674477063
+     },
+     {
+      "id": "NIT:890900286",
+      "contratos": 2705,
+      "contratos_atipicos": 0,
+      "valor_total": 2804414185397
+     },
+     {
+      "id": "NIT:890980093",
+      "contratos": 139,
+      "contratos_atipicos": 0,
+      "valor_total": 571321756604
+     },
+     {
+      "id": "NIT:890980095",
+      "contratos": 323,
+      "contratos_atipicos": 0,
+      "valor_total": 413889130762
+     },
+     {
+      "id": "NIT:900602106",
+      "contratos": 176,
+      "contratos_atipicos": 0,
+      "valor_total": 304152014583
+     },
+     {
+      "id": "NIT:890907106",
+      "contratos": 759,
+      "contratos_atipicos": 0,
+      "valor_total": 272097481621
+     },
+     {
+      "id": "NIT:900795141",
+      "contratos": 41,
+      "contratos_atipicos": 0,
+      "valor_total": 215223411675
+     },
+     {
+      "id": "NIT:899999034",
+      "contratos": 1597,
+      "contratos_atipicos": 0,
+      "valor_total": 185430346638
+     },
+     {
+      "id": "NIT:890980112",
+      "contratos": 165,
+      "contratos_atipicos": 0,
+      "valor_total": 174848325600
+     },
+     {
+      "id": "NIT:890980331",
+      "contratos": 257,
+      "contratos_atipicos": 1,
+      "valor_total": 172428406984
+     }
+    ],
+    "entidades_por_contratos": [
+     {
+      "id": "NIT:890900286",
+      "contratos": 2705,
+      "contratos_atipicos": 0,
+      "valor_total": 2804414185397
+     },
+     {
+      "id": "NIT:890905211",
+      "contratos": 2419,
+      "contratos_atipicos": 1,
+      "valor_total": 6577674477063
+     },
+     {
+      "id": "NIT:899999034",
+      "contratos": 1597,
+      "contratos_atipicos": 0,
+      "valor_total": 185430346638
+     },
+     {
+      "id": "NIT:890907106",
+      "contratos": 759,
+      "contratos_atipicos": 0,
+      "valor_total": 272097481621
+     },
+     {
+      "id": "NIT:811032059",
+      "contratos": 671,
+      "contratos_atipicos": 1,
+      "valor_total": 122643309586
+     },
+     {
+      "id": "NIT:890983906",
+      "contratos": 490,
+      "contratos_atipicos": 0,
+      "valor_total": 23696469338
+     },
+     {
+      "id": "NIT:901540992",
+      "contratos": 485,
+      "contratos_atipicos": 3,
+      "valor_total": 103601959239
+     },
+     {
+      "id": "NIT:890980134",
+      "contratos": 460,
+      "contratos_atipicos": 0,
+      "valor_total": 20280401617
+     },
+     {
+      "id": "NIT:890984221",
+      "contratos": 456,
+      "contratos_atipicos": 0,
+      "valor_total": 33361521611
+     },
+     {
+      "id": "NIT:901037393",
+      "contratos": 435,
+      "contratos_atipicos": 1,
+      "valor_total": 15742612654
+     }
+    ],
+    "contratistas_por_valor_total": [
+     {
+      "id": "NIT:800223337",
+      "contratos": 35,
+      "contratos_atipicos": 0,
+      "valor_total": 851076713121
+     },
+     {
+      "id": "NIT:890984761",
+      "contratos": 106,
+      "contratos_atipicos": 0,
+      "valor_total": 713465666631
+     },
+     {
+      "id": "NIT:800058016",
+      "contratos": 87,
+      "contratos_atipicos": 0,
+      "valor_total": 491754365136
+     },
+     {
+      "id": "NIT:890980040",
+      "contratos": 285,
+      "contratos_atipicos": 0,
+      "valor_total": 437743250131
+     },
+     {
+      "id": "NIT:900590434",
+      "contratos": 39,
+      "contratos_atipicos": 0,
+      "valor_total": 379059228362
+     },
+     {
+      "id": "NIT:8909801792",
+      "contratos": 21,
+      "contratos_atipicos": 0,
+      "valor_total": 365952417927
+     },
+     {
+      "id": "NIT:890980134",
+      "contratos": 102,
+      "contratos_atipicos": 0,
+      "valor_total": 354331612552
+     },
+     {
+      "id": "NIT:800214750",
+      "contratos": 133,
+      "contratos_atipicos": 0,
+      "valor_total": 322650133074
+     },
+     {
+      "id": "CODIGO:704801737",
+      "contratos": 97,
+      "contratos_atipicos": 0,
+      "valor_total": 261394018844
+     },
+     {
+      "id": "NIT:890909297",
+      "contratos": 105,
+      "contratos_atipicos": 0,
+      "valor_total": 259355200145
+     }
+    ],
+    "contratistas_por_contratos": [
+     {
+      "id": "NIT:890980040",
+      "contratos": 285,
+      "contratos_atipicos": 0,
+      "valor_total": 437743250131
+     },
+     {
+      "id": "NIT:860524654",
+      "contratos": 155,
+      "contratos_atipicos": 0,
+      "valor_total": 30707858317
+     },
+     {
+      "id": "NIT:800214750",
+      "contratos": 133,
+      "contratos_atipicos": 0,
+      "valor_total": 322650133074
+     },
+     {
+      "id": "NIT:901464458",
+      "contratos": 108,
+      "contratos_atipicos": 0,
+      "valor_total": 170017704476
+     },
+     {
+      "id": "NIT:890984761",
+      "contratos": 106,
+      "contratos_atipicos": 0,
+      "valor_total": 713465666631
+     },
+     {
+      "id": "NIT:890909297",
+      "contratos": 105,
+      "contratos_atipicos": 0,
+      "valor_total": 259355200145
+     },
+     {
+      "id": "NIT:900975633",
+      "contratos": 104,
+      "contratos_atipicos": 0,
+      "valor_total": 2205709655
+     },
+     {
+      "id": "NIT:890980134",
+      "contratos": 102,
+      "contratos_atipicos": 0,
+      "valor_total": 354331612552
+     },
+     {
+      "id": "NIT:800105497",
+      "contratos": 100,
+      "contratos_atipicos": 0,
+      "valor_total": 160554931364
+     },
+     {
+      "id": "NIT:890302988",
+      "contratos": 98,
+      "contratos_atipicos": 0,
+      "valor_total": 7737081604
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "Bogotá, 2022",
+   "departamentos": [
+    "Distrito Capital de Bogotá"
+   ],
+   "entidades": [],
+   "desde": "2022-01",
+   "hasta": "2022-12",
+   "totales": {
+    "contratos": 16315,
+    "valor_total": 21387853888125
+   },
+   "rankings": {
+    "entidades_por_valor_total": [
+     {
+      "id": "NIT:899999061",
+      "contratos": 2207,
+      "contratos_atipicos": 0,
+      "valor_total": 2455585071824
+     },
+     {
+      "id": "NIT:800141644",
+      "contratos": 205,
+      "contratos_atipicos": 0,
+      "valor_total": 2441929057268
+     },
+     {
+      "id": "NIT:800215807",
+      "contratos": 303,
+      "contratos_atipicos": 0,
+      "valor_total": 1773533625700
+     },
+     {
+      "id": "NIT:8001316486",
+      "contratos": 37,
+      "contratos_atipicos": 0,
+      "valor_total": 1233371440236
+     },
+     {
+      "id": "NIT:899999239",
+      "contratos": 143,
+      "contratos_atipicos": 0,
+      "valor_total": 1197394070121
+     },
+     {
+      "id": "NIT:900475780",
+      "contratos": 91,
+      "contratos_atipicos": 0,
+      "valor_total": 751123670948
+     },
+     {
+      "id": "NIT:899999003",
+      "contratos": 75,
+      "contratos_atipicos": 0,
+      "valor_total": 651036170613
+     },
+     {
+      "id": "NIT:8002469532",
+      "contratos": 151,
+      "contratos_atipicos": 0,
+      "valor_total": 571553478948
+     },
+     {
+      "id": "NIT:899999062",
+      "contratos": 127,
+      "contratos_atipicos": 0,
+      "valor_total": 566318575459
+     },
+     {
+      "id": "NIT:899999102",
+      "contratos": 303,
+      "contratos_atipicos": 0,
+      "valor_total": 493023634973
+     }
+    ],
+    "entidades_por_contratos": [
+     {
+      "id": "NIT:899999061",
+      "contratos": 2207,
+      "contratos_atipicos": 0,
+      "valor_total": 2455585071824
+     },
+     {
+      "id": "NIT:899999162",
+      "contratos": 567,
+      "contratos_atipicos": 0,
+      "valor_total": 108434471815
+     },
+     {
+      "id": "NIT:899999059",
+      "contratos": 526,
+      "contratos_atipicos": 1,
+      "valor_total": 117975175984
+     },
+     {
+      "id": "NIT:899999034",
+      "contratos": 468,
+      "contratos_atipicos": 0,
+      "valor_total": 130308662529
+     },
+     {
+      "id": "NIT:800197268",
+      "contratos": 389,
+      "contratos_atipicos": 1,
+      "valor_total": 318552224560
+     },
+     {
+      "id": "NIT:830040256",
+      "contratos": 377,
+      "contratos_atipicos": 0,
+      "valor_total": 382787145344
+     },
+     {
+      "id": "NIT:800150861",
+      "contratos": 318,
+      "contratos_atipicos": 0,
+      "valor_total": 43215433560
+     },
+     {
+      "id": "NIT:800215807",
+      "contratos": 303,
+      "contratos_atipicos": 0,
+      "valor_total": 1773533625700
+     },
+     {
+      "id": "NIT:899999102",
+      "contratos": 303,
+      "contratos_atipicos": 0,
+      "valor_total": 493023634973
+     },
+     {
+      "id": "NIT:900959048",
+      "contratos": 208,
+      "contratos_atipicos": 0,
+      "valor_total": 33255352196
+     }
+    ],
+    "contratistas_por_valor_total": [
+     {
+      "id": "NIT:8060088733",
+      "contratos": 4,
+      "contratos_atipicos": 0,
+      "valor_total": 2212011219570
+     },
+     {
+      "id": "CODIGO:711440024",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 1072552301475
+     },
+     {
+      "id": "CODIGO:715690137",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 1019076285427
+     },
+     {
+      "id": "CODIGO:717099048",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 630007748262
+     },
+     {
+      "id": "NIT:860002400",
+      "contratos": 57,
+      "contratos_atipicos": 0,
+      "valor_total": 427348174903
+     },
+     {
+      "id": "NIT:901508361",
+      "contratos": 22,
+      "contratos_atipicos": 0,
+      "valor_total": 405035029383
+     },
+     {
+      "id": "CODIGO:717034136",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 319366761001
+     },
+     {
+      "id": "NIT:830040256",
+      "contratos": 3,
+      "contratos_atipicos": 0,
+      "valor_total": 309567607356
+     },
+     {
+      "id": "CODIGO:716614169",
+      "contratos": 2,
+      "contratos_atipicos": 0,
+      "valor_total": 249407423459
+     },
+     {
+      "id": "CODIGO:718176266",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 223180405644
+     }
+    ],
+    "contratistas_por_contratos": [
+     {
+      "id": "NIT:900062917",
+      "contratos": 79,
+      "contratos_atipicos": 0,
+      "valor_total": 86243750954
+     },
+     {
+      "id": "NIT:900204272",
+      "contratos": 77,
+      "contratos_atipicos": 0,
+      "valor_total": 2842989203
+     },
+     {
+      "id": "NIT:800075003",
+      "contratos": 65,
+      "contratos_atipicos": 0,
+      "valor_total": 67762993864
+     },
+     {
+      "id": "NIT:901406206",
+      "contratos": 61,
+      "contratos_atipicos": 0,
+      "valor_total": 557312352
+     },
+     {
+      "id": "NIT:830001113",
+      "contratos": 60,
+      "contratos_atipicos": 0,
+      "valor_total": 15218587230
+     },
+     {
+      "id": "NIT:860524654",
+      "contratos": 58,
+      "contratos_atipicos": 0,
+      "valor_total": 13024523952
+     },
+     {
+      "id": "NIT:860002400",
+      "contratos": 57,
+      "contratos_atipicos": 0,
+      "valor_total": 427348174903
+     },
+     {
+      "id": "NIT:899999063",
+      "contratos": 56,
+      "contratos_atipicos": 0,
+      "valor_total": 57335686930
+     },
+     {
+      "id": "NIT:901312112",
+      "contratos": 54,
+      "contratos_atipicos": 0,
+      "valor_total": 542331985
+     },
+     {
+      "id": "NIT:900425697",
+      "contratos": 50,
+      "contratos_atipicos": 0,
+      "valor_total": 36018816080
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "Valle del Cauca y Cundinamarca",
+   "departamentos": [
+    "Valle del Cauca",
+    "Cundinamarca"
+   ],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 63245,
+    "valor_total": 25845172860793
+   },
+   "rankings": {
+    "entidades_por_valor_total": [
+     {
+      "id": "NIT:890399011",
+      "contratos": 4686,
+      "contratos_atipicos": 6,
+      "valor_total": 4844686665567
+     },
+     {
+      "id": "NIT:890399029",
+      "contratos": 2016,
+      "contratos_atipicos": 0,
+      "valor_total": 2417776710451
+     },
+     {
+      "id": "NIT:891380007",
+      "contratos": 794,
+      "contratos_atipicos": 1,
+      "valor_total": 1168432820183
+     },
+     {
+      "id": "NIT:890399002",
+      "contratos": 1166,
+      "contratos_atipicos": 3,
+      "valor_total": 1048433974223
+     },
+     {
+      "id": "NIT:800112806",
+      "contratos": 139,
+      "contratos_atipicos": 1,
+      "valor_total": 951989416132
+     },
+     {
+      "id": "NIT:800094755",
+      "contratos": 637,
+      "contratos_atipicos": 0,
+      "valor_total": 940616807207
+     },
+     {
+      "id": "NIT:899999114",
+      "contratos": 425,
+      "contratos_atipicos": 1,
+      "valor_total": 672105295760
+     },
+     {
+      "id": "NIT:899999433",
+      "contratos": 605,
+      "contratos_atipicos": 0,
+      "valor_total": 669364772182
+     },
+     {
+      "id": "NIT:899999428",
+      "contratos": 403,
+      "contratos_atipicos": 0,
+      "valor_total": 580694639174
+     },
+     {
+      "id": "NIT:899999342",
+      "contratos": 954,
+      "contratos_atipicos": 1,
+      "valor_total": 520653084436
+     }
+    ],
+    "entidades_por_contratos": [
+     {
+      "id": "NIT:890399011",
+      "contratos": 4686,
+      "contratos_atipicos": 6,
+      "valor_total": 4844686665567
+     },
+     {
+      "id": "NIT:899999034",
+      "contratos": 3674,
+      "contratos_atipicos": 0,
+      "valor_total": 428192611334
+     },
+     {
+      "id": "NIT:890399029",
+      "contratos": 2016,
+      "contratos_atipicos": 0,
+      "valor_total": 2417776710451
+     },
+     {
+      "id": "NIT:891900660",
+      "contratos": 1276,
+      "contratos_atipicos": 0,
+      "valor_total": 31732082310
+     },
+     {
+      "id": "NIT:890399002",
+      "contratos": 1166,
+      "contratos_atipicos": 3,
+      "valor_total": 1048433974223
+     },
+     {
+      "id": "NIT:830039670",
+      "contratos": 1092,
+      "contratos_atipicos": 1,
+      "valor_total": 201707044068
+     },
+     {
+      "id": "NIT:900332546",
+      "contratos": 1006,
+      "contratos_atipicos": 0,
+      "valor_total": 467990962068
+     },
+     {
+      "id": "NIT:805022186",
+      "contratos": 974,
+      "contratos_atipicos": 0,
+      "valor_total": 318499233252
+     },
+     {
+      "id": "NIT:899999342",
+      "contratos": 954,
+      "contratos_atipicos": 1,
+      "valor_total": 520653084436
+     },
+     {
+      "id": "NIT:890680008",
+      "contratos": 916,
+      "contratos_atipicos": 0,
+      "valor_total": 265745939958
+     }
+    ],
+    "contratistas_por_valor_total": [
+     {
+      "id": "CODIGO:721292050",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 713329617103
+     },
+     {
+      "id": "NIT:860002400",
+      "contratos": 431,
+      "contratos_atipicos": 0,
+      "valor_total": 296200192182
+     },
+     {
+      "id": "NIT:890399002",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 238617509115
+     },
+     {
+      "id": "CODIGO:732870860",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 226902152176
+     },
+     {
+      "id": "CODIGO:724012810",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 219980354894
+     },
+     {
+      "id": "CODIGO:702359233",
+      "contratos": 20,
+      "contratos_atipicos": 0,
+      "valor_total": 205473705224
+     },
+     {
+      "id": "NIT:902005834",
+      "contratos": 3,
+      "contratos_atipicos": 0,
+      "valor_total": 192889023875
+     },
+     {
+      "id": "NIT:890399011",
+      "contratos": 10,
+      "contratos_atipicos": 0,
+      "valor_total": 185318064072
+     },
+     {
+      "id": "CODIGO:729014019",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 170323387027
+     },
+     {
+      "id": "NIT:805012896",
+      "contratos": 25,
+      "contratos_atipicos": 0,
+      "valor_total": 160639169826
+     }
+    ],
+    "contratistas_por_contratos": [
+     {
+      "id": "NIT:860524654",
+      "contratos": 490,
+      "contratos_atipicos": 2,
+      "valor_total": 63735378338
+     },
+     {
+      "id": "NIT:860002400",
+      "contratos": 431,
+      "contratos_atipicos": 0,
+      "valor_total": 296200192182
+     },
+     {
+      "id": "CODIGO:707887519",
+      "contratos": 214,
+      "contratos_atipicos": 0,
+      "valor_total": 4181843579
+     },
+     {
+      "id": "NIT:900629234",
+      "contratos": 187,
+      "contratos_atipicos": 0,
+      "valor_total": 69469225825
+     },
+     {
+      "id": "CODIGO:703704197",
+      "contratos": 152,
+      "contratos_atipicos": 0,
+      "valor_total": 8729022938
+     },
+     {
+      "id": "NIT:901354838",
+      "contratos": 152,
+      "contratos_atipicos": 0,
+      "valor_total": 14399272042
+     },
+     {
+      "id": "CODIGO:700728025",
+      "contratos": 151,
+      "contratos_atipicos": 0,
+      "valor_total": 8267536279
+     },
+     {
+      "id": "NIT:805003116",
+      "contratos": 127,
+      "contratos_atipicos": 0,
+      "valor_total": 2235294689
+     },
+     {
+      "id": "NIT:16508178",
+      "contratos": 120,
+      "contratos_atipicos": 0,
+      "valor_total": 7761013174
+     },
+     {
+      "id": "NIT:900496013",
+      "contratos": 119,
+      "contratos_atipicos": 0,
+      "valor_total": 10956089610
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "SIN DEPARTAMENTO",
+   "departamentos": [
+    "SIN DEPARTAMENTO"
+   ],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2026-09",
+   "totales": {
+    "contratos": 18874,
+    "valor_total": 3429990333840
+   },
+   "rankings": {
+    "entidades_por_valor_total": [
+     {
+      "id": "NIT:900450205",
+      "contratos": 226,
+      "contratos_atipicos": 0,
+      "valor_total": 289915812361
+     },
+     {
+      "id": "NIT:891680010",
+      "contratos": 622,
+      "contratos_atipicos": 0,
+      "valor_total": 229809521157
+     },
+     {
+      "id": "NIT:900974762",
+      "contratos": 63,
+      "contratos_atipicos": 0,
+      "valor_total": 225862664845
+     },
+     {
+      "id": "NIT:860062187",
+      "contratos": 404,
+      "contratos_atipicos": 0,
+      "valor_total": 165195613758
+     },
+     {
+      "id": "NIT:830053630",
+      "contratos": 34,
+      "contratos_atipicos": 0,
+      "valor_total": 146826105637
+     },
+     {
+      "id": "NIT:800113549",
+      "contratos": 11,
+      "contratos_atipicos": 0,
+      "valor_total": 141625459682
+     },
+     {
+      "id": "NIT:900479669",
+      "contratos": 216,
+      "contratos_atipicos": 0,
+      "valor_total": 115050871898
+     },
+     {
+      "id": "NIT:900463725",
+      "contratos": 492,
+      "contratos_atipicos": 0,
+      "valor_total": 98221213235
+     },
+     {
+      "id": "NIT:800102891",
+      "contratos": 422,
+      "contratos_atipicos": 1,
+      "valor_total": 83018308624
+     },
+     {
+      "id": "NIT:800141624",
+      "contratos": 755,
+      "contratos_atipicos": 0,
+      "valor_total": 80403087108
+     }
+    ],
+    "entidades_por_contratos": [
+     {
+      "id": "NIT:800141624",
+      "contratos": 755,
+      "contratos_atipicos": 0,
+      "valor_total": 80403087108
+     },
+     {
+      "id": "NIT:899999067",
+      "contratos": 669,
+      "contratos_atipicos": 0,
+      "valor_total": 22889223357
+     },
+     {
+      "id": "NIT:891680010",
+      "contratos": 622,
+      "contratos_atipicos": 0,
+      "valor_total": 229809521157
+     },
+     {
+      "id": "NIT:899999086",
+      "contratos": 568,
+      "contratos_atipicos": 1,
+      "valor_total": 78754662146
+     },
+     {
+      "id": "NIT:900463725",
+      "contratos": 492,
+      "contratos_atipicos": 0,
+      "valor_total": 98221213235
+     },
+     {
+      "id": "NIT:800102891",
+      "contratos": 422,
+      "contratos_atipicos": 1,
+      "valor_total": 83018308624
+     },
+     {
+      "id": "NIT:860062187",
+      "contratos": 404,
+      "contratos_atipicos": 0,
+      "valor_total": 165195613758
+     },
+     {
+      "id": "NIT:900517646",
+      "contratos": 396,
+      "contratos_atipicos": 1,
+      "valor_total": 50397662073
+     },
+     {
+      "id": "NIT:890981080",
+      "contratos": 378,
+      "contratos_atipicos": 0,
+      "valor_total": 62347101500
+     },
+     {
+      "id": "NIT:815000974",
+      "contratos": 356,
+      "contratos_atipicos": 0,
+      "valor_total": 9829907572
+     }
+    ],
+    "contratistas_por_valor_total": [
+     {
+      "id": "NIT:844000023",
+      "contratos": 2,
+      "contratos_atipicos": 0,
+      "valor_total": 86765886618
+     },
+     {
+      "id": "CODIGO:718020449",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 60480000000
+     },
+     {
+      "id": "CODIGO:700532153",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 54898496197
+     },
+     {
+      "id": "CODIGO:722252129",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 38132671669
+     },
+     {
+      "id": "CODIGO:714713047",
+      "contratos": 114,
+      "contratos_atipicos": 0,
+      "valor_total": 37225033510
+     },
+     {
+      "id": "CODIGO:733424055",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 36936763888
+     },
+     {
+      "id": "CODIGO:729295105",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 36211733463
+     },
+     {
+      "id": "NIT:902005774",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 33417634601
+     },
+     {
+      "id": "NIT:900747300",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 32887630000
+     },
+     {
+      "id": "CODIGO:730709748",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 32222551230
+     }
+    ],
+    "contratistas_por_contratos": [
+     {
+      "id": "NIT:804003744",
+      "contratos": 140,
+      "contratos_atipicos": 0,
+      "valor_total": 419582762
+     },
+     {
+      "id": "CODIGO:700827017",
+      "contratos": 132,
+      "contratos_atipicos": 0,
+      "valor_total": 486400536
+     },
+     {
+      "id": "NIT:860524654",
+      "contratos": 117,
+      "contratos_atipicos": 0,
+      "valor_total": 13405656369
+     },
+     {
+      "id": "CODIGO:714713047",
+      "contratos": 114,
+      "contratos_atipicos": 0,
+      "valor_total": 37225033510
+     },
+     {
+      "id": "NIT:860002400",
+      "contratos": 113,
+      "contratos_atipicos": 0,
+      "valor_total": 10581820505
+     },
+     {
+      "id": "NIT:80747896",
+      "contratos": 110,
+      "contratos_atipicos": 0,
+      "valor_total": 295071859
+     },
+     {
+      "id": "CODIGO:700146020",
+      "contratos": 108,
+      "contratos_atipicos": 0,
+      "valor_total": 2780360371
+     },
+     {
+      "id": "CODIGO:704315860",
+      "contratos": 104,
+      "contratos_atipicos": 0,
+      "valor_total": 4802385557
+     },
+     {
+      "id": "NIT:901391541",
+      "contratos": 92,
+      "contratos_atipicos": 0,
+      "valor_total": 419337712
+     },
+     {
+      "id": "CODIGO:704021344",
+      "contratos": 83,
+      "contratos_atipicos": 0,
+      "valor_total": 5717751645
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "una entidad (SENA), 2019-2025",
+   "departamentos": [],
+   "entidades": [
+    "NIT:899999034"
+   ],
+   "desde": "2019-01",
+   "hasta": "2025-12",
+   "totales": {
+    "contratos": 29449,
+    "valor_total": 5094943030604
+   },
+   "rankings": {
+    "entidades_por_valor_total": [
+     {
+      "id": "NIT:899999034",
+      "contratos": 29449,
+      "contratos_atipicos": 5,
+      "valor_total": 5094943030604
+     }
+    ],
+    "entidades_por_contratos": [
+     {
+      "id": "NIT:899999034",
+      "contratos": 29449,
+      "contratos_atipicos": 5,
+      "valor_total": 5094943030604
+     }
+    ],
+    "contratistas_por_valor_total": [
+     {
+      "id": "NIT:830122566",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 695556239264
+     },
+     {
+      "id": "NIT:800143157",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 275598000000
+     },
+     {
+      "id": "NIT:899999063",
+      "contratos": 13,
+      "contratos_atipicos": 0,
+      "valor_total": 120571288292
+     },
+     {
+      "id": "NIT:800096329",
+      "contratos": 5,
+      "contratos_atipicos": 0,
+      "valor_total": 115151208747
+     },
+     {
+      "id": "NIT:892301141",
+      "contratos": 107,
+      "contratos_atipicos": 0,
+      "valor_total": 75247985949
+     },
+     {
+      "id": "NIT:900701630",
+      "contratos": 113,
+      "contratos_atipicos": 0,
+      "valor_total": 72077665779
+     },
+     {
+      "id": "NIT:811021654",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 65381813000
+     },
+     {
+      "id": "NIT:860006543",
+      "contratos": 30,
+      "contratos_atipicos": 0,
+      "valor_total": 64224319421
+     },
+     {
+      "id": "NIT:860024301",
+      "contratos": 6,
+      "contratos_atipicos": 0,
+      "valor_total": 56097268598
+     },
+     {
+      "id": "NIT:901395371",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 52561975111
+     }
+    ],
+    "contratistas_por_contratos": [
+     {
+      "id": "CODIGO:703835827",
+      "contratos": 305,
+      "contratos_atipicos": 0,
+      "valor_total": 27402478679
+     },
+     {
+      "id": "NIT:901061066",
+      "contratos": 190,
+      "contratos_atipicos": 0,
+      "valor_total": 6748444881
+     },
+     {
+      "id": "NIT:901224654",
+      "contratos": 182,
+      "contratos_atipicos": 0,
+      "valor_total": 7198434058
+     },
+     {
+      "id": "CODIGO:710164591",
+      "contratos": 128,
+      "contratos_atipicos": 0,
+      "valor_total": 4664457836
+     },
+     {
+      "id": "NIT:901247893",
+      "contratos": 126,
+      "contratos_atipicos": 0,
+      "valor_total": 30114799340
+     },
+     {
+      "id": "NIT:901354838",
+      "contratos": 123,
+      "contratos_atipicos": 0,
+      "valor_total": 10058249766
+     },
+     {
+      "id": "NIT:900701630",
+      "contratos": 113,
+      "contratos_atipicos": 0,
+      "valor_total": 72077665779
+     },
+     {
+      "id": "NIT:900744289",
+      "contratos": 112,
+      "contratos_atipicos": 0,
+      "valor_total": 2735795227
+     },
+     {
+      "id": "NIT:16508178",
+      "contratos": 109,
+      "contratos_atipicos": 0,
+      "valor_total": 6660465814
+     },
+     {
+      "id": "NIT:892301141",
+      "contratos": 107,
+      "contratos_atipicos": 0,
+      "valor_total": 75247985949
+     }
+    ]
+   }
+  },
+  {
+   "nombre": "primeros años, 2015-2017",
+   "departamentos": [],
+   "entidades": [],
+   "desde": "2015-06",
+   "hasta": "2017-12",
+   "totales": {
+    "contratos": 20172,
+    "valor_total": 4019941716305
+   },
+   "rankings": {
+    "entidades_por_valor_total": [
+     {
+      "id": "NIT:899999061",
+      "contratos": 777,
+      "contratos_atipicos": 2,
+      "valor_total": 567472147951
+     },
+     {
+      "id": "NIT:900498879",
+      "contratos": 68,
+      "contratos_atipicos": 0,
+      "valor_total": 454819963915
+     },
+     {
+      "id": "NIT:899999034",
+      "contratos": 38,
+      "contratos_atipicos": 0,
+      "valor_total": 368140689327
+     },
+     {
+      "id": "NIT:8001316486",
+      "contratos": 1137,
+      "contratos_atipicos": 4,
+      "valor_total": 313098259957
+     },
+     {
+      "id": "NIT:899999162",
+      "contratos": 876,
+      "contratos_atipicos": 2,
+      "valor_total": 197006492461
+     },
+     {
+      "id": "NIT:899999081",
+      "contratos": 11,
+      "contratos_atipicos": 0,
+      "valor_total": 172557585797
+     },
+     {
+      "id": "NIT:830127607",
+      "contratos": 13,
+      "contratos_atipicos": 0,
+      "valor_total": 124177205167
+     },
+     {
+      "id": "NIT:800141397",
+      "contratos": 90,
+      "contratos_atipicos": 0,
+      "valor_total": 123343511299
+     },
+     {
+      "id": "NIT:899999102",
+      "contratos": 327,
+      "contratos_atipicos": 0,
+      "valor_total": 102597371693
+     },
+     {
+      "id": "NIT:899999028",
+      "contratos": 1052,
+      "contratos_atipicos": 29,
+      "valor_total": 101364408135
+     }
+    ],
+    "entidades_por_contratos": [
+     {
+      "id": "NIT:890201235",
+      "contratos": 2254,
+      "contratos_atipicos": 3,
+      "valor_total": 32831759304
+     },
+     {
+      "id": "NIT:899999004",
+      "contratos": 1699,
+      "contratos_atipicos": 1,
+      "valor_total": 63016628815
+     },
+     {
+      "id": "NIT:8001316486",
+      "contratos": 1137,
+      "contratos_atipicos": 4,
+      "valor_total": 313098259957
+     },
+     {
+      "id": "NIT:899999028",
+      "contratos": 1052,
+      "contratos_atipicos": 29,
+      "valor_total": 101364408135
+     },
+     {
+      "id": "NIT:899999162",
+      "contratos": 876,
+      "contratos_atipicos": 2,
+      "valor_total": 197006492461
+     },
+     {
+      "id": "NIT:899999061",
+      "contratos": 777,
+      "contratos_atipicos": 2,
+      "valor_total": 567472147951
+     },
+     {
+      "id": "NIT:899999011",
+      "contratos": 711,
+      "contratos_atipicos": 5,
+      "valor_total": 84570850756
+     },
+     {
+      "id": "NIT:899999090",
+      "contratos": 569,
+      "contratos_atipicos": 0,
+      "valor_total": 60265438952
+     },
+     {
+      "id": "NIT:832001871",
+      "contratos": 481,
+      "contratos_atipicos": 0,
+      "valor_total": 2454117981
+     },
+     {
+      "id": "NIT:899999020",
+      "contratos": 421,
+      "contratos_atipicos": 3,
+      "valor_total": 14990442347
+     }
+    ],
+    "contratistas_por_valor_total": [
+     {
+      "id": "NIT:824006220",
+      "contratos": 2,
+      "contratos_atipicos": 0,
+      "valor_total": 438188022666
+     },
+     {
+      "id": "NIT:800149496",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 311718748000
+     },
+     {
+      "id": "NIT:899999316",
+      "contratos": 6,
+      "contratos_atipicos": 1,
+      "valor_total": 109883943443
+     },
+     {
+      "id": "CODIGO:702375494",
+      "contratos": 2,
+      "contratos_atipicos": 0,
+      "valor_total": 83553402741
+     },
+     {
+      "id": "NIT:800223957",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 57144337858
+     },
+     {
+      "id": "NIT:830084232",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 56079455576
+     },
+     {
+      "id": "CODIGO:702259573",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 51000000000
+     },
+     {
+      "id": "CODIGO:701174013",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 50000000000
+     },
+     {
+      "id": "CODIGO:702683103",
+      "contratos": 2,
+      "contratos_atipicos": 0,
+      "valor_total": 41253869017
+     },
+     {
+      "id": "CODIGO:703047126",
+      "contratos": 1,
+      "contratos_atipicos": 0,
+      "valor_total": 38113599147
+     }
+    ],
+    "contratistas_por_contratos": [
+     {
+      "id": "NIT:830001113",
+      "contratos": 52,
+      "contratos_atipicos": 1,
+      "valor_total": 36912793336
+     },
+     {
+      "id": "NIT:900204272",
+      "contratos": 48,
+      "contratos_atipicos": 0,
+      "valor_total": 621231355
+     },
+     {
+      "id": "NIT:900062917",
+      "contratos": 43,
+      "contratos_atipicos": 0,
+      "valor_total": 14899537460
+     },
+     {
+      "id": "NIT:899999063",
+      "contratos": 35,
+      "contratos_atipicos": 0,
+      "valor_total": 15791687848
+     },
+     {
+      "id": "NIT:830084433",
+      "contratos": 32,
+      "contratos_atipicos": 0,
+      "valor_total": 583900805
+     },
+     {
+      "id": "CODIGO:700629041",
+      "contratos": 28,
+      "contratos_atipicos": 0,
+      "valor_total": 684509583
+     },
+     {
+      "id": "NIT:860002400",
+      "contratos": 28,
+      "contratos_atipicos": 0,
+      "valor_total": 1735067373
+     },
+     {
+      "id": "NIT:860012336",
+      "contratos": 27,
+      "contratos_atipicos": 0,
+      "valor_total": 14099012155
+     },
+     {
+      "id": "CODIGO:700219033",
+      "contratos": 25,
+      "contratos_atipicos": 0,
+      "valor_total": 253671025
+     },
+     {
+      "id": "NIT:890980040",
+      "contratos": 25,
+      "contratos_atipicos": 0,
+      "valor_total": 8483889140
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -6,7 +6,8 @@ Lee las tablas de consumo de dashboard/data/ (notebook 07, T4.1) con pandas; no 
 
 T4.3: filtros de departamento, entidad y rango de meses en la barra lateral, y tarjetas con los totales filtrados.
 T4.4: gráfico mensual de valor y contratos con los periodos de interés (dashboard/periodos.py) y los picos.
-Los módulos de T4.5 y T4.6 (rankings y geografía) usan `serie` y `contratistas`, ya filtradas, de este archivo.
+T4.5: rankings de entidades y contratistas (dashboard/consultas.py).
+El módulo de T4.6 (geografía) usa `serie` y `contratistas`, ya filtradas, de este archivo.
 """
 import json
 from pathlib import Path
@@ -15,6 +16,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+from consultas import aplicar_filtros, calcular_ranking
 from periodos import TIPOS, contexto_mes, periodos_en
 
 DATOS = Path(__file__).parent / "data"
@@ -40,16 +42,6 @@ def miles(n: int) -> str:
 def billones(pesos: int) -> str:
     """Pesos expresados en billones (10^12), con coma decimal."""
     return f"{pesos / 1e12:,.1f}".replace(",", "_").replace(".", ",").replace("_", ".") + " billones"
-
-
-def aplicar_filtros(df: pd.DataFrame, departamentos: list, entidades: list, mes_desde: str, mes_hasta: str) -> pd.DataFrame:
-    """Filas de df que cumplen los filtros. Una lista vacía significa 'todos'; los meses son 'AAAA-MM' y se comparan como texto."""
-    mascara = (df["anio_mes"] >= mes_desde) & (df["anio_mes"] <= mes_hasta)
-    if departamentos:
-        mascara &= df["departamento"].isin(departamentos)
-    if entidades:
-        mascara &= df["id_entidad"].isin(entidades)
-    return df[mascara]
 
 
 st.set_page_config(page_title="Observatorio de Contratación Pública", layout="wide")
@@ -272,4 +264,47 @@ for columna_pantalla, titulo, picos in ((p1, "Mayor valor adjudicado", picos_val
         column_config={"Valor (billones)": st.column_config.NumberColumn(format="%.2f")},
     )
 
-st.info("Los rankings y el módulo geográfico se añaden en T4.5 y T4.6 y usarán estos mismos filtros.")
+# --- Principales actores (T4.5) ---
+st.subheader("Principales actores")
+st.caption(
+    "Las entidades y los contratistas con más valor adjudicado o más contratos, con los filtros aplicados. "
+    "El valor no incluye los contratos atípicos; los contratos sí los incluyen (columna «Atípicos»). En empate gana el identificador menor."
+)
+r1, r2 = st.columns(2)
+n_ranking = int(r1.number_input("Cuántos mostrar (N)", min_value=1, max_value=50, value=10, step=1, key="n_ranking"))
+orden_ranking = r2.radio("Ordenar por", ["Valor adjudicado", "Número de contratos"], horizontal=True, key="orden_ranking")
+columna_orden = "valor_total" if orden_ranking == "Valor adjudicado" else "contratos"
+total_orden = valor if columna_orden == "valor_total" else contratos
+nombres_contratista = tablas["contratistas"].set_index("id_contratista")["nombre_contratista"]
+
+
+def porcentaje(parte: float, total: float) -> str:
+    return f"{100 * parte / total:.1f}".replace(".", ",") + " %" if total else "–"
+
+
+def mostrar_ranking(pantalla, titulo: str, df: pd.DataFrame, clave: str, nombres: pd.Series) -> None:
+    top = calcular_ranking(df, clave, columna_orden, n_ranking)
+    pantalla.markdown(f"**{titulo}**")
+    pantalla.dataframe(
+        pd.DataFrame({
+            "#": range(1, len(top) + 1),
+            "Nombre": [nombres.get(i, i) for i in top[clave]],
+            "Identificación": top[clave],
+            "Contratos": [miles(int(c)) for c in top["contratos"]],
+            "Atípicos": [miles(int(a)) for a in top["contratos_atipicos"]],
+            "Valor (millones de pesos)": [miles(int(round(v / 1e6))) for v in top["valor_total"]],
+            "Participación": [porcentaje(x, total_orden) for x in top[columna_orden]],
+        }),
+        hide_index=True,
+    )
+    pantalla.caption(
+        f"Los {len(top)} primeros suman el {porcentaje(top[columna_orden].sum(), total_orden)} "
+        f"del {'valor adjudicado' if columna_orden == 'valor_total' else 'número de contratos'} filtrado."
+    )
+
+
+# Una tabla bajo la otra y a todo el ancho: en media pantalla las columnas de contratos y valor quedaban fuera de la vista
+mostrar_ranking(st, f"Top {n_ranking} entidades", serie, "id_entidad", nombres_entidad)
+mostrar_ranking(st, f"Top {n_ranking} contratistas", contratistas, "id_contratista", nombres_contratista)
+
+st.info("El módulo geográfico y de concentración se añade en T4.6 y usará estos mismos filtros.")
