@@ -2,7 +2,23 @@
 
 Dashboard interactivo del Observatorio de Contratación Pública. Responde las tres preguntas del enunciado: dónde se concentra el gasto, quiénes son los principales actores y cómo varía la contratación en el tiempo.
 
-**Estado:** T4.1 (tablas de consumo) y T4.2 (tecnología) cerradas el 16-nov-2026. `app.py` carga las tablas y muestra los totales; los filtros y los módulos se añaden en T4.3 a T4.6.
+**Estado:** T4.1 (tablas de consumo), T4.2 (tecnología) y T4.3 (filtros y tarjetas) cerradas el 16-nov-2026. Los módulos de tiempo, rankings y geografía se añaden en T4.4 a T4.6.
+
+## Filtros y tarjetas (T4.3)
+
+La barra lateral tiene tres filtros que se aplican a todo lo que muestre el dashboard:
+
+| Filtro | Cómo funciona |
+|---|---|
+| Departamento | Selección múltiple; sin selección, todos. `SIN DEPARTAMENTO` es una opción más, no se oculta. |
+| Entidad | Selección múltiple con búsqueda por nombre o NIT; sin selección, todas. Solo ofrece las entidades que tienen contratos en los departamentos elegidos, y quita de la selección las que dejan de tenerlos. |
+| Meses de adjudicación | Rango inclusivo de `AAAA-MM` a `AAAA-MM` (2015-06 a 2026-09). |
+
+El botón **Quitar filtros** los deja todos abiertos. Las tarjetas muestran contratos adjudicados, valor adjudicado (sin atípicos), contratos atípicos, entidades y contratistas de lo filtrado. Si una combinación no tiene contratos, aparece un aviso y ninguna tarjeta, no un error. Con todos los filtros abiertos, una línea bajo las tarjetas confirma que los totales coinciden con los de gold.
+
+Para los módulos siguientes: `app.py` deja `serie` (de `serie_mensual`) y `contratistas` (de `contratistas_mensual`) ya filtradas con `aplicar_filtros()`; solo hay que agruparlas.
+
+Comprobado el 16-nov-2026 con la prueba de Streamlit y un cálculo independiente sobre `contratistas_mensual` (otra tabla): sin filtros dan los totales de gold (530.192 contratos, 432 atípicos) y cinco combinaciones de departamento, entidad y meses dan las mismas cifras en las tarjetas (por ejemplo, Antioquia: 59.982 contratos, 38,7 billones, 417 entidades y 12.133 contratistas; el año 2024: 74.067 contratos, los mismos que gold).
 
 ## Tecnología (T4.2)
 
