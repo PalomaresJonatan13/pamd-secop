@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Observatorio de Contratación Pública · SECOP II</title>
+<style>
+  :root { --paper:#f5f3ed; --ink:#142d35; --teal:#06766e; --muted:#586b6e; --line:#cdd5cf; --accent:#e8b66a; }
+  * { box-sizing:border-box; }
+  html { scroll-snap-type:y mandatory; }
+  body { margin:0; background:#d9dfdc; color:var(--ink); font-family:"Segoe UI",Arial,sans-serif; }
+  .slide { width:1280px; height:720px; position:relative; padding:64px 76px; background:var(--paper); overflow:hidden; scroll-snap-align:start; transform-origin:top left; }
+  .frame { width:1280px; height:720px; margin:24px auto; }
+  h1,h2,h3,p { margin:0; }
+  h1 { font-size:64px; font-weight:600; line-height:1.08; letter-spacing:-2px; }
+  h2 { font-size:46px; line-height:1.12; font-weight:600; letter-spacing:-1.3px; }
+  .eyebrow { font-size:15px; text-transform:uppercase; letter-spacing:2.4px; font-weight:600; margin-bottom:30px; color:var(--teal); }
+  .page { position:absolute; bottom:36px; right:76px; font-size:14px; color:var(--muted); }
+  .cover { background:var(--ink); color:var(--paper); }
+  .cover .eyebrow { color:var(--accent); }
+  .cover h1 { max-width:830px; }
+  .cover .sub { color:#a6d6cc; font-size:30px; margin-top:24px; }
+  .cover .authors { margin-top:64px; font-size:23px; font-weight:500; }
+  .cover .course { font-size:20px; margin-top:14px; color:#d1ddda; }
+  .cover .school { font-size:17px; color:#afc1bd; margin-top:12px; }
+  .cover .term { position:absolute; bottom:40px; left:76px; color:#afc1bd; font-size:15px; }
+  .cover .page { color:#afc1bd; }
+  .cover .motif { position:absolute; right:65px; top:250px; width:185px; height:190px; }
+  .cover .motif span { display:block; height:3px; background:#497a7b; margin-bottom:28px; }
+  .cover .motif span:nth-child(2) { width:68%; background:#a6d6cc; }
+  .cover .motif span:nth-child(3) { width:88%; }
+  .cover .motif span:nth-child(4) { width:48%; background:var(--accent); }
+  .context { display:grid; grid-template-columns:420px 1fr; gap:66px; margin-top:46px; }
+  .scale { border-right:1px solid var(--line); padding-right:42px; }
+  .scale .number { font-size:108px; line-height:1; letter-spacing:-6px; font-weight:600; color:var(--teal); }
+  .scale .unit { font-size:28px; margin-top:13px; line-height:1.25; }
+  .scale .description { font-size:21px; line-height:1.45; color:var(--muted); margin-top:27px; }
+  .questions { padding-top:0; }
+  .question { padding:0 0 21px; margin-bottom:20px; border-bottom:1px solid var(--line); }
+  .question:last-child { border-bottom:0; margin-bottom:0; }
+  .question h3 { font-size:26px; line-height:1.2; font-weight:600; }
+  .question p { font-size:19px; color:var(--muted); margin-top:8px; }
+  .source { position:absolute; bottom:37px; left:76px; font-size:13px; color:var(--muted); }
+  .reasons { display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; margin-top:56px; }
+  .reason { border-top:3px solid var(--teal); padding-top:24px; }
+  .reason .index { color:var(--teal); font-size:17px; margin-bottom:22px; }
+  .reason h3 { font-size:27px; line-height:1.18; font-weight:600; margin-bottom:18px; }
+  .reason p { font-size:22px; line-height:1.4; color:var(--muted); }
+  .execution { position:absolute; left:76px; bottom:78px; font-size:17px; color:var(--muted); border-top:1px solid var(--line); width:1128px; padding-top:19px; }
+  .scale .description strong { color:var(--teal); font-weight:600; }
+  .dataset-intro { font-size:23px; color:var(--muted); margin-top:23px; }
+  .dataset-body { display:grid; grid-template-columns:470px 1fr; gap:64px; margin-top:43px; }
+  .dataset-stats { border-right:1px solid var(--line); }
+  .dataset-stats .total { font-size:66px; color:var(--teal); font-weight:600; line-height:1.1; }
+  .dataset-stats .caption { font-size:22px; color:var(--muted); margin:9px 0 27px; }
+  .dataset-fields h3 { font-size:25px; font-weight:600; margin-bottom:22px; }
+  .dataset-fields p { font-size:21px; line-height:1.3; margin-bottom:18px; color:var(--ink); border-left:3px solid #a8c8bd; padding-left:16px; }
+  .dataset-fields strong { display:block; color:var(--teal); font-size:15px; text-transform:uppercase; letter-spacing:1.1px; font-weight:600; margin-bottom:6px; }
+  .bronze-steps { margin-top:46px; }
+  .bronze-steps .reason { padding-top:19px; }
+  .bronze-steps .reason h3 { margin-bottom:13px; }
+  .bronze-counts { display:grid; grid-template-columns:1fr 1fr; gap:72px; border-top:1px solid var(--line); margin-top:30px; padding-top:19px; }
+  .bronze-counts strong { display:block; font-size:44px; line-height:1.1; color:var(--teal); font-weight:600; }
+  .bronze-counts span { display:block; font-size:19px; color:var(--muted); margin-top:8px; }
+  .bronze-layouts { display:grid; grid-template-columns:1fr 1fr; gap:72px; margin-top:31px; }
+  .bronze-layouts h3 { font-size:24px; margin-bottom:10px; font-weight:600; }
+  .bronze-layouts p { font-size:20px; color:var(--muted); line-height:1.45; }
+  .benchmark { width:100%; border-collapse:collapse; margin-top:42px; font-size:23px; }
+  .benchmark th { text-align:right; color:var(--teal); font-size:20px; font-weight:600; padding:16px 15px; border-bottom:2px solid var(--teal); }
+  .benchmark th:first-child { text-align:left; width:32%; }
+  .benchmark td { text-align:right; padding:16px 15px; border-bottom:1px solid var(--line); }
+  .benchmark td:first-child { text-align:left; font-size:21px; }
+  .benchmark .best { color:var(--teal); font-weight:600; }
+  .benchmark-takeaway { font-size:25px; color:var(--teal); margin-top:27px; font-weight:600; }
+  .benchmark-notes { position:absolute; left:76px; bottom:70px; font-size:15px; line-height:1.5; color:var(--muted); }
+  .refinement { display:grid; grid-template-columns:1fr 1fr; gap:72px; margin-top:43px; }
+  .refinement article { border-top:3px solid var(--teal); padding-top:18px; }
+  .refinement h3 { font-size:24px; color:var(--teal); font-weight:600; }
+  .refinement .total { font-size:54px; font-weight:600; line-height:1.15; margin:14px 0 5px; }
+  .refinement .caption { font-size:18px; color:var(--muted); margin-bottom:22px; }
+  .refinement .rule { font-size:21px; line-height:1.4; margin-bottom:17px; }
+  .refinement .audit { font-size:18px; line-height:1.4; color:var(--muted); }
+  .outliers { position:absolute; left:76px; bottom:85px; width:1128px; border-top:1px solid var(--line); padding-top:19px; font-size:20px; color:var(--muted); }
+  .outliers strong { color:var(--teal); font-weight:600; }
+  .lineage { position:absolute; inset:0; width:1280px; height:720px; }
+  .stream-intro { margin-top:31px; font-size:23px; color:var(--muted); }
+  .stream-flow { display:grid; grid-template-columns:repeat(4,240px); gap:56px; margin-top:66px; }
+  .stream-node { position:relative; padding:25px 18px; border:1.5px solid #a8c8bd; border-radius:5px; background:#edf1e9; min-height:130px; }
+  .stream-node h3 { font-size:25px; color:var(--teal); font-weight:600; margin-bottom:14px; }
+  .stream-node p { font-size:20px; line-height:1.4; }
+  .stream-node:not(:last-child)::after { content:""; position:absolute; right:-56px; top:64px; width:54px; height:2px; background:#8ba49c; }
+  .stream-node:not(:last-child)::before { content:""; position:absolute; right:-56px; top:60px; border-left:8px solid #8ba49c; border-top:5px solid transparent; border-bottom:5px solid transparent; }
+  .stream-result { font-size:28px; color:var(--teal); font-weight:600; margin-top:54px; }
+  .stream-detail { font-size:21px; color:var(--muted); margin-top:17px; }
+  .late-examples { display:grid; grid-template-columns:1fr 1fr; gap:72px; margin-top:57px; }
+  .late-examples article { border-left:3px solid #c8b28d; padding-left:18px; }
+  .late-examples article:last-child { border-color:var(--teal); }
+  .late-examples h3 { font-size:25px; font-weight:600; margin-bottom:12px; }
+  .late-examples p { font-size:21px; color:var(--muted); line-height:1.4; }
+  .watermark { display:block; width:1128px; height:190px; margin-top:26px; }
+  .late-result { font-size:27px; color:var(--teal); font-weight:600; margin-top:17px; }
+  .resilience-steps { margin-top:49px; }
+  .resilience-proof { border-top:1px solid var(--line); margin-top:45px; padding-top:24px; }
+  .resilience-proof strong { display:block; font-size:38px; color:var(--teal); font-weight:600; margin-bottom:14px; }
+  .resilience-proof p { font-size:21px; color:var(--muted); }
+  .dashboard-heading { max-width:650px; }
+  .dashboard-copy { font-size:25px; line-height:1.5; margin-top:43px; max-width:650px; }
+  .dashboard-copy p { margin-bottom:23px; }
+  .dashboard-qr { position:absolute; top:210px; right:76px; width:396px; height:396px; padding:48px; background:#fff; border:1px solid var(--line); }
+  .dashboard-qr img { display:block; width:300px; height:300px; object-fit:contain; }
+  .dashboard-invite { font-size:25px; color:var(--teal); font-weight:600; margin-top:42px; }
+  .closing-columns { margin-top:59px; }
+  .closing-columns .reason h3 { color:var(--teal); }
+  .closing-columns .reason p { font-size:22px; line-height:1.4; margin-bottom:22px; }
+  .closing-note { position:absolute; left:76px; bottom:92px; width:1128px; padding-top:22px; border-top:1px solid var(--line); font-size:24px; color:var(--teal); font-weight:600; }
+  .thanks h2 { color:var(--paper); font-size:100px; padding-top:145px; }
+  .thanks .sub { margin-top:32px; }
+  .thanks .authors { margin-top:65px; }
+  .toolbar { position:fixed; bottom:16px; right:20px; display:flex; gap:8px; z-index:10; }
+  button { border:1px solid #8da19b; border-radius:5px; background:var(--paper); color:var(--ink); padding:9px 13px; font:14px "Segoe UI",sans-serif; cursor:pointer; }
+  button:hover { background:#e6ece5; }
+  @page { size:13.333333in 7.5in; margin:0; }
+  @media print {
+    html { scroll-snap-type:none; }
+    body { background:var(--paper); print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+    .frame { margin:0!important; width:1280px!important; height:720px!important; break-after:page; page-break-after:always; }
+    .frame:last-of-type { break-after:auto; page-break-after:auto; }
+    .slide { transform:none!important; }
+    .toolbar { display:none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="frame"><section class="slide cover" id="diapositiva-1" aria-label="Portada">
+    <p class="eyebrow">Proyecto integrador</p>
+    <h1>Observatorio de<br>Contratación Pública</h1>
+    <p class="sub">Análisis masivo de SECOP II</p>
+    <div class="motif" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <p class="authors">Gabriel Rodríguez y Jonatan Palomares</p>
+    <p class="course">Procesamiento para el Análisis Masivo de Datos</p>
+    <p class="school">Escuela Colombiana de Ingeniería Julio Garavito</p>
+    <p class="term">2026-2</p><span class="page">01</span>
+    <!-- Guion sugerido, 15 s: Presentamos un observatorio que transforma los datos
+         de SECOP II en información para explorar la contratación pública. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-2" aria-label="Contexto y problema">
+    <p class="eyebrow">El problema</p>
+    <h2>¿Cómo seguir el rastro<br>del gasto público?</h2>
+    <div class="context">
+      <div class="scale">
+        <p class="number">9,1 M</p>
+        <p class="unit">de registros de SECOP II<br>en la base del proyecto</p>
+        <p class="description"><strong>8,7 veces</strong> el límite de una hoja<br>de Excel: <strong>1.048.576 filas</strong>.</p>
+      </div>
+      <div class="questions">
+        <div class="question"><h3>¿Dónde se concentra el dinero?</h3><p>Entidades y distribución territorial.</p></div>
+        <div class="question"><h3>¿Quiénes reciben los contratos?</h3><p>Contratistas y concentración de adjudicaciones.</p></div>
+        <div class="question"><h3>¿Cómo cambia en el tiempo?</h3><p>Ritmo de adjudicación y picos de contratación.</p></div>
+      </div>
+    </div>
+    <p class="source">Fuentes: base del proyecto y especificaciones de Microsoft Excel (límite por hoja).</p><span class="page">02</span>
+    <!-- Guion sugerido, 35 s: SECOP II registra procesos de contratación estatal.
+         Nuestra base contiene 9,1 millones de registros, que no equivalen a contratos
+         únicos adjudicados. El reto es depurarlos y resumirlos para responder estas
+         tres preguntas y facilitar la vigilancia del gasto público. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-3" aria-label="Conjunto de datos">
+    <p class="eyebrow">Los datos</p>
+    <h2>SECOP II: procesos de contratación</h2>
+    <p class="dataset-intro">Fuente: Portal Nacional de Datos Abiertos de Colombia.</p>
+    <div class="dataset-body">
+      <div class="dataset-stats">
+        <p class="total">9.099.859</p><p class="caption">filas del CSV original</p>
+        <p class="total">58</p><p class="caption">columnas de origen</p>
+      </div>
+      <div class="dataset-fields">
+        <h3>Variables clave</h3>
+        <p><strong>Identificación</strong>ID del Proceso, ID Adjudicación.</p>
+        <p><strong>Actores</strong>Entidad, NIT del Proveedor Adjudicado.</p>
+        <p><strong>Ubicación</strong>Departamento Entidad.</p>
+        <p><strong>Fecha y monto</strong>Fecha Adjudicación, Valor Total Adjudicación.</p>
+      </div>
+    </div>
+    <p class="source">Descarga utilizada: 2 de septiembre de 2026. Incluye procesos adjudicados y no adjudicados.</p><span class="page">03</span>
+    <!-- Guion sugerido, 20 s: Usamos una descarga del Portal Nacional de Datos
+         Abiertos de Colombia. El CSV tiene 9.099.859 filas y 58 columnas originales,
+         con identificadores, actores, ubicación, fechas y montos. No todas las filas
+         corresponden a adjudicaciones ni a procesos únicos. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-4" aria-label="Justificación de Spark y big data">
+    <p class="eyebrow">La decisión técnica</p>
+    <h2>¿Por qué Spark y técnicas<br>de big data?</h2>
+    <div class="reasons">
+      <div class="reason"><p class="index">01 / Procesamiento</p><h3>Trabajar por particiones</h3><p>Limpiar, deduplicar y agregar millones de registros en paralelo.</p></div>
+      <div class="reason"><p class="index">02 / Almacenamiento</p><h3>Leer menos datos</h3><p>Parquet y particionado por año y departamento para consultas selectivas.</p></div>
+      <div class="reason"><p class="index">03 / Continuidad</p><h3>Procesar nuevas llegadas</h3><p>Micro-lotes, ventanas temporales y checkpoints para recuperar el avance.</p></div>
+    </div>
+    <p class="execution">Para procesar este volumen: Spark + MinIO, desplegados con imágenes de Docker.</p>
+    <span class="page">04</span>
+    <!-- Guion sugerido, 40 s: El volumen y las transformaciones repetidas justifican
+         trabajar por particiones. Parquet reduce las lecturas de consultas selectivas.
+         Structured Streaming permite simular la llegada de contratos y conservar el
+         avance. Aquí Spark corre en un solo equipo: aplicamos técnicas de procesamiento
+         distribuido sin afirmar que desplegamos un clúster multinodo. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-5" aria-label="Preparación de bronze">
+    <p class="eyebrow">Almacenamiento / Bronze</p>
+    <h2>Del CSV a la capa bronze</h2>
+    <div class="reasons bronze-steps">
+      <div class="reason"><h3>Texto y nulos</h3><p>Normalización de espacios<br>y valores faltantes.</p></div>
+      <div class="reason"><h3>Fechas</h3><p>Conversión a timestamp.<br>Antes de 1900: nulo.</p></div>
+      <div class="reason"><h3>Números</h3><p>Ajuste de puntos de miles,<br>precios y NIT.</p></div>
+    </div>
+    <div class="bronze-counts">
+      <div><strong>9.099.432</strong><span>registros válidos en bronze</span></div>
+      <div><strong>427</strong><span>registros en cuarentena</span></div>
+    </div>
+    <div class="bronze-layouts">
+      <div><h3>Parquet sin particionar</h3><p>Compresión Snappy.</p></div>
+      <div><h3>Parquet particionado</h3><p>Compresión Snappy.<br>anio_publicacion + departamento_entidad</p></div>
+    </div>
+    <p class="source">Ambas versiones conservan los mismos registros válidos.</p><span class="page">05</span>
+    <!-- Guion sugerido, 30 s: Normalizamos texto, fechas y números. Los puntos de
+         miles se tratan según el campo. Las reglas de calidad separan 427 registros
+         en cuarentena. Guardamos los válidos en dos versiones de Parquet con Snappy:
+         una sin particionar y otra por año de publicación y departamento de la entidad. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-6" aria-label="Comparación de almacenamiento">
+    <p class="eyebrow">Almacenamiento / Resultados</p>
+    <h2>Menos espacio y consultas más rápidas</h2>
+    <table class="benchmark" aria-label="Comparación de formatos de almacenamiento">
+      <thead><tr><th>Métrica</th><th>CSV</th><th>Parquet<br>sin particionar</th><th>Parquet<br>particionado</th></tr></thead>
+      <tbody>
+        <tr><td>Consulta de lectura¹ (s)</td><td>1.805,95</td><td>1,52</td><td class="best">0,37</td></tr>
+        <tr><td>Escritura² (s)</td><td>0,62</td><td class="best">0,58</td><td>14,75</td></tr>
+        <tr><td>Tamaño (MiB)</td><td>9.390,17</td><td>2.238,87</td><td class="best">1.858,72</td></tr>
+        <tr><td>Archivos (con control)</td><td>1</td><td>37</td><td>396</td></tr>
+      </tbody>
+    </table>
+    <p class="benchmark-takeaway">Hasta 80,2 % menos espacio. Particionar aumenta el costo de escritura.</p>
+    <p class="benchmark-notes">¹ CSV incluye lectura y limpieza; Parquet ya preparado. Medianas: 3 / 20 / 20 ejecuciones.<br>² Mediana de 5 escrituras sobre 10.000 filas en caché; el particionado incluye redistribución.</p>
+    <p class="source">Tamaños y archivos corresponden a la base completa.</p><span class="page">06</span>
+    <!-- Guion sugerido, 30 s: En esta consulta el Parquet particionado fue el más
+         rápido. Los dos Parquet ocuparon menos espacio que el CSV. El particionado
+         generó más archivos y tardó más al escribir el subconjunto de prueba,
+         incluyendo la redistribución por claves. La comparación con CSV incluye
+         también su limpieza, así que no aísla únicamente el efecto del formato. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-7" aria-label="Construcción de silver y gold">
+    <p class="eyebrow">Depuración / Silver y gold</p>
+    <h2>De registros repetidos a adjudicaciones</h2>
+    <div class="refinement">
+      <article><h3>Silver · deduplicación</h3><p class="total">8.694.126</p><p class="caption">filas, una por proceso + adjudicación</p>
+        <p class="rule">Prioridad: fecha disponible, mayor valor<br>y proveedor identificado.</p><p class="audit">405.306 duplicados o versiones alternativas<br>guardados aparte con su motivo.</p></article>
+      <article><h3>Gold · selección y validación</h3><p class="total">530.192</p><p class="caption">contratos adjudicados</p>
+        <p class="rule">Fecha válida, actores identificados<br>y valor presente y no negativo.</p><p class="audit">17.226 adjudicados excluidos con motivo.<br>Parquet particionado por anio_adjudicacion.</p></article>
+    </div>
+    <p class="outliers"><strong>432 atípicos:</strong> se conservan y marcan por inconsistencias o montos extremos.<br>Sus valores se reportan aparte para evitar distorsionar los totales.</p>
+    <p class="source">Reglas de calidad compartidas por los resúmenes, el flujo temporal y el dashboard.</p><span class="page">07</span>
+    <!-- Guion sugerido, 35 s: Silver resuelve los duplicados usando una regla fija.
+         Gold conserva únicamente adjudicaciones con información válida para el análisis.
+         La mayoría de las filas de silver no están adjudicadas y no se seleccionan.
+         Los 432 atípicos se conservan: sus montos se separan en los resúmenes. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-8" aria-label="Simulación del flujo continuo">
+    <p class="eyebrow">Flujo continuo / Simulación</p>
+    <h2>Simular nuevas llegadas de contratos</h2>
+    <p class="stream-intro">Llegadas desde gold, con un lote cada 5 segundos.</p>
+    <div class="stream-flow">
+      <div class="stream-node"><h3>Gold</h3><p>530.192 contratos<br>históricos</p></div>
+      <div class="stream-node"><h3>Micro-lotes</h3><p>20 regulares<br>+ 2 tardíos</p></div>
+      <div class="stream-node"><h3>Spark</h3><p>Structured Streaming<br>Un archivo por disparo</p></div>
+      <div class="stream-node"><h3>Agregados</h3><p>Mes calendario<br>y departamento</p></div>
+    </div>
+    <p class="stream-result">Cada llegada actualiza los contratos y el valor adjudicado.</p>
+    <p class="stream-detail">Los valores atípicos se contabilizan por separado.</p>
+    <p class="source">Simulación sobre datos históricos, sin conexión en vivo con SECOP II.</p><span class="page">08</span>
+    <!-- Guion sugerido, 35 s: Gold se divide en 20 lotes regulares y dos tardíos.
+         Los archivos llegan progresivamente a MinIO y Spark los procesa uno a uno.
+         Se mantienen acumulados por mes calendario y departamento, actualizando
+         únicamente las ventanas que cambian y separando los valores atípicos. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-9" aria-label="Llegadas tardías y marca de agua">
+    <p class="eyebrow">Flujo continuo / Llegadas tardías</p>
+    <h2>¿Qué pasa si un contrato llega tarde?</h2>
+    <div class="late-examples">
+      <article><h3>Marzo · fuera de tolerancia</h3><p>Se registra aparte para corregir<br>el resultado acumulado.</p></article>
+      <article><h3>Junio · dentro de tolerancia</h3><p>Actualiza la ventana mensual<br>correspondiente.</p></article>
+    </div>
+    <svg class="watermark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1128 190" role="img" aria-label="Línea temporal con marca de agua 75 días antes del mes más reciente visto">
+      <line x1="44" y1="65" x2="544" y2="65" stroke="#c8b28d" stroke-width="4"/>
+      <line x1="544" y1="65" x2="1084" y2="65" stroke="#06766e" stroke-width="4"/>
+      <line x1="544" y1="25" x2="544" y2="100" stroke="#142d35" stroke-width="2"/>
+      <circle cx="104" cy="65" r="7" fill="#c8b28d"/><circle cx="788" cy="65" r="7" fill="#06766e"/><circle cx="1024" cy="65" r="7" fill="#06766e"/>
+      <g font-family="Segoe UI" font-size="21" fill="#142d35" text-anchor="middle"><text x="104" y="105">1 marzo</text><text x="544" y="19">17 abril</text><text x="788" y="105">1 junio</text><text x="1024" y="105">1 julio</text></g>
+      <text x="544" y="151" font-family="Segoe UI" font-size="23" font-weight="600" fill="#06766e" text-anchor="middle">Marca de agua = mes más reciente visto − 75 días</text>
+    </svg>
+    <p class="late-result">Los tardíos quedan trazables y permiten reconciliar los totales.</p>
+    <p class="source">Ejemplo ilustrativo en 2026: último mes visto, julio. La marca de agua se calcula sobre el mes de adjudicación.</p><span class="page">09</span>
+    <!-- Guion sugerido, 35 s: El orden de llegada puede diferir de la fecha del
+         contrato. Con una tolerancia de 75 días, un tardío reciente actualiza su
+         ventana. Si es más antiguo que la marca de agua, no entra en la agregación
+         del flujo y se guarda aparte para reconciliar el resultado. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-10" aria-label="Resiliencia e idempotencia">
+    <p class="eyebrow">Continuidad / Resiliencia</p>
+    <h2>Recuperar el avance sin duplicar</h2>
+    <div class="reasons resilience-steps">
+      <div class="reason"><p class="index">01 / Checkpoint</p><h3>Retomar el avance</h3><p>Recuerda los archivos procesados y las ventanas abiertas.</p></div>
+      <div class="reason"><p class="index">02 / Deduplicación</p><h3>Reconocer contratos</h3><p>Identifica cada contrato por proceso + adjudicación.</p></div>
+      <div class="reason"><p class="index">03 / Destino idempotente</p><h3>Reemplazar resultados</h3><p>Reintentar un micro-lote deja el mismo resultado.</p></div>
+    </div>
+    <div class="resilience-proof"><strong>3 escenarios, 0 diferencias</strong><p>Interrupción y reinicio, ejecución repetida y lote repetido.</p></div>
+    <p class="source">Comparación por ventana con la ejecución limpia y el cálculo por lotes, sobre los contratos aceptados.</p><span class="page">10</span>
+    <!-- Guion sugerido, 40 s: El checkpoint recupera la lectura y el estado.
+         La deduplicación evita sumar contratos repetidos en las ventanas abiertas.
+         El destino reemplaza al reintentar un micro-lote. Se probaron interrupciones,
+         incluida una caída simulada entre escrituras, la reejecución y lotes
+         repetidos: no hubo diferencias frente a las referencias. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-11" aria-label="Flujo y linaje de datos">
+    <p class="eyebrow">Arquitectura / Linaje</p>
+    <h2>Del dato abierto al observatorio</h2>
+    <svg class="lineage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Flujo de CSV a staging, bronze, silver y gold, con salidas de control y consumo">
+      <g fill="none" stroke="#8ba49c" stroke-width="2">
+        <path d="M280 295H306 M510 295H536 M740 295H766 M970 295H996"/>
+        <path d="M408 350V400 M638 350V400 M868 350V400 M1098 350V400"/>
+        <path d="M1200 295H1224V500H231V550 M623 500V550"/>
+        <path d="M386 590H420V646H838V590H860 M778 590H860"/>
+      </g>
+      <g fill="#8ba49c">
+        <path d="M306 295l-8-5v10z M536 295l-8-5v10z M766 295l-8-5v10z M996 295l-8-5v10z"/>
+        <path d="M408 400l-5-8h10z M638 400l-5-8h10z M868 400l-5-8h10z M1098 400l-5-8h10z M231 550l-5-8h10z M623 550l-5-8h10z M860 590l-8-5v10z"/>
+      </g>
+      <g fill="#edf1e9" stroke="#a8c8bd" stroke-width="1.5">
+        <rect x="76" y="240" width="204" height="110" rx="5"/><rect x="306" y="240" width="204" height="110" rx="5"/><rect x="536" y="240" width="204" height="110" rx="5"/><rect x="766" y="240" width="204" height="110" rx="5"/><rect x="996" y="240" width="204" height="110" rx="5"/>
+        <rect x="536" y="400" width="204" height="65" rx="5"/>
+        <rect x="76" y="550" width="310" height="80" rx="5"/><rect x="468" y="550" width="310" height="80" rx="5"/>
+      </g>
+      <g fill="#eee7db" stroke="#d0c4ae" stroke-width="1.5">
+        <rect x="306" y="400" width="204" height="65" rx="5"/><rect x="766" y="400" width="204" height="65" rx="5"/><rect x="996" y="400" width="204" height="65" rx="5"/>
+      </g>
+      <rect x="860" y="550" width="344" height="80" rx="5" fill="#142d35"/>
+      <g font-family="Segoe UI" font-size="24" font-weight="600" fill="#06766e">
+        <text x="94" y="275">CSV SECOP II</text><text x="324" y="275">Staging</text><text x="554" y="275">Bronze</text><text x="784" y="275">Silver</text><text x="1014" y="275">Gold</text>
+      </g>
+      <g font-family="Segoe UI" font-size="21" fill="#142d35">
+        <text x="94" y="309">9.099.859 filas</text><text x="324" y="309">Marcas de calidad</text><text x="554" y="309">9.099.432 filas</text><text x="784" y="309">8.694.126 filas</text><text x="1014" y="309">530.192 contratos</text>
+      </g>
+      <g font-family="Segoe UI" font-size="16" fill="#586b6e">
+        <text x="94" y="334">Datos abiertos</text><text x="324" y="334">Lectura única del CSV</text><text x="554" y="334">Registros válidos</text><text x="784" y="334">Clave sin duplicados</text><text x="1014" y="334">Adjudicaciones válidas</text>
+      </g>
+      <g font-family="Segoe UI" font-size="18" font-weight="600" fill="#142d35">
+        <text x="324" y="426">Cuarentena</text><text x="554" y="426">Agregación y sesgo</text><text x="784" y="426">Descartados</text><text x="1014" y="426">Excluidos</text>
+      </g>
+      <g font-family="Segoe UI" font-size="17" fill="#586b6e">
+        <text x="324" y="450">427 filas</text><text x="554" y="450">y PageRank</text><text x="784" y="450">405.306 filas</text><text x="1014" y="450">17.226 adjudicados</text>
+      </g>
+      <g font-family="Segoe UI" font-size="23" font-weight="600" fill="#06766e">
+        <text x="94" y="580">Tablas resumen</text><text x="486" y="580">Flujo temporal</text>
+      </g>
+      <g font-family="Segoe UI" font-size="17" fill="#586b6e">
+        <text x="94" y="608">Entidad, contratista, depto. y mes</text><text x="486" y="608">Micro-lotes y ventanas</text>
+      </g>
+      <text x="878" y="580" font-family="Segoe UI" font-size="23" font-weight="600" fill="#f5f3ed">Dashboard</text>
+      <text x="878" y="608" font-family="Segoe UI" font-size="17" fill="#afc1bd">Tablas de consumo y exploración</text>
+    </svg>
+    <p class="source">Fuente: linaje del proyecto. Gold selecciona solo adjudicados; los no adjudicados permanecen en silver.</p><span class="page">11</span>
+    <!-- Guion sugerido, 30 s: La ruta principal transforma el CSV en gold. Las
+         salidas de control conservan los rechazos y descartes. Bronze alimenta los
+         análisis del Corte 2. Desde gold salen los resúmenes y el flujo temporal,
+         que alimentan las tablas de consumo del dashboard. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-12" aria-label="Acceso al dashboard">
+    <p class="eyebrow">Dashboard / Explora los resultados</p>
+    <h2 class="dashboard-heading">Explora la contratación<br>pública</h2>
+    <div class="dashboard-copy"><p>Filtros por región, entidad y periodo.</p><p>Evolución temporal, rankings<br>y concentración del gasto.</p></div>
+    <p class="dashboard-invite">Escanea para abrir el dashboard.</p>
+    <div class="dashboard-qr"><img src="data:image/png;base64,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" alt="Código QR de acceso al dashboard de Streamlit"></div>
+    <p class="source">Consulta de resultados exportados; sin actualización en vivo.</p><span class="page">12</span>
+    <!-- Guion sugerido, 25 s: El dashboard permite explorar las tres preguntas
+         iniciales con filtros, series temporales y rankings. Este QR abre la app
+         de Streamlit. La app consulta archivos exportados del procesamiento. -->
+  </section></div>
+  <div class="frame"><section class="slide" id="diapositiva-13" aria-label="Impacto, conclusiones y limitaciones">
+    <p class="eyebrow">Balance del proyecto</p>
+    <h2>Valor público y límites del análisis</h2>
+    <div class="reasons closing-columns">
+      <div class="reason"><h3>Impacto</h3><p>Entidades y veedurías:<br>priorizar la revisión del gasto.</p><p>Ciudadanía y periodismo:<br>explorar su distribución.</p></div>
+      <div class="reason"><h3>Conclusiones</h3><p>Parquet reduce el espacio<br>y agiliza las consultas.</p><p>El flujo recupera el avance<br>sin duplicar resultados.</p></div>
+      <div class="reason"><h3>Limitaciones</h3><p>Errores de origen<br>y valores atípicos.</p><p>Flujo simulado y dashboard<br>actualizado por exportación.</p></div>
+    </div>
+    <p class="closing-note">Los patrones orientan revisiones; no demuestran irregularidades.</p><span class="page">13</span>
+    <!-- Guion sugerido, 40 s: El valor es facilitar la revisión institucional y
+         la exploración ciudadana del gasto. El procesamiento reduce el costo de
+         consulta y mantiene la trazabilidad ante reintentos. Las conclusiones
+         dependen de la calidad de origen. El flujo es simulado y el dashboard no
+         se actualiza automáticamente. Una concentración no prueba una irregularidad. -->
+  </section></div>
+  <div class="frame"><section class="slide cover thanks" id="diapositiva-14" aria-label="Agradecimiento">
+    <p class="eyebrow">Observatorio de Contratación Pública</p>
+    <h2>Gracias</h2><p class="sub">Preguntas y comentarios</p>
+    <div class="motif" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <p class="authors">Gabriel Rodríguez y Jonatan Palomares</p>
+    <p class="term">Procesamiento para el Análisis Masivo de Datos · 2026-2</p><span class="page">14</span>
+  </section></div>
+</main>
+<nav class="toolbar" aria-label="Controles de presentación"><button id="prev" aria-label="Diapositiva anterior">←</button><button id="next" aria-label="Diapositiva siguiente">→</button><button onclick="window.print()">Guardar PDF</button></nav>
+<script>
+  const frames=[...document.querySelectorAll('.frame')];
+  function fit(){ const scale=Math.min(1,(innerWidth-32)/1280); frames.forEach(f=>{f.style.width=1280*scale+'px';f.style.height=720*scale+'px';f.firstElementChild.style.transform=`scale(${scale})`;}); }
+  function move(delta){let i=frames.reduce((best,f,n)=>Math.abs(f.getBoundingClientRect().top)<Math.abs(frames[best].getBoundingClientRect().top)?n:best,0);frames[Math.max(0,Math.min(frames.length-1,i+delta))].scrollIntoView({behavior:'smooth'});}
+  document.querySelector('#prev').onclick=()=>move(-1);document.querySelector('#next').onclick=()=>move(1);
+  addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();move(1);}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();move(-1);}});
+  addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>
